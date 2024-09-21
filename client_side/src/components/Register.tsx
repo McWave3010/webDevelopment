@@ -40,8 +40,15 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   }
   setError('');
   console.log('Form data submitted:', formData);
-  const resulting = await axios.post("http://localhost:8080/register/user", formData);
-  return resulting;
+  const resulting = await axios.post("http://localhost:8080/register/user", formData).catch((err: Error)=>{
+    if (err){
+      console.log(err);
+    }
+  });
+  if(resulting){
+    setError(resulting.data.message);
+  }
+  
 
   
 };
