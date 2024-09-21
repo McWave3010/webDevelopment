@@ -1,0 +1,16 @@
+body {
+  padding: 0%;
+  margin: 0%;
+  box-sizing: border-box;
+  background-color: black;
+}
+::selection {
+  background-color: aquamarine;
+}
+::-webkit-scrollbar {
+  display: none;
+  
+}
+.first {
+  background: linear-gradient(90deg, rgb(65, 65, 236) 5%,black,rgb(65, 65, 236));
+}
