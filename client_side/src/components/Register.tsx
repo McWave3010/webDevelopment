@@ -45,6 +45,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
 
   
 };
+const length_value = 10;
   return (
     
     <section className='w-[100%] h-100vh flex justify-center items-center'>
@@ -97,7 +98,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
                       </div>
                       <div  className='p-4 flex justify-between items-center'>
                         <label htmlFor=''>Confirm Password</label>
-                        <input type="password"  placeholder='Confirm Password' required  name='confirmPassword' value={formData.confirmPassword}  onChange={handleChange} className='w-[70%] p-2 bg-gray-200 focus:border-none focus:outline-none'/>
+                        <input type="password"  placeholder='Confirm Password' minLength={length_value} required  name='confirmPassword' value={formData.confirmPassword}  onChange={handleChange} className='w-[70%] p-2 bg-gray-200 focus:border-none focus:outline-none'/>
                       </div>
                       <div className='p-4 flex justify-between items-center'>
                         <label htmlFor=''>Date of Birth</label>
