@@ -45,8 +45,8 @@ const Home: React.FC = () => {
             <ul className='w-[100%] flex justify-center items-center h-full'>
               <li><a className='p-4 text-white opacity-80' href='#home'>Home</a></li>
               <li><a className='p-4 text-white opacity-80' href="#home">About</a></li>
-              <li><a className='p-4 text-white opacity-80' href="#home">Contact</a></li>
-              <li><a className='p-4 text-white opacity-80' href="#home">Services</a></li>
+              <li><a className='p-4 text-white opacity-80' href="#home">Courses</a></li>
+              <li><a className='p-4 text-white opacity-80' href="#home">Docs</a></li>
               <li><a className='p-4 text-white opacity-80' href="/user/login">Log in</a></li>
               <li><a className='p-4 text-white opacity-80' href="/user/register">Register</a></li>
             </ul>

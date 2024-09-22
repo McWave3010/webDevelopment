@@ -7,6 +7,8 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "./auth/googleAuth";
+import git_passport from "./auth/githubAuth";
+import { initialize } from "passport";
 
 
 const app: Application = express();
@@ -26,6 +28,9 @@ app.use(session({
 app.use(cookieParser(`${process.env.SECRET_SESSION}`));
 
 app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(git_passport.initialize());
 app.use(passport.session());
 app.use("/", routes)
 
