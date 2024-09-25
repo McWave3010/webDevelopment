@@ -60,10 +60,10 @@ const length_value = 10;
         initial={{ opacity: 0, x: -100 , scale: 0.3,rotate: 0}}
         animate={{ opacity: 1 , x: 0,scale: 1, rotate: 0}}
         transition={{ duration: 1}}
-        className='2xl:w-[70%] 2xl:h-[95%] lg:w-[95%] lg:h-[80%] md:w-[95%] md:h-[80%] sm:w-[100%] sm:h-[80%] xs:w-[100%] xs:h-[80%]'
+        className='2xl:w-[70%] 2xl:h-[90%] lg:w-[95%] lg:h-[80%] md:w-[95%] md:h-[80%] sm:w-[100%] sm:h-[80%] xs:w-[100%] xs:h-[80%]'
         >
-          <section className='2xl:w-[100%] 2xl:h-full 2xl:flex 2xl:justify-center 2xl:items-center 2xl:flex-row md:flex-col sm:flex-col xs:flex-col'>
-              <div className='w-[100%] 2xl:h-full lg:h-[60%] md:h-[50%] sm:h-[50%] xs:h-[30%] flex justify-center items-center relative'>
+          <section className='2xl:w-[100%] 2xl:h-[100%] flex justify-center items-center 2xl:flex-row lg:w-full lg:h-full lg:flex-row md:w-full md:h-full md:flex-col sm:flex-col xs:flex-col'>
+              <div className='w-[100%] h-full lg:h-full md:h-[50%] sm:h-[50%] xs:h-[30%] flex justify-center items-center relative'>
                   <img src={black} alt='forbes'
                   className='w-[100%] h-full object-cover'
                   />
@@ -101,7 +101,7 @@ const length_value = 10;
                       </div>
                       <div className='p-4 flex justify-between items-center'> 
                         <label htmlFor=''>Password</label>
-                        <input type="password"  placeholder='Password' name='password' required value={formData.password}  onChange={handleChange} className='w-[70%] p-2 bg-gray-200 focus:border-none focus:outline-none'/>
+                        <input type="password"  placeholder='Password' pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$' name='password' required value={formData.password}  onChange={handleChange} className='w-[70%] p-2 bg-gray-200 focus:border-none focus:outline-none'/>
                       </div>
                       <div  className='p-4 flex justify-between items-center'>
                         <label htmlFor=''>Confirm Password</label>
@@ -116,7 +116,7 @@ const length_value = 10;
                         <span>I agree to all terms and conditions</span>
                       </div>
                       <div className='p-2 flex justify-between items-center'>
-                        <input type="submit" value="Create an account" className='w-[70%] p-4 bg-black text-white rounded-full'/>
+                        <input type="submit" value="Create an account" className='w-[70%] p-4 bg-black text-white rounded-full hover:cursor-pointer'/>
                       </div>
                       <div className='p-4 flex justify-between items-center'>
                         <span>Already have account <a className='text-blue-500' href='/user/login'>Sign in </a></span>

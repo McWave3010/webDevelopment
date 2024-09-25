@@ -7,6 +7,7 @@ export const content = [
 export const theme = {
   extend: {
     height: {
+      '7vh':"7vh",
       '5vh':'5vh',
       '15vh':'15vh',
       '30vh':'30vh',
@@ -26,6 +27,7 @@ export const theme = {
     fontFamily: {
       Poppins: ['Poppins','sans-serif'],
       Quicksand:["Quicksand", 'sans-serif'],
+      Roboto:["Roboto", 'sans-serif'],
     },
     screens: {
       'xs': "350px",
@@ -46,8 +48,14 @@ export const theme = {
           transform: 'translateX(-20%)'
         }
       },
-    }
+    },
+    clipPath: {
+      'custom-shape': 'polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%)',
+    },
   },
 };
-export const plugins = [];
+export const plugins = [
+  require('tailwind-clip-path'),
+  
+];
 

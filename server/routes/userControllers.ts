@@ -2,10 +2,15 @@ import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
 
 
-import loginPage from "./controller";
+import { loginPage , loggins } from "./controller";
+//import loggins from "./controller";
+
+
 const router = express.Router();
 
 router.post("/register/user", loginPage);
+
+router.post("/login/user", loggins);
 
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })

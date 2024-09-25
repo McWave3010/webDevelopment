@@ -14,3 +14,10 @@ body {
 .first {
   background: linear-gradient(90deg, rgb(65, 65, 236) 5%,black,rgb(65, 65, 236));
 }
+#bg-image {
+  background-image: url("./assets/images/group.jpg");
+  
+}
+#clipper {
+  clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 0 100%);
+}

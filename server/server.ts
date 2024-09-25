@@ -8,7 +8,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "./auth/googleAuth";
 import git_passport from "./auth/githubAuth";
-import { initialize } from "passport";
+
 
 
 const app: Application = express();

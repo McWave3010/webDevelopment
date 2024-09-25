@@ -1,10 +1,13 @@
 import React , { useState } from 'react';
 import logo from "../assets/images/design.webp";
 import { motion } from "framer-motion";
-
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const [ error , setError ] = useState("");
   const [ formData , setFormData ] = useState({
     email:'',
     password: '',
@@ -25,11 +28,18 @@ const handleGithub = ()=>{
   window.location.href = "http://localhost:8080/auth/github";
 }
   
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  try {
     e.preventDefault();
-    const { email , password } = formData;
-    console.log(email);
-    console.log(password);
+    //const { email , password } = formData;
+    const response = await axios.post("http://localhost:8080/login/user", formData, { withCredentials: true })
+    navigate(response.data.redirectURI);
+  }catch (error: any){
+    setError(error.response.data.message);
+    setTimeout(()=>{
+      setError("")
+    }, 3000)
+  }
 
 }
   return (
@@ -49,6 +59,11 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                       <span className='text-white font-Poppins text-center text-4xl'>Welcome back</span>
                       <span className='text-slate-400'>Don't have an account yet? <a href='/user/register' className='text-white'>Sign up</a></span>
                   </div>
+                  { error && (
+                    <div className='text-red-600'>
+                      <span className='text-red-600'>{error}</span>
+                    </div>
+                  )}
                   <form className='w-full h-[90%] flex justify-flex-start items-center flex-col gap-4' onSubmit={handleSubmit}>
                       <div className='2xl:w-[70%] lg:w-[90%] md:w-[100%] sm:w-[100%] xs:w-full'>
                         <input type='email' placeholder='Email' name='email' value={formData.email} required onChange={handleChange} className='w-full p-4 rounded-md text-sm bg-black  text-white focus:outline-none focus:border-none ' />
@@ -64,7 +79,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                           <hr className='bg-white'/><span className='text-slate-300'>or</span><hr/>
                         </div>
                       </div>
-                      <div className='w-[80%] h-[20%] flex justify-center items-center p-3 gap-4'>
+                      <div className='w-[70%] h-[25%] flex justify-center items-center p-3 gap-4'>
                      <div className='w-full h-full flex justify-center items-center bg-black rounded-lg hover:cursor-pointer' onClick={handleGoogle}>
                      <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 128 128">
                         <path fill="#fff" d="M44.59 4.21a63.28 63.28 0 0 0 4.33 120.9a67.6 67.6 0 0 0 32.36.35a57.13 57.13 0 0 0 25.9-13.46a57.44 57.44 0 0 0 16-26.26a74.3 74.3 0 0 0 1.61-33.58H65.27v24.69h34.47a29.72 29.72 0 0 1-12.66 19.52a36.2 36.2 0 0 1-13.93 5.5a41.3 41.3 0 0 1-15.1 0A37.2 37.2 0 0 1 44 95.74a39.3 39.3 0 0 1-14.5-19.42a38.3 38.3 0 0 1 0-24.63a39.25 39.25 0 0 1 9.18-14.91A37.17 37.17 0 0 1 76.13 27a34.3 34.3 0 0 1 13.64 8q5.83-5.8 11.64-11.63c2-2.09 4.18-4.08 6.15-6.22A61.2 61.2 0 0 0 87.2 4.59a64 64 0 0 0-42.61-.38" />
