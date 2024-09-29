@@ -8,6 +8,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "./auth/googleAuth";
 import git_passport from "./auth/githubAuth";
+import helmet from "helmet";
 
 
 
@@ -26,6 +27,7 @@ app.use(session({
     cookie: { maxAge: 600000 }  // 10 minutes
  }));
 app.use(cookieParser(`${process.env.SECRET_SESSION}`));
+app.use(helmet())
 
 app.use(passport.initialize());
 app.use(passport.session());

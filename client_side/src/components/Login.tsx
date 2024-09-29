@@ -3,6 +3,7 @@ import logo from "../assets/images/design.webp";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Toaster , toast } from 'react-hot-toast';
 
 
 const Login: React.FC = () => {
@@ -31,11 +32,10 @@ const handleGithub = ()=>{
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   try {
     e.preventDefault();
-    //const { email , password } = formData;
     const response = await axios.post("http://localhost:8080/login/user", formData, { withCredentials: true })
     navigate(response.data.redirectURI);
   }catch (error: any){
-    setError(error.response.data.message);
+    toast.error(error.response.data.message);
     setTimeout(()=>{
       setError("")
     }, 3000)
@@ -43,7 +43,9 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
 
 }
   return (
+    
     <section className='w-[100%] h-100vh flex justify-center items-center'>
+    <Toaster  position='top-right'/>
        <motion.section
         initial={{ opacity: 0, x: -100 , scale: 0.3,rotate: 0}}
         animate={{ opacity: 1 , x: 0,scale: 1, rotate: 0}}
@@ -95,12 +97,12 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
                     </svg>
                      </div>
                   </div>
-                  </form>
-                 
+                </form>  
               </div>
           </div>
         </motion.section>
     </section>
+    
   );
 }
 

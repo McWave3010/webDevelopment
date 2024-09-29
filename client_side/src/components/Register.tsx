@@ -2,9 +2,12 @@ import React , { useState } from 'react'
 import { motion } from "framer-motion";
 import black from "../assets/images/black.webp";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { Toaster , toast } from 'react-hot-toast';
 
 
 const Register: React.FC = () => {
+  const navigate: Function = useNavigate();
 const [ error , setError ] = useState<string>("")
 const [formData, setFormData] = useState({
   fullName: '',
@@ -17,6 +20,7 @@ const [formData, setFormData] = useState({
 });
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+
   const { name, value, type, checked } = e.target;
   setFormData({
     ...formData,
@@ -27,28 +31,30 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
 
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  try{
   const current = new Date();
   const date = formData.dateOfBirth.split("-")[0];
   const result = Number(current.getFullYear()) - Number(date);
   e.preventDefault();
   if (formData.password !== formData.confirmPassword) {
-    setError('Passwords do not match');
+    toast.error('Passwords do not match');
     return;
   }else if(result < 18){
-    setError("Must be 18 or above");
+    toast.error("Must be 18 or above");
     return;
   }
   setError('');
-  console.log('Form data submitted:', formData);
-  const resulting = await axios.post("http://localhost:8080/register/user", formData).catch((err: Error)=>{
-    if (err){
-      console.log(err);
-    }
-  });
-  if(resulting){
-    setError(resulting.data.message);
-  }
   
+  const response = await axios.post("http://localhost:8080/register/user", formData, { withCredentials: true})
+  
+  if(response.data.success){
+    navigate(response.data.redirectURL);
+  }else{
+    toast.error(response.data.message || "Registrations failed");
+  }
+}catch(err){
+  console.error(err);
+}
 
   
 };
@@ -56,6 +62,7 @@ const length_value = 10;
   return (
     
     <section className='w-[100%] h-100vh flex justify-center items-center'>
+      <Toaster position='top-right'/>
         <motion.section
         initial={{ opacity: 0, x: -100 , scale: 0.3,rotate: 0}}
         animate={{ opacity: 1 , x: 0,scale: 1, rotate: 0}}

@@ -2,7 +2,7 @@ import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
 
 
-import { loginPage , loggins } from "./controller";
+import { loginPage , loggins , chatgpt } from "./controller";
 //import loggins from "./controller";
 
 
@@ -34,5 +34,7 @@ router.get('/auth/google/callback',
       res.redirect('/profile');
     }
   );
+
+  router.post("/api/openai", chatgpt)
   
 export default router;

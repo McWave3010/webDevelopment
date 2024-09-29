@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Profile ,Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import dotenv from 'dotenv';
+import { Token } from 'nodemailer/lib/xoauth2';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ passport.use(new GoogleStrategy(
         // Logic to find or create a user in your database would go here
         //return done(null, profile);
         console.log(accessToken);
+        console.log(refreshToken);
         console.log(profile);
     }
 ));

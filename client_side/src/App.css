@@ -21,3 +21,4 @@ body {
 #clipper {
   clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 0 100%);
 }
+/* Custom styles to position Sonner toasts at the top-center */
