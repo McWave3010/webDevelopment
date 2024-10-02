@@ -1,27 +1,52 @@
-import React  from 'react';
+import React , { ChangeEvent, useState } from 'react';
 import person from "../assets/images/david.jpg";
 import person2 from "../assets/images/person1.png";
 import person3 from "../assets/images/person3.png";
 import { Slide , Fade } from "react-awesome-reveal";
+import axios from "axios";
 
 
 
 const Courses: React.FC = ()=>{
-  
+  const [ display, setDisplay ] = useState<boolean>(true);
+  const [ text , setText ] = useState<string>("")
+  const [ formData , setformData ] = useState({
+    prompt:""
+  })
     const delay: number = 100;
     const style: React.CSSProperties = {
         clipPath: 'polygon(0 0, 80% 0, 100% 20%, 100% 100%, 0 100%)',
       };
+    const handleGeminiButton = ()=>{
+        setDisplay(!display);
+    }
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>)=>{
+        const { value , name } = e.target;
+        console.log(name);
+        console.log({...formData});
+        setformData({...formData , [name]: value})
+    }
+
+
+    const handleData = async(e:any)=>{
+        e.preventDefault();
+        const response = await axios.post("http://localhost:8080/api/openai", formData)
+        setDisplay(false);
+        setText(response.data.outputting);
+    }
+
+
 
     return (
-        <>
-            <section className='w-full h-100vh flex justify-center items-center'>
+        <section className="w-full h-full bg-black">
+            <section className='w-full h-100vh flex justify-center items-center bg-black'>
                 <div className='w-full h-full  flex justify-center items-start'>
                     <section className="2xl:w-full 2xl:h-[90%] lg:w-full lg:h-full md:w-full md:h-full sm:w-full sm:h-full xs:w-full xs:h-full flex justify-center items-center 2xl:p-5 lg:p-5 md:p-4 sm:p-3 xs:p-2 bg-center bg-cover bg-no-repeat relative" id='bg-image'>  
                         <div className='absolute bg-gradient-to-r from-black via-stone-500 to-black opacity-60 top-0 w-full h-full'>
                         </div>
                         
-                        <div className='2xl:w-[100%] 2xl:h-full 2xl:flex-row flex justify-center items-center gap-3 lg:w-full lg:h-full lg:flex-row md:w-full md:h-full md:flex-col sm:w-full sm:h-full xs:w-full xs:h-full xs:flex-col'>
+                        <div className='2xl:w-[100%] 2xl:h-full 2xl:flex-row flex justify-center items-center gap-3 xl:w-full xl:h-full xl:flex-row lg:w-full lg:h-full lg:flex-row md:w-full md:h-full md:flex-col sm:w-full sm:h-full xs:w-full xs:h-full xs:flex-col'>
                             <Fade
                             direction='left'
                             triggerOnce
@@ -35,7 +60,7 @@ const Courses: React.FC = ()=>{
                                         <span className='text-stone-300 2xl:text-xl lg:text-xl md:text-xl sm:text-sm xs:text-sm font-Poppins'>This is a simple website development course beginner friendly giving the best web experience and documentation available.</span>
                                     </div>
                                     <div className='w-full h-[40%] flex justify-start items-start gap-3 p-4 flex-col'>
-                                        <div className='2xl:w-[30%] 2xl:h-[50%] lg:w-[30%] lg:h-[50%] md:w-[40%] md:h-full sm:w-[40%] sm:h-full xs:w-[40%] xs:h-full bg-black flex justify-center items-center rounded-md hover:cursor-pointer hover:bg-white '>
+                                        <div className='2xl:w-[30%] 2xl:h-[50%] lg:w-[30%] lg:h-[50%] md:w-[40%] md:h-full sm:w-[40%] sm:h-full sm:p-4 xs:w-[40%] xs:h-full xs:p-4 bg-black flex justify-center items-center rounded-md hover:cursor-pointer hover:bg-white '>
                                             <a className='w-full h-full flex justify-center items-center text-2xl hover:text-black hover:duration-100 text-white' href='#courses'>Courses</a>
                                         </div>
                                         <div className='w-[90%] h-[100%] flex justify-start items-center flex-col'>
@@ -59,7 +84,7 @@ const Courses: React.FC = ()=>{
                                 </div>
                             </Fade>
                             <Fade direction='up' triggerOnce className='w-full h-full'>
-                                <div className='2xl:w-full 2xl:h-full flex justify-center items-center z-30 p-4 gap-10'>
+                                <div className='2xl:w-full 2xl:h-full xl:w-full xl:h-full lg:w-full lg:h-full md:w-full md:h-full flex justify-center items-center z-30 p-4 gap-10'>
                                     <div className='w-[70%] h-[90%] flex justify-center items-center rounded-lg relative '  style={style}>
                                         <img src={person} alt='person_one' className='w-full h-full object-cover rounded-lg'/>
                                         <div className='absolute bg-white w-[70%] h-8vh z-40 bottom-5 left-1 rounded-xl 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center flex-col'>
@@ -94,7 +119,7 @@ const Courses: React.FC = ()=>{
                     </section>   
                 </div>
             </section>
-            <section className='2xl:w-full 2xl:h-20vh lg:w-full lg:h-50vh md:w-full md:h-20vh sm:h-10vh xs:h-10vh flex justify-center items-center ' id='courses'>
+            <section className='bg-black 2xl:w-full 2xl:h-20vh lg:w-full lg:h-50vh md:w-full md:h-20vh sm:h-10vh xs:h-10vh flex justify-center items-center ' id='courses'>
                 <div className='w-full h-full  flex justify-center items-center'>
                     <span className='2xl:text-8xl lg:text-6xl md:text-6xl sm:text-4xl xs:text-4xl font-bold font-Poppins text-white '>Courses</span>
                 </div>
@@ -235,7 +260,7 @@ const Courses: React.FC = ()=>{
             <section className='bg-red-500 w-full h-100vh flex justify-center items-center gap-4 p-4 flex-col'>
                 <div className='w-full h-5vh p-4 2xl:hidden lg:hidden md:hidden sm:flex xs:flex'>
                     <svg className='text-white' xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10" />
+                        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h10" />
                     </svg>
                 </div>
                 <div className='w-full h-full flex justify-center items-center p-3 bg-slate-500 gap-4'>
@@ -295,10 +320,35 @@ const Courses: React.FC = ()=>{
                             </div>
                     </div>
             </section>
-            <section className='bg-blue-700 w-full h-50vh flex justify-center items-center '>
-                <span className='text-5xl font-Poppins'>Hello world from Ghana</span>
+            <section className='bg-blue-700 w-full h-50vh flex justify-center items-start flex-col'>
+                <div className='w-full h-5vh bg-purple-500'>
+                    <svg className='float-right shadow-md hover:cursor-pointer' onClick={handleGeminiButton} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M24 12.024c-6.437.388-11.59 5.539-11.977 11.976h-.047C11.588 17.563 6.436 12.412 0 12.024v-.047C6.437 11.588 11.588 6.437 11.976 0h.047c.388 6.437 5.54 11.588 11.977 11.977z" />
+                    </svg>
+                </div>
+                <div className='w-full h-full bg-white flex justify-center items-center'>
+                    {
+                        text && 
+                        <div className='w-[80%] h-full overflow-scroll'>
+                            <span className='text-sm font-Roboto'>{text}</span>
+                        </div>
+                    }
+                </div>
+                <div className='w-full bg-red-500 h-40vh flex justify-center items-center p-4'>
+                    {   
+                    display ? 
+                        <div className='sticky bg-slate-200 w-[100%] h-full z-30 flex justify-center items-center flex-col p-4 rounded-full'>
+                            <span className='text-6xl font-Poppins capitalize'>Ask gemini</span>
+                            <form onSubmit={handleData} className='w-full h-full flex justify-center items-center flex-col gap-4'>
+                                <input type="text" className='w-[60%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Gemini assistant' />
+                                <input type="submit" value="Ask" className='bg-blue-500 p-3 capitalize shadow-xl w-[20%] rounded-md hover:cursor-pointer' />
+                            </form>
+                        </div>
+                    : null
+                    }
+                </div>
             </section>
-        </>
+        </section>
     )
 }
 

@@ -7,9 +7,21 @@ import { Toaster , toast } from 'react-hot-toast';
 
 
 const Register: React.FC = () => {
+
+  interface User {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    confirmPassword: string;
+    dateOfBirth: string;
+    agreed: boolean;
+  }
+
+
   const navigate: Function = useNavigate();
 const [ error , setError ] = useState<string>("")
-const [formData, setFormData] = useState({
+const [formData, setFormData] = useState<User>({
   fullName: '',
   email: '',
   phoneNumber: '',
@@ -49,11 +61,10 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   
   if(response.data.success){
     navigate(response.data.redirectURL);
-  }else{
-    toast.error(response.data.message || "Registrations failed");
   }
-}catch(err){
-  console.error(err);
+}catch(err: any){
+  //console.error(err);
+  toast.error(err.response.data.message || "Registrations failed");
 }
 
   
@@ -61,13 +72,13 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
 const length_value = 10;
   return (
     
-    <section className='w-[100%] h-100vh flex justify-center items-center'>
+    <section className='w-[100%] h-100vh flex justify-center items-center bg-black'>
       <Toaster position='top-right'/>
         <motion.section
         initial={{ opacity: 0, x: -100 , scale: 0.3,rotate: 0}}
         animate={{ opacity: 1 , x: 0,scale: 1, rotate: 0}}
         transition={{ duration: 1}}
-        className='2xl:w-[70%] 2xl:h-[90%] lg:w-[95%] lg:h-[80%] md:w-[95%] md:h-[80%] sm:w-[100%] sm:h-[80%] xs:w-[100%] xs:h-[80%]'
+        className='2xl:w-[70%] 2xl:h-[90%] xl:w-[65%] xl:h-[90%] lg:w-[70%] lg:h-[80%] md:w-[95%] md:h-[80%] sm:w-[100%] sm:h-[80%] xs:w-[100%] xs:h-[80%]'
         >
           <section className='2xl:w-[100%] 2xl:h-[100%] flex justify-center items-center 2xl:flex-row lg:w-full lg:h-full lg:flex-row md:w-full md:h-full md:flex-col sm:flex-col xs:flex-col'>
               <div className='w-[100%] h-full lg:h-full md:h-[50%] sm:h-[50%] xs:h-[30%] flex justify-center items-center relative'>

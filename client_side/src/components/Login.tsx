@@ -7,9 +7,15 @@ import { Toaster , toast } from 'react-hot-toast';
 
 
 const Login: React.FC = () => {
+
+  type User = {
+    email:string;
+    password:string;
+  }
+
   const navigate = useNavigate();
   const [ error , setError ] = useState("");
-  const [ formData , setFormData ] = useState({
+  const [ formData , setFormData ] = useState<User>({
     email:'',
     password: '',
   })
@@ -44,16 +50,16 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
 }
   return (
     
-    <section className='w-[100%] h-100vh flex justify-center items-center'>
+    <section className='w-[100%] h-100vh flex justify-center items-center bg-black'>
     <Toaster  position='top-right'/>
        <motion.section
         initial={{ opacity: 0, x: -100 , scale: 0.3,rotate: 0}}
         animate={{ opacity: 1 , x: 0,scale: 1, rotate: 0}}
         transition={{ duration: 1}}
-        className='2xl:w-[100%] 2xl:h-[100%] lg:w-[95%] lg:h-[90%] md:w-[95%] md:h-[90%] sm:w-[100%] sm:h-[90%] xs:w-[100%] xs:h-[90%] flex justify-center items-center'
+        className='2xl:w-[100%] 2xl:h-[100%] xl:w-[95%] xl:h-[90%] lg:w-[95%] lg:h-[90%] md:w-[95%] md:h-[90%] sm:w-[100%] sm:h-[90%] xs:w-[100%] xs:h-[90%] flex justify-center items-center'
         >
-          <div className='2xl:w-[80%] 2xl:h-[80%] lg:w-[100%] lg:h-[80%] md:w-[100%] md:h-[80%] sm:w-[100%] sm:h-[90%] xs:w-[100%] xs:h-[90%] flex justify-center items-center'>
-              <div className='bg-zinc-900 2xl:w-[40%] 2xl:h-[90%] lg:w-[70%] lg:h-[80%] md:w-[70%] md:h-[80%] sm:w-[100%] sm:h-[80%] xs:w-[100%] xs:h-[90%]  flex justify-start items-center flex-col gap-4 p-4 rounded-lg shadow-lg shadow-indigo-500/50 '>
+          <div className='2xl:w-[80%] 2xl:h-[80%] xl:w-[80%] xl:h-[80%] lg:w-[80%] lg:h-[100%] md:w-[80%] md:h-[100%] sm:w-[80%] sm:h-[90%] xs:w-[100%] xs:h-[90%] flex justify-center items-center'>
+              <div className='bg-zinc-900 2xl:w-[40%] 2xl:h-[90%] xl:w-[40%] xl:h-full lg:w-[70%] lg:h-[80%] md:w-[70%] md:h-[80%] sm:w-[100%] sm:h-[80%] xs:w-[100%] xs:h-[90%]  flex justify-start items-center flex-col gap-4 p-4 rounded-lg shadow-lg shadow-indigo-500/50 '>
                   <div className='w-full flex justify-center items-center h-10vh'>
                     <img src={logo} alt='logo' className='h-[90%] rounded-full' />
                   </div>

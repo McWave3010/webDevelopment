@@ -9,12 +9,28 @@ import sanitize from "sanitize-html";
 import validator from "validator";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+
 dotenv.config();
 
 
+type Users = {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    password: string;
+    dateOfBirth: string;
+    agreed:boolean;
+}
 
- export const loginPage = async(req: Request, res: Response)=>{
-    const { fullName , email ,phoneNumber , password , dateOfBirth , agreed } = req.body;
+
+interface MailOptions {
+    from: string;
+    to: string;
+    text: string;
+    subject: string;
+}
+ export const loginPage = async(req: Request, res: Response): Promise<any>=>{
+    const { fullName , email ,phoneNumber , password , dateOfBirth , agreed }:Users = req.body;
     const hashed = await bcrypt.hash(password , 10);
     const sanitzefullname = validator.escape(fullName);
     const sanitzeemail = validator.isEmail(email) ? email : null;
@@ -41,9 +57,9 @@ dotenv.config();
                             },
                           });
 
-                          const mailOptions = {
+                          const mailOptions: MailOptions = {
                             from: "samuelamoh2005@gmail.com",
-                            to: sanitzeemail, // Recipient's email
+                            to: `${sanitzeemail}`, // Recipient's email
                             subject: 'Web dev Beginner Course',
                             text: 'Hello! Thanks for signing up to Web Dev Beginner Course.', // Plain text email body
                            
@@ -66,9 +82,15 @@ dotenv.config();
     }   
 }
 
+
+
+interface User {
+    email:string;
+    password:string;
+}
 export const loggins = (req: Request , res: Response)=>{
-    const { email , password } = req.body;
-    const validateEmail = validator.isEmail(email);
+    const { email , password }: User = req.body;
+    const validateEmail = validator.isEmail(email) ? email : res.status(404).json({ message: "invalid" });
 
     try{
     pool.query("SELECT * FROM register WHERE email = ?",[ validateEmail ], async(err, results: RowDataPacket[])=>{
@@ -104,7 +126,11 @@ export const chatgpt = async( req: Request , res: Response)=>{
 
 
     const result = await model.generateContent(prompt);
-    console.log(result.response.text());
+  
+    let output = result.response.text().replace(/[^\w\s.:/;()"'<>?|{}[\]]/g,"")
+
+    res.status(200).json({ outputting: output})
+
     }catch(err){
         console.log(err);
     }

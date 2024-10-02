@@ -33,7 +33,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <>
+   <section className="w-full h-full bg-black">
     <section className='first overflow-hidden'>
       
       <section className='w-[100%] 2xl:h-48vh mt-2 flex justify-center items-center lg:h-30vh md:h-30vh sm:h-30vh xs:h-20vh'>
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
               <span className="text-white opacity-90">HTML</span>
             </div>
             <div className='w-[100px] h-full p-2'>
-              <span className="text-white opacity-90">BOOTSTRAP CSS</span>
+              <span className="text-white opacity-90">BOOTSTRAP </span>
             </div>
             <div className='w-[100px] h-full p-2'>
               <span className="text-white opacity-90">JAVASCRIPT</span>
@@ -195,7 +195,7 @@ const Home: React.FC = () => {
             </section>
           </motion.section>
       </Slide>
-    </>
+    </section>
   );
 }
 

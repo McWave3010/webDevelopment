@@ -1,6 +1,7 @@
 import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
-
+import { UserProfile } from "../auth/googleAuth";
+import { UserDetails } from '../auth/githubAuth';
 
 import { loginPage , loggins , chatgpt } from "./controller";
 //import loggins from "./controller";
@@ -20,7 +21,22 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req: Request, res: Response) => {
-      res.redirect('/profile');
+      const cookieOptions = {
+        maxAge: 1000 * 60 * 60 * 24, 
+        httpOnly: true, 
+        secure: false, // set to true during production
+        
+    };
+    const accessToken = (req.user as UserProfile)?.accessToken;
+    if(accessToken){
+      res.cookie('authCookie', accessToken , cookieOptions);
+      return res.redirect("http://localhost:3000/courses");
+    }else{
+      return res.redirect('http://localhost:3000/user/login');
+    }
+    
+      
+      //res.redirect('/courses');
     }
   );
 
@@ -30,8 +46,22 @@ router.get('/auth/google/callback',
   router.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: 'http"//localhost:3000/user/login' }),
     (req, res) => {
-      // Successful authentication, redirect to profile.
-      res.redirect('/profile');
+
+      const cookieOptions = {
+        maxAge: 1000 * 60 * 60 * 24, 
+        httpOnly: true, 
+        secure: false, // set to true during production
+        
+    };
+
+      const accessTokens = (req.user as UserDetails)?.accessToken;
+      if(accessTokens){
+        res.cookie('authCookie', accessTokens , cookieOptions);
+        return res.redirect("http://localhost:3000/courses");
+      }else{
+        return res.redirect('http://localhost:3000/user/login');
+      }
+      
     }
   );
 
