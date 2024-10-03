@@ -1,8 +1,7 @@
 import passport from 'passport';
 import { Profile ,Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import dotenv from 'dotenv';
-import db from "../model/dbConnection";
-import { RowDataPacket } from 'mysql2';
+import supabase from "../model/supabase";
 
 dotenv.config();
 
@@ -26,6 +25,7 @@ export interface UserProfile {
     password?:string;
     date?:string;
     accessToken?: string;
+    agreed?: boolean;
 }
 
 
@@ -38,16 +38,20 @@ passport.use(new GoogleStrategy(
         callbackURL: `${process.env.CALLBACK_URL!}`,
        
     },
-    (accessToken: string, refreshToken: string, profile: Profile, done: Function) => {
+    async(accessToken: string, refreshToken: string, profile: Profile, done: Function) => {
         const email:string | undefined = profile.emails?.[0]?.value;
         const family = profile.displayName;
-        if(db){
-            //console.log("Database connection established successfully")  
-            db.query("SELECT * FROM register WHERE email=?",[ email ],(err: Error | null, result: RowDataPacket[]) => {
-                if(err) return done(err);
+        if(supabase){
+            //console.log("Database connection established successfully")
+            const { data , error } = await supabase
+            .from("register")
+            .select("*")
+            .eq("email", email)
+           
+                if(error) return done(error);
     
-                if(result.length > 0){
-                    const userWithToken: UserProfile = { ...result[0], accessToken }; // Include access token
+                if(data.length > 0){
+                    const userWithToken: UserProfile = { ...data[0], accessToken }; // Include access token
                     return done(null, userWithToken);
                   
                 }else {
@@ -55,22 +59,24 @@ passport.use(new GoogleStrategy(
                         fullname: `${family}`,
                         email: `${email}`,
                         phone: '', 
-                        password: '', 
+                        password: '',
+                        agreed: true, 
                     };
-                    db.query('INSERT INTO register SET ?', newUser, (insertErr: Error | null) => {
-                        if (insertErr) {
-                            return done(insertErr);
+                    const { data , error } = await supabase
+                    .from("register")
+                    .insert(
+                        [newUser]
+                    )
+                    
+                        if (error) {
+                            return done(error);
                         }
                         const userWithToken: UserProfile = { ...newUser, accessToken }; // Attach access token to the new user
                         return done(null, userWithToken);
-                        }
-                    );
-                }
-            }
-        )  
-    }
-}
-    
-));
+                        }   
+                    }
+                } 
+            )
+        )
 
 export default passport;

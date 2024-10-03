@@ -2,10 +2,18 @@ import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
 import { UserProfile } from "../auth/googleAuth";
 import { UserDetails } from '../auth/githubAuth';
-
+import nodemailer from "nodemailer";
 import { loginPage , loggins , chatgpt } from "./controller";
 //import loggins from "./controller";
 
+
+
+interface MailOptions {
+  from: string;
+  to: string;
+  text: string;
+  subject: string;
+}
 
 const router = express.Router();
 
@@ -27,6 +35,32 @@ router.get('/auth/google/callback',
         secure: false, // set to true during production
         
     };
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: `${process.env.EMAIL}`,
+        pass: `${process.env.PASSWORD}`, // Use an app password if 2FA is enabled on your Google account
+      },
+    });
+
+    const emailing = (req.user as UserProfile)?.email;
+
+
+    const mailOptions: MailOptions = {
+      from: `${process.env.EMAIL}`,
+      to: `${emailing}`, // Recipient's email
+      subject: 'Web Development Beginner Course',
+      text: 'Hello! Thanks for signing up to Web Dev Beginner Course.', // Plain text email body
+     
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log('Error while sending email:', error);
+      }
+      console.log('Email sent successfully:', info.response);
+    });
     const accessToken = (req.user as UserProfile)?.accessToken;
     if(accessToken){
       res.cookie('authCookie', accessToken , cookieOptions);
@@ -68,3 +102,7 @@ router.get('/auth/google/callback',
   router.post("/api/openai", chatgpt)
   
 export default router;
+
+
+
+//supabase:Passcode2024@12345

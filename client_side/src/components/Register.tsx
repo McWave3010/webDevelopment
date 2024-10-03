@@ -14,7 +14,7 @@ const Register: React.FC = () => {
     phoneNumber: string;
     password: string;
     confirmPassword: string;
-    dateOfBirth: string;
+    date: string;
     agreed: boolean;
   }
 
@@ -27,7 +27,7 @@ const [formData, setFormData] = useState<User>({
   phoneNumber: '',
   password: '',
   confirmPassword: '',
-  dateOfBirth: '',
+  date: '',
   agreed: false,
 });
 
@@ -45,7 +45,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   try{
   const current = new Date();
-  const date = formData.dateOfBirth.split("-")[0];
+  const date = formData.date.split("-")[0];
   const result = Number(current.getFullYear()) - Number(date);
   e.preventDefault();
   if (formData.password !== formData.confirmPassword) {
@@ -127,7 +127,7 @@ const length_value = 10;
                       </div>
                       <div className='p-4 flex justify-between items-center'>
                         <label htmlFor=''>Date of Birth</label>
-                        <input type="date" name='dateOfBirth' required value={formData.dateOfBirth}  onChange={handleChange} className='w-[70%] p-2 bg-gray-200 focus:border-none focus:outline-none'/>
+                        <input type="date" name='date' required value={formData.date}  onChange={handleChange} className='w-[70%] p-2 bg-gray-200 focus:border-none focus:outline-none'/>
                       </div>
                       <div className='p-4 flex justify-around items-center 2xl:w-[70%] lg:w-[90%] md:w-[90%] sm:w-[90%] xs:w-[90%] '>
                         <input type="checkbox"  name='agreed' required checked={formData.agreed}  onChange={handleChange} className='p-2 accent-black focus:border-none focus:outline-none'/>
