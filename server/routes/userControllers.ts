@@ -3,7 +3,7 @@ import passport from "../auth/googleAuth";
 import { UserProfile } from "../auth/googleAuth";
 import { UserDetails } from '../auth/githubAuth';
 import nodemailer from "nodemailer";
-import { loginPage , loggins , chatgpt } from "./controller";
+import { loginPage , loggins , chatgpt , comment, getComments} from "./controller";
 //import loggins from "./controller";
 
 
@@ -99,7 +99,11 @@ router.get('/auth/google/callback',
     }
   );
 
-  router.post("/api/openai", chatgpt)
+  router.post("/api/openai", chatgpt);
+
+  router.post("/api/posts/comment", comment);
+
+  router.get("/api/get/comments" , getComments);
   
 export default router;
 

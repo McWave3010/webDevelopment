@@ -30,7 +30,6 @@ export interface UserProfile {
 
 
 
-
 passport.use(new GoogleStrategy(
     {
         clientID: `${process.env.GOOGLE_CLIENT_ID!}`,

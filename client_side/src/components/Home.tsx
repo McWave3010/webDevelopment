@@ -5,7 +5,8 @@ import template from "../assets/images/res.png";
 import { motion } from 'framer-motion';
 import rest from "../assets/images/template1.png";
 import { Slide } from "react-awesome-reveal";
-
+import Container from "../Messages/Container";
+import Area from "../Messages/Area";
 
 
 
@@ -189,12 +190,16 @@ const Home: React.FC = () => {
                       </div>
                       <div className='absolute top-25 left-0 2xl:w-[60%] lg:w-[100%] md:w-[100%] xs:w-[100%] h-[50%] p-4 '>
                         <span className='font-bold uppercase text-white'>Web development Course</span><br/>
-                          <span className='font-Quicksand 2xl:text-6xl text-center text-white xs:text-3xl'>Creative design, 3D animation & modern CMS</span>
+                          <span className='font-Quicksand 2xl:text-6xl text-center text-white xs:text-xl'>Creative design, 3D animation & modern CMS</span>
                       </div> 
                   </div> 
             </section>
           </motion.section>
       </Slide>
+
+      <Container/>
+
+      <Area/>
     </section>
   );
 }

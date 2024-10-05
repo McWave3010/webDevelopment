@@ -154,3 +154,38 @@ export const chatgpt = async( req: Request , res: Response)=>{
         console.log(err);
     }
 }
+
+
+export const comment = async(req:Request , res: Response)=>{
+    try{
+        const { comment } = req.body;
+        console.log(comment);
+        if(comment){
+            const { data , error } = await supabase
+            .from("messages")
+           .insert([
+               {message: comment}
+            ])
+            return res.status(200).json({ mess: "Comment added sucessfully" });
+            
+            
+        }
+    }catch(err: any){
+        console.log(err)
+    }
+   
+}
+
+export const getComments = async(req: Request, res: Response)=>{
+    try{
+
+        const { data , error } = await supabase
+        .from("messages")
+        .select("*")
+        if(data){
+            res.status(200).json({ data })
+        }
+    }catch(err: any){
+        console.log(err);
+    }
+}
