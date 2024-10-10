@@ -15,6 +15,7 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
   const [ error , setError ] = useState("");
+  const [ submiting , setSubmiting ] = useState<boolean>(false)
   const [ formData , setFormData ] = useState<User>({
     email:'',
     password: '',
@@ -38,10 +39,20 @@ const handleGithub = ()=>{
 const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   try {
     e.preventDefault();
+    setSubmiting(true);
     const response = await axios.post("http://localhost:8080/login/user", formData, { withCredentials: true })
     navigate(response.data.redirectURI);
   }catch (error: any){
-    toast.error(error.response.data.message);
+    if (error.response) {
+      // Server responded with a status outside 2xx
+      toast.error(error.response.data.message || "Something went wrong");
+    } else if (error.request) {
+      // Request was made but no response was received
+      toast.error("Check credentails");
+    } else {
+      // Something else caused an error
+      toast.error("An unknown error occurred");
+    }
     setTimeout(()=>{
       setError("")
     }, 3000)
@@ -80,7 +91,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
                         <input type='password' placeholder='Password' name='password' value={formData.password} required onChange={handleChange} className='w-full p-4 rounded-md text-sm bg-black text-white focus:outline-none focus:border-none' />
                       </div>
                       <div className='2xl:w-[70%] lg:w-[90%] md:w-[100%] sm:w-[100%] xs:w-full flex justify-center items-center gap-2'>
-                          <button type='submit' className='w-full py-2 text-white rounded-md bg-blue-500'>Sign in</button>
+                          <button type='submit' className='w-full py-2 text-white rounded-md bg-blue-500'>{submiting ? "Signing..." : "Sign in"}</button>
                       </div>
                       <div className='w-full h-[10%] flex justify-center items-center'>
                         <div className='w-full flex justify-center items-center'>

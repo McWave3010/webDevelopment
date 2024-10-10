@@ -39,7 +39,7 @@ const Area: React.FC = ()=>{
         <section className="w-full h-50vh antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 flex justify-center items-center p-4">
             <Toaster position="top-right"/>
             <div className="w-full h-[70%] flex justify-center items-center flex-col gap-4">
-                <textarea className="p-4 2xl:w-[60%] xl:w-[70%] lg:w-[70%] md:w-full sm:w-full xs:w-full resize-none focus:outline-none 2xl:h-[70%] xl:h-[70%] lg:h-[80%] md:h-full sm:h-full xs:h-full"
+                <textarea required className="p-4 2xl:w-[60%] xl:w-[70%] lg:w-[70%] md:w-full sm:w-full xs:w-full resize-none focus:outline-none 2xl:h-[70%] xl:h-[70%] lg:h-[80%] md:h-full sm:h-full xs:h-full"
                     value={data.comment}
                     placeholder="Leave comment..."
                     onChange={handleChange}

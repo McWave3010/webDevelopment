@@ -59,12 +59,23 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   
   const response = await axios.post("http://localhost:8080/register/user", formData, { withCredentials: true})
   
-  if(response.data.success){
-    navigate(response.data.redirectURL);
+  if(response.data){
+    toast.success("Registration successfull")
+    setTimeout(()=>{
+      navigate(response.data.redirectURL);
+    },1000);
+    
   }
 }catch(err: any){
   //console.error(err);
-  toast.error(err.response.data.message || "Registrations failed");
+  if(err){
+    if (err.response && err.response.data && err.response.data.message) {
+      toast.error(err.response.data.message);  // Show server error message
+    } else {
+      toast.error("Registration failed. Please try again later.");
+    }
+  }
+ 
 }
 
   

@@ -37,6 +37,9 @@ interface MailOptions {
     const sanitzedateOfBirth = sanitize(date);
 
     try {
+        if (!sanitzeemail){
+            return res.status(302).json({ message: "Invalid email format"})
+        }
         const { data , error } = await supabase
         .from("register")
         .select("*")
@@ -44,12 +47,13 @@ interface MailOptions {
       
         if (error) {
             console.error('Error fetching users:', error);
+            return res.status(400).json({ message: "Error occurred" });
         }else if(data.length > 0) {
-            res.status(404).json({ message : "User already exist"})
+            return res.status(404).json({ message : "User already exist"})
         }else{
             const { data , error } = await supabase
             .from("register")
-            .insert({
+            .insert([{
                 fullname: sanitzefullname,
                 email: sanitzeemail,
                 phone: sanitzephoneNumber,
@@ -57,10 +61,13 @@ interface MailOptions {
                 date: sanitzedateOfBirth,
                 agreed: agreed,
  
-            })
+            }])
  
-                    if(error) throw error;
-                    else{
+                    if(error){
+                        console.log(error)
+                        return res.status(500).json({ message: "Internal server error" });
+                    }
+                    else {
                         console.log("Data inserted successfully");
                         const transporter = nodemailer.createTransport({
                             host: 'smtp.gmail.com',
@@ -86,10 +93,8 @@ interface MailOptions {
                             console.log('Email sent successfully:', info.response);
                           });
 
-                         res.status(200).json({ redirectURL: "/login/user"})
+                         return res.status(200).json({ redirectURL: "http://localhost:3000/user/login"});
                     }   
-                
-              
                 }
 
     }catch(e: any){

@@ -10,7 +10,7 @@ interface Message {
 
 const Card:React.FunctionComponent<Message> = ({ created_date , message })=>{
     return (
-        <div className='w-full h-[80%] bg-stone-950 flex justify-center items-center rounded-2xl flex-col gap-4 p-6'>
+        <div className='w-full h-[80%] bg-gradient-to-r from-blue-400 to-black flex justify-center items-center rounded-2xl flex-col gap-4 p-6 shadow-md'>
             <div className="w-[50%] h-[20%] flex justify-center items-center">
                 <img src={logo} alt="web logo" className='h-full rounded-full'/>
             </div>
