@@ -20,7 +20,7 @@ function App()  {
           <Route path='/' element={<Home/>}></Route>
           <Route path='/user/login' element={<Login/>}></Route>
           <Route path='/user/register' element={<Register/>}></Route>
-          <Route path='/courses' element={<Courses/>}></Route>
+          <Route path='/courses' element={<Courses src="https://www.youtube.com/embed/kUMe1FH4CHE" title="Learn HTML – Full Tutorial for Beginners (2022)"/>}></Route>
         </Routes>
      </Router>
     </>

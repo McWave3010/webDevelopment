@@ -7,7 +7,16 @@ import axios from "axios";
 
 
 
-const Courses: React.FC = ()=>{
+interface IframeProps {
+    width?: string;
+    height?: string;
+    src?: string;
+    title?: string;
+  }
+
+  
+
+const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , title })=>{
   const [ display, setDisplay ] = useState<boolean>(true);
   const [ text , setText ] = useState<string>("")
   const [ formData , setformData ] = useState({
@@ -274,6 +283,12 @@ const Courses: React.FC = ()=>{
                             <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
                                 <a href="#html" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>HTML</a>
                             </div>
+                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
+                                <a href="#css" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>CSS</a>
+                            </div>
+                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
+                                <a href="#javascript" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>JAVASCRIPT</a>
+                            </div>
                         </div>
                         <div className='bg-green-500 overflow-scroll w-full h-full p-4 gap-4' id="setup">
                                 <h1 className='text-5xl  text-white font-Poppins font-bold p-4' id="starter">Get Started</h1>  
@@ -287,7 +302,7 @@ const Courses: React.FC = ()=>{
 
                                     </span>
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-full sm:h-full xs:h-full bg-orange-500 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-2 flex justify-start items-start flex-col gap-0'>
+                                <div className='w-full 2xl:h-70vh lg:h-[90%] md:h-full sm:h-full xs:h-full bg-orange-500 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-2 flex justify-start items-start flex-col gap-0'>
                                     <h1 className='2xl:text-5xl text-white p-2 font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-2xl  m-0 '>What is Visual studio Code?</h1><br/>
                                     <div className='w-full 2xl:h-[20%] lg:h-[100%] md:h-[100%] sm:h-[100%] xs:h-[100%] 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-1'>
                                         <span className='font-Roboto text-white 2xl:p-2 lg:p-2 md:p-1 sm:p-1 xs:p-1 m-0 2xl:text-sm lg:text-sm sm:text-xs xs:text-xs'>
@@ -303,7 +318,7 @@ const Courses: React.FC = ()=>{
                                         </span>
                                     </div>
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-full sm:h-full xs:h-[80%] bg-yellow-500 p-4' id='history'>
+                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-full sm:h-40vh xs:h-[80%] bg-yellow-500 p-4' id='history'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>History of the web</h1><br/>
                                     <span className='font-Roboto text-white 2xl:text-sm lg:text-sm sm:text-xs xs:text-xs'>                 
                                         The web, short for World Wide Web (WWW), is a system of interlinked hypertext documents and multimedia content accessible via the internet.
@@ -313,9 +328,19 @@ const Courses: React.FC = ()=>{
                                         You can read more about the web <a className='text-blue-500 underline' href='https://en.wikipedia.org/wiki/World_Wide_Web'>here</a>.
                                     </span>
                                 </div>
-                                <div className='w-full h-full bg-fuchsia-500 p-4' id='html'>
+                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] bg-fuchsia-500 p-4' id='html'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>HTML</h1>
                                     <span className='font-Roboto'>HTML meaning HyperText Markup Language is structured language used to create the </span>
+                                    <iframe width={width} height={height} src={src} title={title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
+                                    </iframe>
+                                </div>
+                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] bg-fuchsia-500 p-4' id='css'>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/ieTHC78giGQ" title="CSS Full Course - Includes Flexbox and CSS Grid Tutorials" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+
+                                </div>
+                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] bg-fuchsia-500 p-4' id='css'>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/PkZNo7MFNFg" title="Learn JavaScript - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+
                                 </div>
                             </div>
                     </div>
