@@ -83,7 +83,7 @@ interface MailOptions {
                             from: `${process.env.EMAIL}`,
                             to: `${sanitzeemail}`, // Recipient's email
                             subject: 'Web Development Beginner Course',
-                            text: 'Hello! Thanks for signing up to Web Dev Beginner Course.', // Plain text email body
+                            text: 'Hello! Thanks for signing up to Web Dev Beginner Course.', 
                            
                           };
                           transporter.sendMail(mailOptions, (error, info) => {
@@ -102,15 +102,13 @@ interface MailOptions {
     }   
 }
 
-
-
 interface User {
     email:string;
     password:string;
 }
 export const loggins = async(req: Request , res: Response)=>{
     const { email , password }: User = req.body;
-    const validateEmail = validator.isEmail(email) ? email : res.status(404).json({ message: "invalid" });
+    const validateEmail = validator.isEmail(email) ? email : res.status(404).json({ message: "invalid email format" });
 
     try{
         const { data , error } = await supabase
@@ -176,7 +174,7 @@ export const comment = async(req:Request , res: Response)=>{
             
         }
     }catch(err: any){
-        console.log(err)
+       throw new Error(err);
     }
    
 }
@@ -191,6 +189,6 @@ export const getComments = async(req: Request, res: Response)=>{
             res.status(200).json({ data })
         }
     }catch(err: any){
-        console.log(err);
+       throw new Error(err);
     }
 }
