@@ -27,6 +27,7 @@ interface MailOptions {
     to: string;
     text: string;
     subject: string;
+    html?:string;
 }
  export const loginPage = async(req: Request, res: Response): Promise<any>=>{
     const { fullName , email ,phoneNumber , password , date , agreed }:Users = req.body;
@@ -62,7 +63,6 @@ interface MailOptions {
                 agreed: agreed,
  
             }])
- 
                     if(error){
                         console.log(error)
                         return res.status(500).json({ message: "Internal server error" });
@@ -84,6 +84,25 @@ interface MailOptions {
                             to: `${sanitzeemail}`, // Recipient's email
                             subject: 'Web Development Beginner Course',
                             text: 'Hello! Thanks for signing up to Web Dev Beginner Course.', 
+                            html:`
+                                <div style="font-family: Arial, sans-serif; color: #333;">
+                                    <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
+                                    <p>Hi <strong>${sanitzeemail}</strong>,</p>
+                                    <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
+                                    <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
+
+                                    <p>If you have any questions, feel free to reply to this email. Our support team is always ready to help!</p>
+
+                                    <p>Once again, welcome to <strong>Web Development Beginner Course</strong>! We look forward to being a part of your journey.</p>
+
+                                    <p>Cheers,</p>
+                                    <p><strong>Web Development Beginner Course</strong> Team</p>
+
+                                    <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
+                                        <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
+                                    </div>
+                                </div>
+                            `
                            
                           };
                           transporter.sendMail(mailOptions, (error, info) => {
@@ -114,7 +133,7 @@ export const loggins = async(req: Request , res: Response)=>{
         const { data , error } = await supabase
         .from("register")
         .select("*")
-        .eq("email" , validateEmail)
+        .eq("email" , validateEmail);
 
         if(error) throw error;
         else if(data.length > 0){
@@ -123,7 +142,7 @@ export const loggins = async(req: Request , res: Response)=>{
                 if(err) throw err;
                 if(result){     
                     const token = jwt.sign({id: data[0].id }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '15min' });
-                    res.cookie('token', token, { httpOnly: true , secure: false , maxAge: 100000 , sameSite: "none"}); // set to true during production
+                    res.cookie('token', token, { httpOnly: true , secure: false , maxAge: 100000 , sameSite: "strict"}); // set to true during production
                     res.status(200).json({ redirectURI: "/" , message: validateEmail });
                 }else{
                     res.status(404).json( {message: "Wrong password"});
@@ -133,8 +152,8 @@ export const loggins = async(req: Request , res: Response)=>{
             res.status(500).json({ message: "User not found sign up instead" });
         }
     
-}catch(e){
-
+}catch(e: any){
+    console.log(e);
 }
 }
 
