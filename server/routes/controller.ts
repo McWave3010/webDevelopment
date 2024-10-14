@@ -25,7 +25,7 @@ type Users = {
 interface MailOptions {
     from: string;
     to: string;
-    text: string;
+    text?: string;
     subject: string;
     html?:string;
 }
@@ -83,7 +83,7 @@ interface MailOptions {
                             from: `${process.env.EMAIL}`,
                             to: `${sanitzeemail}`, // Recipient's email
                             subject: 'Web Development Beginner Course',
-                            text: 'Hello! Thanks for signing up to Web Dev Beginner Course.', 
+                            text: 'Hello! Thanks for signing up to Web Dev Beginner Course.',
                             html:`
                                 <div style="font-family: Arial, sans-serif; color: #333;">
                                     <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
