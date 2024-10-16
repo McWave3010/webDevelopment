@@ -328,17 +328,19 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                         You can read more about the web <a className='text-blue-500 underline' href='https://en.wikipedia.org/wiki/World_Wide_Web'>here</a>.
                                     </span>
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] bg-fuchsia-500 p-4' id='html'>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4' id='html'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>HTML</h1>
-                                    <span className='font-Roboto'>HTML meaning HyperText Markup Language is structured language used to create the </span>
+                                
                                     <iframe width={width} height={height} src={src} title={title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
                                     </iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] bg-fuchsia-500 p-4' id='css'>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4' id='css'>
+                                <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>CSS</h1>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/ieTHC78giGQ" title="CSS Full Course - Includes Flexbox and CSS Grid Tutorials" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] bg-fuchsia-500 p-4' id='css'>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='javascript'>
+                                <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>JAVASCRIPT</h1>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/PkZNo7MFNFg" title="Learn JavaScript - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
                                 </div>
