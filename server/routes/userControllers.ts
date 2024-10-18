@@ -56,22 +56,22 @@ router.get('/auth/google/callback',
       text: 'Hello! Thanks for signing up to Web Dev Beginner Course.',
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
-                                    <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
-                                    <p>Hi <strong>${emailing}</strong>,</p>
-                                    <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
-                                    <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
+            <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
+            <p>Hi <strong>${emailing}</strong>,</p>
+            <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
+            <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
 
-                                    <p>If you have any questions, feel free to reply to this email. Our support team is always ready to help!</p>
+            <p>If you have any questions, feel free to reply to this email. Our support team is always ready to help!</p>
 
-                                    <p>Once again, welcome to <strong>Web Development Beginner Course</strong>! We look forward to being a part of your journey.</p>
+            <p>Once again, welcome to <strong>Web Development Beginner Course</strong>! We look forward to being a part of your journey.</p>
 
-                                    <p>Cheers,</p>
-                                    <p><strong>Web Development Beginner Course</strong> Team</p>
+            <p>Cheers,</p>
+            <p><strong>Web Development Beginner Course</strong> Team</p>
 
-                                    <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
-                                        <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
-                                    </div>
-                                </div>
+            <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
+                <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
+            </div>
+        </div>
       ` // Plain text email body
      
     };
@@ -130,22 +130,22 @@ router.get('/auth/google/callback',
       text: 'Hello! Thanks for signing up to Web Dev Beginner Course.',
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
-                                    <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
-                                    <p>Hi <strong>${emailings}</strong>,</p>
-                                    <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
-                                    <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
+            <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
+            <p>Hi <strong>${emailings}</strong>,</p>
+            <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
+            <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
 
-                                    <p>If you have any questions, feel free to reply to this email. Our support team is always ready to help!</p>
+            <p>If you have any questions, feel free to reply to this email. Our support team is always ready to help!</p>
 
-                                    <p>Once again, welcome to <strong>Web Development Beginner Course</strong>! We look forward to being a part of your journey.</p>
+            <p>Once again, welcome to <strong>Web Development Beginner Course</strong>! We look forward to being a part of your journey.</p>
 
-                                    <p>Cheers,</p>
-                                    <p><strong>Web Development Beginner Course</strong> Team</p>
+            <p>Cheers,</p>
+            <p><strong>Web Development Beginner Course</strong> Team</p>
 
-                                    <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
-                                        <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
-                                    </div>
-                                </div>
+            <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
+                <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
+            </div>
+          </div>
       ` 
      
     };
