@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React , { useState , useCallback } from "react";
 import axios from "axios";
 import { Toaster , toast } from "react-hot-toast";
 
@@ -15,21 +15,22 @@ const Area: React.FC = ()=>{
     const row:number = 5;
 
     const handleChange = (event: any)=>{
+        event.preventDefault();
        const { name , value } = event.target;
         setData({...data,[name]:value})
     }
 
+
     const handleData = async()=>{
         try{
-        const response: any = await axios.post("http://localhost:8080/api/posts/comment",data, { withCredentials: true})
+            console.log("rendering")
+            const response: any = await axios.post("http://localhost:8080/api/posts/comment",data, { withCredentials: true})
         if(response.status === 200){
-            console.log(response.data);
             const result = response.data.mess;
-            console.log(result);
             toast.success(result);
         }
     }catch(err: any){
-            toast.error("Error occurred");
+            toast.error(err.response.data?.error);
         }
         
 

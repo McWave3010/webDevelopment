@@ -63,21 +63,23 @@ interface MailOptions {
                 agreed: agreed,
  
             }])
-                    if(error){
-                        console.log(error)
-                        return res.status(500).json({ message: "Internal server error" });
+            if(error){
+                console.log(error)
+                return res.status(500).json({ message: "Internal server error" });
                     }
                     else {
                         console.log("Data inserted successfully");
                         const transporter = nodemailer.createTransport({
                             host: 'smtp.gmail.com',
                             port: 465,
-                            secure: true, // true for 465, false for other ports
+                            secure: true, 
                             auth: {
                               user: `${process.env.EMAIL}`,
-                              pass: `${process.env.PASSWORD}`, // Use an app password if 2FA is enabled on your Google account
+                              pass: `${process.env.PASSWORD}`, 
                             },
                           });
+
+                          //craft email message for nodemailer
 
                           const mailOptions: MailOptions = {
                             from: `${process.env.EMAIL}`,
@@ -180,17 +182,18 @@ export const chatgpt = async( req: Request , res: Response)=>{
 
 export const comment = async(req:Request , res: Response)=>{
     try{
-        const { comment } = req.body;
-        console.log(comment);
+        const { comment }= req.body;
         if(comment){
             const { data , error } = await supabase
             .from("messages")
-           .insert([
-               {message: comment}
-            ])
-            return res.status(200).json({ mess: "Comment added sucessfully" });
-            
-            
+            .insert([
+                { message: comment }
+                ])
+            if(data)return res.status(200).json({ mess: "Comment added sucessfully" });  
+            else{
+                console.log(error);
+                //return res.status(500).json({ error: "Error adding comment" });
+            }
         }
     }catch(err: any){
        throw new Error(err);
@@ -200,12 +203,13 @@ export const comment = async(req:Request , res: Response)=>{
 
 export const getComments = async(req: Request, res: Response)=>{
     try{
-
         const { data , error } = await supabase
         .from("messages")
         .select("*")
         if(data){
-            res.status(200).json({ data })
+            return res.status(200).json({ data });
+        }else{
+            console.log(error);
         }
     }catch(err: any){
        throw new Error(err);

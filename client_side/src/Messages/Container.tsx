@@ -21,7 +21,6 @@ const [ promises , setPromise ] = useState<any>([])
         async function getData(){
         const result = await fetchData();
 
-        //console.log(result);
         setPromise(result);
         }
 
@@ -35,7 +34,6 @@ const [ promises , setPromise ] = useState<any>([])
                       
                         <Card
                             key={item.id}
-                            created_date={item.created_at}
                             message={item.message}
                         />
                     ))
