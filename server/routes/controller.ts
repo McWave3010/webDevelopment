@@ -114,7 +114,7 @@ interface MailOptions {
                             console.log('Email sent successfully:', info.response);
                           });
 
-                         return res.status(200).json({ redirectURL: "http://localhost:3000/user/login"});
+                         return res.status(200).json({ redirectURL: "/courses"});
                     }   
                 }
 
@@ -191,8 +191,7 @@ export const comment = async(req:Request , res: Response)=>{
                 ])
             if(data)return res.status(200).json({ mess: "Comment added sucessfully" });  
             else{
-                console.log(error);
-                //return res.status(500).json({ error: "Error adding comment" });
+                return res.status(500).json({ error: "Error adding comment" });
             }
         }
     }catch(err: any){
