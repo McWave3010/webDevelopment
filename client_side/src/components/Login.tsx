@@ -1,18 +1,19 @@
 import React , { useState } from 'react';
-import logo from "../assets/images/design.webp";
+import logo from "../assets/images/logo.jpg";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Toaster , toast } from 'react-hot-toast';
 
-
-const Login: React.FC = () => {
-
-  type User = {
+ type User = {
     email:string;
     password:string;
   }
 
+  
+const Login: React.FC = () => {
+
+ 
   const navigate = useNavigate();
   const [ error , setError ] = useState("");
   const [ submiting , setSubmiting ] = useState<boolean>(false)

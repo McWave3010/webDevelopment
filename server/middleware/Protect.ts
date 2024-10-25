@@ -1,4 +1,4 @@
-import express , { Request , Response } from "express";
+import  { Request , Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const Protect = (req: Request,res: Response,next: Function)=>{
-    const token = req.cookies.token;
+    const token = req.cookies.accesstoken;
     switch(token){
         case undefined:
             return res.status(401).json({message: "No token, authorization denied"});

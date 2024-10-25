@@ -27,7 +27,7 @@ const [ promises , setPromise ] = useState<any>([])
         getData();
     },[])
     return (
-        <section className="w-full h-full flex antialiased text-slate-500  bg-gradient-to-r from-black via-slate-600 to-black justify-center items-center p-4">
+        <section className="w-full h-full flex antialiased text-slate-500  bg-black justify-center items-center p-4">
             <div className="2xl:w-[70%] lx:w-[70%] lg:w-[80%] md:w-full sm:w-full xs:w-full h-full grid 2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1  2xl:gap-6 xl:gap-6 lg:gap-5 md:gap-4 sm:gap-3 xs:gap-2 p-4">
                 {
                     promises.map((item:any)=>(

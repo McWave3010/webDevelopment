@@ -1,5 +1,5 @@
 import React , { useState } from 'react';
-import logo from "../assets/images/design.webp";
+import logo from "../assets/images/logo.jpg";
 
 const header: React.FC = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks

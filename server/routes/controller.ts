@@ -144,8 +144,10 @@ export const loggins = async(req: Request , res: Response)=>{
                 if(err) throw err;
                 if(result){     
                     const token = jwt.sign({id: data[0].id }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '15min' });
-                    res.cookie('token', token, { httpOnly: true , secure: false , maxAge: 100000 , sameSite: "strict"}); // set to true during production
-                    res.status(200).json({ redirectURI: "/" , message: validateEmail });
+                    const refreshToken = jwt.sign({user: data[0].id}, `${process.env.REFRESH_TOKEN!}`, { expiresIn: '1d' });
+                    res.cookie('accesstoken', token, { httpOnly: true , secure: false , maxAge: 100000 , sameSite: "strict"}); // set to true during production
+                    res.cookie('refreshtoken', refreshToken, { httpOnly: true , secure: false , maxAge: 1000000 , sameSite: "strict"});
+                    res.status(200).json({ redirectURI: "/courses" , message: validateEmail });
                 }else{
                     res.status(404).json( {message: "Wrong password"});
                 }
@@ -218,6 +220,6 @@ export const getComments = async(req: Request, res: Response)=>{
 
 export const Protector = (req: Request , res: Response )=>{
     
-        //res.json({ message: 'This is a protected route' });
+        res.status(200).json({ redirectURL: "/courses" });
     
 }

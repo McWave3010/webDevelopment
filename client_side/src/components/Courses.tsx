@@ -1,9 +1,10 @@
-import React , { ChangeEvent, useState } from 'react';
+import React , { ChangeEvent, useEffect, useState } from 'react';
 import person from "../assets/images/david.jpg";
 import person2 from "../assets/images/person1.png";
 import person3 from "../assets/images/person3.png";
 import { Slide , Fade } from "react-awesome-reveal";
 import axios from "axios";
+import Area from '../Messages/Area';
 
 
 
@@ -21,6 +22,23 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
   const [ text , setText ] = useState<string>("")
   const [ formData , setformData ] = useState({
     prompt:""
+  })
+
+
+  async function fetchProtect (){
+    const response = await axios.get("http://localhost:8080/protected-route", { withCredentials: true});
+    return response.data;
+  }
+
+  useEffect(()=>{
+    try{
+        const data = fetchProtect();
+        console.log(data);
+
+    }catch(err:any){
+        console.error(err);
+    }
+    
   })
     const delay: number = 100;
     const style: React.CSSProperties = {
@@ -375,10 +393,11 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                     : null
                     }
                 </div>
-            </section>
+            </section>.
+            <Area/>
         </section>
     )
 }
 
-export default Courses;
+export default React.memo(Courses);
 

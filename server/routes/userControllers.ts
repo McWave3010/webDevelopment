@@ -3,8 +3,9 @@ import passport from "../auth/googleAuth";
 import { UserProfile } from "../auth/googleAuth";
 import { UserDetails } from '../auth/githubAuth';
 import nodemailer from "nodemailer";
-import { loginPage , loggins , chatgpt , comment, getComments , Protector} from "./controller";
+import { loginPage , loggins , chatgpt , comment, getComments , Protector } from "./controller";
 import Protect from '../middleware/Protect';
+import RefreshToken from "../auth/RefreshToken";
 //import loggins from "./controller";
 
 
@@ -171,7 +172,10 @@ router.get('/auth/google/callback',
 
   router.get("/api/get/comments" , getComments);
 
-  router.get("/protected-route", Protect , Protector)
+  router.get("/protected-route", Protect , Protector);
+
+
+  router.post("/token", RefreshToken);
   
 export default router;
 

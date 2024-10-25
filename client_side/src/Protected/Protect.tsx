@@ -14,12 +14,13 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const response = await fetch('http://locahost:8080/protected-route', {
+                const response = await fetch('http://localhost:8080/protected-route', {
                     method: 'GET',
                     credentials: 'include', // Send cookies with request
                 });
                 if (response.ok) {
                     setIsAuthenticated(true);
+                    console.log(response.json());
                 } else {
                     setIsAuthenticated(false);
                 }
