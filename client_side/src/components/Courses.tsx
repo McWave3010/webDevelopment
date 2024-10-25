@@ -154,7 +154,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
        
             <section className='w-full h-full flex justify-center items-center p-2'>
                 <div className='w-[90%] 2xl:h-70vh lg:h-full md:h-full sm:h-full xs:h-full 2xl:grid lg:grid 2xl:grid-cols-4 lg:grid-cols-4 md:flex md:flex-col sm:flex sm:flex-col xs:flex xs:flex-col gap-4 relative p-3'> 
-                    <div className='col-span-2 flex justify-center items-center flex-col w-full h-full bg-blue-500 rounded-lg'>
+                    <div className='col-span-2 flex justify-center items-center flex-col w-full h-full bg-neutral-500 rounded-lg'>
                         <div className='w-full p-4 h-[30%] flex justify-between items-center rounded-md'>
                             <span className='text-3xl font-bold font-Poppins'>HTML</span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 48 48">
@@ -178,7 +178,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                     </div>  
 
                     <Slide direction='up' delay={delay * 2} triggerOnce>
-                        <div className='bg-blue-500 w-full h-full flex justify-center items-center flex-col gap-3 rounded-lg'>
+                        <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col gap-3 rounded-lg'>
                             <div className="w-full p-4 h-[30%] flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>CSS</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
@@ -194,7 +194,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                     </Slide>
                     <Slide direction='up' delay={delay* 3} triggerOnce>
-                        <div className='bg-blue-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
+                        <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>JAVASCRIPT</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
@@ -219,7 +219,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                     </Slide>
                     <Slide direction='up' delay={delay*4} triggerOnce>
-                        <div className='bg-blue-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
+                        <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>NODE JS</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 15 15">
@@ -235,7 +235,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                     </Slide>
                     <Slide direction='up' delay={delay*5} triggerOnce>
-                        <div className='bg-blue-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
+                        <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>TAILWIND CSS</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
@@ -251,7 +251,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                     </Slide>
                     <Slide direction='up' delay={delay*6} triggerOnce>
-                        <div className='bg-blue-500  w-full h-full flex justify-center items-center flex-col rounded-lg'>
+                        <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>BOOTSTRAP CSS</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
@@ -267,7 +267,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                     </Slide>
                     <Slide direction='up' delay={delay*7} triggerOnce>
-                        <div className='bg-blue-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
+                        <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>REACT</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">

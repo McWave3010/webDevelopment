@@ -20,7 +20,7 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                 });
                 if (response.ok) {
                     setIsAuthenticated(true);
-                    console.log(response.json());
+                
                 } else {
                     setIsAuthenticated(false);
                 }
