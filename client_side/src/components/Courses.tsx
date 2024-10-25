@@ -94,8 +94,8 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                             </Fade>
                             <Fade direction='up' triggerOnce className='w-full h-full'>
                                 <div className='2xl:w-full 2xl:h-full xl:w-full xl:h-full lg:w-full lg:h-full md:w-full md:h-full flex justify-center items-center z-30 p-4 gap-10'>
-                                    <div className='w-[70%] h-[90%] flex justify-center items-center rounded-lg relative '  style={style}>
-                                        <img src={person} alt='person_one' className='w-full h-full object-cover rounded-lg'/>
+                                    <div className='w-[70%] h-[90%] flex justify-center items-center rounded-lg relative bg-white'  style={style}>
+                                        <img src={person} alt='person_one' className='w-full h-full object-cover rounded-lg mix-blend-luminosity'/>
                                         <div className='absolute bg-white w-[70%] h-8vh z-40 bottom-5 left-1 rounded-xl 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center flex-col'>
                                             <span className='text-violet-500 text-sm'>Developer: David Sapa</span>
                                             <div>
@@ -157,7 +157,8 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                 HTML serves as the foundation of most websites.
                             </span>
                         </div>
-                    </div>    
+                    </div>  
+
                     <Slide direction='up' delay={delay * 2} triggerOnce>
                         <div className='bg-blue-500 w-full h-full flex justify-center items-center flex-col gap-3 rounded-lg'>
                             <div className="w-full p-4 h-[30%] flex justify-between items-center">

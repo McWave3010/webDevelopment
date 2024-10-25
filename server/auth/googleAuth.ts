@@ -66,16 +66,17 @@ passport.use(new GoogleStrategy(
                     .insert(
                         [newUser]
                     )
-                    
-                        if (error) {
-                            return done(error);
-                        }
-                        const userWithToken: UserProfile = { ...newUser, accessToken }; // Attach access token to the new user
-                        return done(null, userWithToken);
-                        }   
+                    if (error) {
+                        return done(error);
+                    }
+                    const userWithToken: UserProfile = { ...newUser, accessToken }; // Attach access token to the new user
+                    return done(null, userWithToken);
+                    }   
                     }
                 } 
             )
         )
+
+        
 
 export default passport;

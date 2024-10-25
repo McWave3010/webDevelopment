@@ -21,4 +21,4 @@ const Card:React.FunctionComponent<Message> = ({ message })=>{
     )
 }
 
-export default Card;
+export default React.memo(Card);

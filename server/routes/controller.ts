@@ -161,7 +161,7 @@ export const loggins = async(req: Request , res: Response)=>{
 
 
 export const chatgpt = async( req: Request , res: Response)=>{
-    const { prompt }: { prompt: string } = req.body;
+    const { prompt }:{ prompt: string } = req.body;
     try{
     
     const genAI = new GoogleGenerativeAI(`${process.env.OPENAI_API_KEY}`);
@@ -182,7 +182,7 @@ export const chatgpt = async( req: Request , res: Response)=>{
 
 export const comment = async(req:Request , res: Response)=>{
     try{
-        const { comment }= req.body;
+        const { comment }:{comment?:object}= req.body;
         if(comment){
             const { data , error } = await supabase
             .from("messages")
@@ -213,4 +213,11 @@ export const getComments = async(req: Request, res: Response)=>{
     }catch(err: any){
        throw new Error(err);
     }
+}
+
+
+export const Protector = (req: Request , res: Response )=>{
+    
+        //res.json({ message: 'This is a protected route' });
+    
 }

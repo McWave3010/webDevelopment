@@ -16,6 +16,8 @@ body {
 }
 #bg-image {
   background-image: url("./assets/images/group.jpg");
+  background-color: white;
+  mix-blend-mode: luminosity;
   
 }
 #clipper {

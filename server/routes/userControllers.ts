@@ -3,7 +3,8 @@ import passport from "../auth/googleAuth";
 import { UserProfile } from "../auth/googleAuth";
 import { UserDetails } from '../auth/githubAuth';
 import nodemailer from "nodemailer";
-import { loginPage , loggins , chatgpt , comment, getComments} from "./controller";
+import { loginPage , loggins , chatgpt , comment, getComments , Protector} from "./controller";
+import Protect from '../middleware/Protect';
 //import loggins from "./controller";
 
 
@@ -88,9 +89,6 @@ router.get('/auth/google/callback',
     }else{
       return res.redirect('http://localhost:3000/user/login');
     }
-    
-      
-      //res.redirect('/courses');
     }
   );
 
@@ -172,6 +170,8 @@ router.get('/auth/google/callback',
   router.post("/api/posts/comment", comment);
 
   router.get("/api/get/comments" , getComments);
+
+  router.get("/protected-route", Protect , Protector)
   
 export default router;
 
