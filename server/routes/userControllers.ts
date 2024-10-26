@@ -183,16 +183,6 @@ router.get('/auth/google/callback',
 
   router.post("/token", RefreshToken);
 
-
-  router.get('/auth/twitter',
-    passport.authenticate('twitter'));
-  
-  router.get('/auth/twitter/callback', 
-    passport.authenticate('twitter', { failureRedirect: '/login' }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect('/courses');
-    });
   
 export default router;
 
