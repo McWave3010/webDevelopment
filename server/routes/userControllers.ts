@@ -18,6 +18,8 @@ interface MailOptions {
   html:string;
 }
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const router = express.Router();
 
 router.post("/register/user", loginPage);
@@ -33,11 +35,13 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req: Request, res: Response) => {
       const cookieOptions = {
-        maxAge: 1000 * 60 * 60 * 24, 
+        maxAge: 1000 * 60 * 24, 
         httpOnly: true, 
-        secure: false, // set to true during production
+        secure: isProduction, // set to true during production
         
     };
+
+    const cookieOptionsRefresh = {...cookieOptions , maxAge: 1000 * 60 * 60 * 24,};
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -87,7 +91,7 @@ router.get('/auth/google/callback',
     const refresh_token = (req.user as UserProfile)?.refreshToken;
     if(accessToken){
       res.cookie('authCookie', accessToken , cookieOptions);
-      res.cookie("refresh", refresh_token ,cookieOptions);
+      res.cookie("refresh", refresh_token ,cookieOptionsRefresh);
       return res.redirect("http://localhost:3000/courses");
     }else{
       return res.redirect('http://localhost:3000/user/login');
