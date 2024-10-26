@@ -74,7 +74,7 @@ router.get('/auth/google/callback',
                 <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
             </div>
         </div>
-      ` // Plain text email body
+      `  
      
     };
     transporter.sendMail(mailOptions, (error, info) => {
@@ -84,8 +84,10 @@ router.get('/auth/google/callback',
       console.log('Email sent successfully:', info.response);
     });
     const accessToken = (req.user as UserProfile)?.accessToken;
+    const refresh_token = (req.user as UserProfile)?.refreshToken;
     if(accessToken){
       res.cookie('authCookie', accessToken , cookieOptions);
+      res.cookie("refresh", refresh_token ,cookieOptions);
       return res.redirect("http://localhost:3000/courses");
     }else{
       return res.redirect('http://localhost:3000/user/login');

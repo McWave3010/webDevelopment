@@ -3,6 +3,7 @@ import { Profile ,Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import dotenv from 'dotenv';
 import supabase from "../model/supabase";
 
+
 dotenv.config();
 
 passport.serializeUser((user: any, done) => {
@@ -26,8 +27,8 @@ export interface UserProfile {
     date?:string;
     accessToken?: string;
     agreed?: boolean;
+    refreshToken?:string;
 }
-
 
 
 passport.use(new GoogleStrategy(
@@ -49,7 +50,7 @@ passport.use(new GoogleStrategy(
            
                 if(error) return done(error);
     
-                if(data.length > 0){
+                if(data && data.length > 0){
                     const userWithToken: UserProfile = { ...data[0], accessToken }; // Include access token
                     return done(null, userWithToken);
                   
@@ -69,7 +70,7 @@ passport.use(new GoogleStrategy(
                     if (error) {
                         return done(error);
                     }
-                    const userWithToken: UserProfile = { ...newUser, accessToken }; // Attach access token to the new user
+                    const userWithToken: UserProfile = { ...newUser, accessToken , refreshToken}; // Attach access token to the new user
                     return done(null, userWithToken);
                     }   
                     }

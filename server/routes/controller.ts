@@ -219,7 +219,5 @@ export const getComments = async(req: Request, res: Response)=>{
 
 
 export const Protector = (req: Request , res: Response )=>{
-    
-        res.status(200).json({ redirectURL: "/courses" });
-    
+     res.status(200).json({ redirectURL: "/courses" });
 }
