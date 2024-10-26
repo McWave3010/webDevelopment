@@ -51,7 +51,7 @@ passport.use(new GoogleStrategy(
                 if(error) return done(error);
     
                 if(data && data.length > 0){
-                    const userWithToken: UserProfile = { ...data[0], accessToken }; // Include access token
+                    const userWithToken: UserProfile = { ...data[0], accessToken , refreshToken}; // Include access token
                     return done(null, userWithToken);
                   
                 }else {
