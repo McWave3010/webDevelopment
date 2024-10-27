@@ -1,14 +1,17 @@
 import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
-import { UserProfile } from "../auth/googleAuth";
+import { UserProfile } from '../auth/googleAuth';
 import { UserDetails } from '../auth/githubAuth';
 import nodemailer from "nodemailer";
 import { loginPage , loggins , chatgpt , comment, getComments , Protector } from "./controller";
 import Protect from '../middleware/Protect';
 import RefreshToken from "../auth/RefreshToken";
-//import loggins from "./controller";
+import  crypto  from "crypto";
+import supabase from '../model/supabase';
+import dotenv from "dotenv";
 
 
+dotenv.config();
 
 interface MailOptions {
   from: string;
@@ -19,12 +22,15 @@ interface MailOptions {
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
+const ENCRYPTION_KEY: string = `${process.env.ENCRYPTION_KEY}`;
+const IV_LENGTH: number = 16;
 
 const router = express.Router();
 
 router.post("/register/user", loginPage);
 
 router.post("/login/user", loggins);
+
 
 router.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
@@ -35,13 +41,13 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req: Request, res: Response) => {
       const cookieOptions = {
-        maxAge: 1000 * 60 * 24, 
+        maxAge: 100 * 60, 
         httpOnly: true, 
         secure: isProduction, // set to true during production
         
     };
 
-    const cookieOptionsRefresh = {...cookieOptions , maxAge: 1000 * 60 * 60 * 24,};
+    const cookieOptionsRefresh = {...cookieOptions , maxAge: 1000 * 60 * 60 * 24};
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -88,10 +94,8 @@ router.get('/auth/google/callback',
       console.log('Email sent successfully:', info.response);
     });
     const accessToken = (req.user as UserProfile)?.accessToken;
-    const refresh_token = (req.user as UserProfile)?.refreshToken;
     if(accessToken){
       res.cookie('authCookie', accessToken , cookieOptions);
-      res.cookie("refresh", refresh_token ,cookieOptionsRefresh);
       return res.redirect("http://localhost:3000/courses");
     }else{
       return res.redirect('http://localhost:3000/user/login');
@@ -114,7 +118,6 @@ router.get('/auth/google/callback',
     };
 
     
-
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,

@@ -27,7 +27,7 @@ export interface UserProfile {
     date?:string;
     accessToken?: string;
     agreed?: boolean;
-    refreshToken?:string;
+    refreshToken?: string;
 }
 
 
@@ -36,9 +36,10 @@ passport.use(new GoogleStrategy(
         clientID: `${process.env.GOOGLE_CLIENT_ID!}`,
         clientSecret: `${process.env.GOOGLE_CLIENT_SECRET!}`,
         callbackURL: `${process.env.CALLBACK_URL!}`,
-       
+        scope: ["profile", "email"],
+          
     },
-    async(accessToken: string, refreshToken: string, profile: Profile, done: Function) => {
+    async(accessToken: string, refreshToken: string | undefined, profile: Profile, done: Function) => {
         const email:string | undefined = profile.emails?.[0]?.value;
         const family = profile.displayName;
         if(supabase){
@@ -60,9 +61,10 @@ passport.use(new GoogleStrategy(
                         email: `${email}`,
                         phone: '', 
                         password: '',
-                        agreed: true, 
+                        agreed: true,
+                        
                     };
-                    const { data , error } = await supabase
+                    const { data , error: PostgrestError } = await supabase
                     .from("register")
                     .insert(
                         [newUser]
