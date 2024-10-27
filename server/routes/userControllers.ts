@@ -6,9 +6,9 @@ import nodemailer from "nodemailer";
 import { loginPage , loggins , chatgpt , comment, getComments , Protector } from "./controller";
 import Protect from '../middleware/Protect';
 import RefreshToken from "../auth/RefreshToken";
-import  crypto  from "crypto";
 import supabase from '../model/supabase';
 import dotenv from "dotenv";
+import GoogleRefreshToken from '../auth/googleRefresh';
 
 
 dotenv.config();
@@ -19,6 +19,35 @@ interface MailOptions {
   text: string;
   subject: string;
   html:string;
+}
+
+
+
+const insertToken = async( access_token: string,email: string | undefined):Promise<void>=>{
+  try{
+
+   
+    const { data, error} = await supabase
+    .from("register")
+    .select("*")
+    .eq("email", email)
+    if (error || !data?.length) {
+      console.log("User not found:", error);
+      return;
+    }
+
+    const { error: insertError } = await supabase
+      .from("register")
+      .update({ refresh_token: access_token })
+      .eq("email", email);
+
+    if (insertError) {
+      console.log("Error inserting token:", insertError);
+    }
+
+  }catch(err: any){
+    console.log(err);
+  }
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -94,7 +123,9 @@ router.get('/auth/google/callback',
       console.log('Email sent successfully:', info.response);
     });
     const accessToken = (req.user as UserProfile)?.accessToken;
+
     if(accessToken){
+      insertToken(accessToken, emailing);
       res.cookie('authCookie', accessToken , cookieOptions);
       return res.redirect("http://localhost:3000/courses");
     }else{
@@ -107,7 +138,7 @@ router.get('/auth/google/callback',
 
   // GitHub OAuth callback route
   router.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: 'http"//localhost:3000/user/login' }),
+    passport.authenticate('github', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req, res) => {
 
       const cookieOptions = {
@@ -185,6 +216,8 @@ router.get('/auth/google/callback',
 
 
   router.post("/token", RefreshToken);
+
+  router.get("/google/provider", GoogleRefreshToken);
 
   
 export default router;

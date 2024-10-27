@@ -1,8 +1,8 @@
-import React , { useState } from 'react';
+import React , { MouseEventHandler, useState } from 'react';
 import logo from "../assets/images/logo.jpg";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { Toaster , toast } from 'react-hot-toast';
 
  type User = {
@@ -14,34 +14,31 @@ import { Toaster , toast } from 'react-hot-toast';
 const Login: React.FC = () => {
 
  
-  const navigate = useNavigate();
-  const [ error , setError ] = useState("");
-  const [ submiting , setSubmiting ] = useState<boolean>(false)
+  const navigate: NavigateFunction = useNavigate();
+  const [ error , setError ] = useState<string>("");
+  const [ submiting , setSubmiting ] = useState<boolean>(false);
   const [ formData , setFormData ] = useState<User>({
     email:'',
     password: '',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=>{
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void=>{
     const { value , name } = e.target;
     setFormData({
       ...formData,
     [name]: value})
   }
 
-const handleGoogle = ()=>{
+const handleGoogle:MouseEventHandler<HTMLDivElement> = ():void=>{
   window.location.href = "http://localhost:8080/auth/google";
 }
 
-const handleGithub = ()=>{
+const handleGithub:MouseEventHandler<HTMLDivElement> = ():void=>{
   window.location.href = "http://localhost:8080/auth/github";
 }
 
-const handleTwitter = ()=>{
-  window.location.href = "http://localhost:8080/auth/twitter";
-}
-  
-const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+
+const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> => {
   try {
     e.preventDefault();
     setSubmiting(true);

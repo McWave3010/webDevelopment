@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import Spinner from '../Messages/Spinner';
+import axios from 'axios';
+
 
 
 type ProtectRouteProps = {
@@ -12,9 +14,10 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
     
 
     useEffect(() => {
-        const checkAuth = async () => {
+        const checkAuth = async ():Promise<void> => {
             try {
-                const response = await fetch('http://localhost:8080/protected-route', {
+                const url : string= 'http://localhost:8080/protected-route';
+                const response = await fetch(url, {
                     method: 'GET',
                     credentials: 'include', // Send cookies with request
                 });
@@ -22,7 +25,8 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                     setIsAuthenticated(true);
                 
                 } else {
-                    setIsAuthenticated(false);
+                    await axios.get('http://localhost:8080/google/provider', { withCredentials: true }); 
+                    setIsAuthenticated(true);
                 }
             } catch (error) {
                 setIsAuthenticated(false);
