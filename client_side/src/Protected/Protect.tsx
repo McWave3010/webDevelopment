@@ -25,8 +25,13 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                     setIsAuthenticated(true);
                 
                 } else {
-                    await axios.get('http://localhost:8080/google/provider', { withCredentials: true }); 
-                    setIsAuthenticated(true);
+                    const responses = await axios.get('http://localhost:8080/google/provider', { withCredentials: true });
+                    if (responses.status === 200) {
+                        setIsAuthenticated(responses.data.authenticated);
+                    }else{
+                        setIsAuthenticated(responses.data.authenticated);
+                    } 
+                    
                 }
             } catch (error) {
                 setIsAuthenticated(false);

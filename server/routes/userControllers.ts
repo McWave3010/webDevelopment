@@ -9,6 +9,7 @@ import RefreshToken from "../auth/RefreshToken";
 import supabase from '../model/supabase';
 import dotenv from "dotenv";
 import GoogleRefreshToken from '../auth/googleRefresh';
+import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 
 dotenv.config();
@@ -51,8 +52,7 @@ const insertToken = async( access_token: string,email: string | undefined):Promi
 }
 
 const isProduction = process.env.NODE_ENV === 'production';
-const ENCRYPTION_KEY: string = `${process.env.ENCRYPTION_KEY}`;
-const IV_LENGTH: number = 16;
+
 
 const router = express.Router();
 
@@ -70,7 +70,7 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req: Request, res: Response) => {
       const cookieOptions = {
-        maxAge: 100 * 60, 
+        maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
         secure: isProduction, // set to true during production
         
@@ -149,7 +149,7 @@ router.get('/auth/google/callback',
     };
 
     
-    const transporter = nodemailer.createTransport({
+    const transporter: nodemailer.Transporter< SMTPTransport.SentMessageInfo , SMTPTransport.Options> = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       secure: true, // true for 465, false for other ports
@@ -188,7 +188,7 @@ router.get('/auth/google/callback',
       ` 
      
     };
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, (error:Error | null, info:SMTPTransport.SentMessageInfo) => {
       if (error) {
         return console.log('Error while sending email:', error);
       }

@@ -3,6 +3,7 @@ import { UserProfile } from "./googleAuth";
 import supabase from "../model/supabase";
 
 
+
 const RetrieveAccess = async(email: string | undefined): Promise<string | null | undefined> =>{
     const { data , error } = await supabase
     .from("register")
@@ -18,12 +19,17 @@ const RetrieveAccess = async(email: string | undefined): Promise<string | null |
     }
 }
 
-const GoogleRefreshToken = ( req: Request , res: Response )=>{
-    const google_token = req.cookies.authCookie;
-    console.log(google_token);
+const GoogleRefreshToken = async( req: Request , res: Response )=>{
+    const google_token = await req.cookies.authCookie;
     const email = (req.user as UserProfile)?.email;
-    RetrieveAccess(email);
-
+    const response = await RetrieveAccess(email);
+    if(!response){
+        return res.status(403).json({ authenticated : false});
+    }else{
+        res.status(200).json({ authenticated: true });
+    }
+    
+    
 }
 
 export default GoogleRefreshToken;

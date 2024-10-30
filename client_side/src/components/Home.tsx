@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import rest from "../assets/images/template1.png";
 import { Slide } from "react-awesome-reveal";
 import Container from "../Messages/Container";
-import Area from "../Messages/Area";
+
 
 
 
@@ -197,9 +197,7 @@ const Home: React.FC = () => {
           </motion.section>
       </Slide>
 
-      <Container/>
-
-      <Area/>
+      <Container/>      
     </section>
   );
 }

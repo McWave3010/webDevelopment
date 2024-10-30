@@ -285,7 +285,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                 </div>
             </section>
          
-            <section className='bg-red-500 w-full h-100vh flex justify-center items-center gap-4 p-4 flex-col'>
+            <section className='bg-black w-full h-100vh flex justify-center items-center gap-4 p-4 flex-col'>
                 <div className='w-full h-5vh p-4 2xl:hidden lg:hidden md:hidden sm:flex xs:flex'>
                     <svg className='text-white' xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
                         <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h10" />
@@ -307,6 +307,12 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                             </div>
                             <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
                                 <a href="#javascript" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>JAVASCRIPT</a>
+                            </div>
+                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
+                                <a href="#react" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>REACT</a>
+                            </div>
+                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
+                                <a href="#tailwind" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>TAILWINDCSS</a>
                             </div>
                         </div>
                         <div className='bg-green-500 overflow-scroll w-full h-full p-4 gap-4' id="setup">
@@ -359,31 +365,39 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
 
                                 </div>
                                 <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='javascript'>
-                                <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>JAVASCRIPT</h1>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>JAVASCRIPT</h1>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/PkZNo7MFNFg" title="Learn JavaScript - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
+                                </div>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='react'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>REACT</h1>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/bMknfKXIFA8" title="React Course - Beginner&#39;s Tutorial for React JavaScript Library [2022]" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                </div>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='react'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>REACT</h1>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/ft30zcMlFao" title="Learn Tailwind CSS – Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
                             </div>
                     </div>
             </section>
             <section className='bg-blue-700 w-full h-50vh flex justify-center items-start flex-col'>
-                <div className='w-full h-5vh bg-purple-500'>
-                    <svg className='float-right shadow-md hover:cursor-pointer' onClick={handleGeminiButton} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
+                <div className='w-full h-5vh bg-black'>
+                    <svg className='float-right text-white shadow-md hover:cursor-pointer' onClick={handleGeminiButton} xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
                         <path fill="currentColor" d="M24 12.024c-6.437.388-11.59 5.539-11.977 11.976h-.047C11.588 17.563 6.436 12.412 0 12.024v-.047C6.437 11.588 11.588 6.437 11.976 0h.047c.388 6.437 5.54 11.588 11.977 11.977z" />
                     </svg>
                 </div>
-                <div className='w-full h-full bg-white flex justify-center items-center'>
+                <div className='w-full h-full bg-black flex justify-center items-center'>
                     {
                         text && 
                         <div className='w-[80%] h-full overflow-scroll'>
-                            <span className='text-sm font-Roboto'>{text}</span>
+                            <span className='text-sm font-Roboto text-white'>{text}</span>
                         </div>
                     }
                 </div>
-                <div className='w-full bg-red-500 h-40vh flex justify-center items-center p-4'>
+                <div className='w-full bg-black h-40vh flex justify-center items-center p-4'>
                     {   
                     display ? 
-                        <div className='sticky bg-slate-200 w-[100%] h-full z-30 flex justify-center items-center flex-col p-4 rounded-full'>
+                        <div className='sticky bg-slate-500 w-[80%] h-full z-30 flex justify-center items-center flex-col p-4 rounded-full'>
                             <span className='text-6xl font-Poppins capitalize'>Ask gemini</span>
                             <form onSubmit={handleData} className='w-full h-full flex justify-center items-center flex-col gap-4'>
                                 <input type="text" className='w-[60%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Gemini assistant' />
