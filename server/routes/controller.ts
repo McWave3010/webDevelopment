@@ -186,7 +186,7 @@ export const comment = async(req:Request , res: Response)=>{
     try{
         const { comment }:{comment?:object}= req.body;
         if(comment){
-            const { data , error } = await supabase
+            const { data , error: PostgrestError } = await supabase
             .from("messages")
             .insert([
                 { message: comment }
