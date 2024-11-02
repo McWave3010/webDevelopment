@@ -15,7 +15,7 @@ body {
   background: linear-gradient(90deg, rgb(65, 65, 236) 5%,black,rgb(65, 65, 236));
 }
 #bg-image {
-  background-image: url("./assets/images/group.jpg");
+  background-image: url("./assets/images/background.jpg");
   background-color: white;
   mix-blend-mode: luminosity;
   

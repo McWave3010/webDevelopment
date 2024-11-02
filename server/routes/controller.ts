@@ -210,7 +210,7 @@ export const getComments = async(req: Request, res: Response)=>{
         if(data){
             return res.status(200).json({ data });
         }else{
-            console.log(error);
+            return res.status(401).json({ message: error });
         }
     }catch(err: any){
        throw new Error(err);
@@ -219,5 +219,10 @@ export const getComments = async(req: Request, res: Response)=>{
 
 
 export const Protector = (req: Request , res: Response )=>{
-     res.status(200).json({ redirectURL: "/courses" });
+    try{
+        res.status(200).json({ redirectURL: "/courses" });
+    }catch(err: any){
+        res.status(404).json({ redirectURL: "/user/login"});
+    }
+     
 }

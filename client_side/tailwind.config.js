@@ -37,6 +37,7 @@ export const theme = {
     },
     animation: {
       'slide':'slide 20s linear infinite ',
+      "form": "form 2s linear ease-in-out"
      
     },
     keyframes:{
@@ -48,6 +49,14 @@ export const theme = {
           transform: 'translateX(-20%)'
         }
       },
+      form: {
+        from: {
+          width: '0px'
+        },
+        to: {
+          width: "100px"
+        }
+      }
     },
     clipPath: {
       'custom-shape': 'polygon(0 0, 100% 0, 100% 80%, 80% 100%, 0 100%)',

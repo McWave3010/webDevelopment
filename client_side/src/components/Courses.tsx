@@ -2,9 +2,10 @@ import React , { ChangeEvent, useEffect, useState } from 'react';
 import person from "../assets/images/david.jpg";
 import person2 from "../assets/images/person1.png";
 import person3 from "../assets/images/person3.png";
-import { Slide , Fade } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
 import axios from "axios";
 import Area from '../Messages/Area';
+
 
 
 
@@ -17,7 +18,7 @@ interface IframeProps {
 
   
 
-const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , title })=>{
+const Courses: React.FC<IframeProps> = ({ width="100%" , height="60%" , src , title })=>{
   const [ display, setDisplay ] = useState<boolean>(true);
   const [ text , setText ] = useState<string>("")
   const [ formData , setformData ] = useState({
@@ -27,19 +28,20 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
 
   async function fetchProtect (){
     const response = await axios.get("http://localhost:8080/protected-route", { withCredentials: true});
-    return response.data;
+    return response.data.redirectURL;
   }
 
   useEffect(()=>{
+    async function found(){
     try{
-        const data = fetchProtect();
-        console.log(data);
-
+         await fetchProtect();
     }catch(err:any){
-        console.error(err);
+        
     }
+}
+found()
     
-  })
+  },[])
     const delay: number = 100;
     const style: React.CSSProperties = {
         clipPath: 'polygon(0 0, 80% 0, 100% 20%, 100% 100%, 0 100%)',
@@ -74,11 +76,6 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                         
                         <div className='2xl:w-[100%] 2xl:h-full 2xl:flex-row flex justify-center items-center gap-3 xl:w-full xl:h-full xl:flex-row lg:w-full lg:h-full lg:flex-row md:w-full md:h-full md:flex-col sm:w-full sm:h-full xs:w-full xs:h-full xs:flex-col'>
-                            <Fade
-                            direction='left'
-                            triggerOnce
-                            cascade
-                            className='w-[100%] h-full flex justify-center items-center gap-4 z-30'>
                                 <div className='2xl:w-[80%] 2xl:h-[80%] lg:w-[80%] lg:h-[80%] md:w-full md:h-full sm:w-full sm:h-full xs:w-full h-full flex justify-center items-center flex-col gap-4 z-30'>
                                     <div className='w-full h-[30%] flex justify-center items-center 2xl:p-4 lg:-4 md:p-4 sm:p-3 xs:p-2'>
                                         <span className='2xl:text-5xl lg:text-4xl md:text-4xl sm:text-3xl xs:text-3xl font-bold text-white'>Learn New Skills Online From Best <strong className='text-teal-400 underline'>Educators</strong></span>
@@ -109,13 +106,13 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                         </div> 
                                     </div>  
                                 </div>
-                            </Fade>
-                            <Fade direction='up' triggerOnce className='w-full h-full'>
+                            
+                            
                                 <div className='2xl:w-full 2xl:h-full xl:w-full xl:h-full lg:w-full lg:h-full md:w-full md:h-full flex justify-center items-center z-30 p-4 gap-10'>
                                     <div className='w-[70%] h-[90%] flex justify-center items-center rounded-lg relative bg-white'  style={style}>
                                         <img src={person} alt='person_one' className='w-full h-full object-cover rounded-lg mix-blend-luminosity'/>
                                         <div className='absolute bg-white w-[70%] h-8vh z-40 bottom-5 left-1 rounded-xl 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center flex-col'>
-                                            <span className='text-violet-500 text-sm'>Developer: David Sapa</span>
+                                            <span className='text-black text-sm'>Developer: David Sapa</span>
                                             <div>
                                                 <a className='text-black' href='https://www.tiktok.com/@david_sapa_?lang=en&is_from_webapp=1&sender_device=mobile&sender_web_id=7400107309102810629'>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -129,19 +126,19 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                         <div className='w-full h-full rounded-lg relative'>
                                             <img src={person2} alt='person_one' className='w-full h-full object-cover rounded-lg'/>
                                             <div className='absolute bottom-1 left-1 w-[50%] h-7vh bg-white z-40 rounded-lg 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center'>
-                                            <span className='text-violet-600'>Developer</span>
+                                            <span className='text-black'>Developer</span>
                                         </div>
                                         </div>
                                         
                                         <div className='w-full h-full rounded-lg relative overflow-hidden' id='clipper'>
                                             <img src={person3} alt='person_one' className='w-full h-full object-cover rounded-lg'/>
                                             <div className='absolute bottom-1 left-1 w-[50%] h-7vh bg-white z-40 rounded-lg 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center'>
-                                                <span className='text-violet-600'>Designer</span>
+                                                <span className='text-black'>Designer</span>
                                             </div>
                                         </div>     
                                     </div>
                                 </div>
-                            </Fade>
+                         
                         </div>
                     </section>   
                 </div>
@@ -177,7 +174,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                         </div>
                     </div>  
 
-                    <Slide direction='up' delay={delay * 2} triggerOnce>
+                    <Fade direction='up' delay={delay * 2} triggerOnce>
                         <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col gap-3 rounded-lg'>
                             <div className="w-full p-4 h-[30%] flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>CSS</span>
@@ -192,8 +189,8 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                 </span>
                             </div>
                         </div>
-                    </Slide>
-                    <Slide direction='up' delay={delay* 3} triggerOnce>
+                    </Fade>
+                    <Fade direction='up' delay={delay* 3} triggerOnce>
                         <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>JAVASCRIPT</span>
@@ -217,8 +214,8 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                 </span>
                             </div>
                         </div>
-                    </Slide>
-                    <Slide direction='up' delay={delay*4} triggerOnce>
+                    </Fade>
+                    <Fade direction='up' delay={delay*4} triggerOnce>
                         <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>NODE JS</span>
@@ -228,13 +225,13 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                             </div>
                             <div className="w-full p-4 h-full flex justify-center items-center">
                                 <span className='font-Roboto text-xs'>
-                                JavaScript is a versatile, high-level programming language primarily used to create dynamic and interactive content on websites.
-                                Originally developed for client-side scripting and also server-side as well.
+                                        Node.js is a JavaScript runtime environment that allows developers to write server-side applications using JavaScript.
+                                        Express.js is a popular web application framework for Node.js that provides a set of features and tools for building web applications.
                                 </span>
                             </div>
                         </div>
-                    </Slide>
-                    <Slide direction='up' delay={delay*5} triggerOnce>
+                    </Fade>
+                    <Fade direction='up' delay={delay*5} triggerOnce>
                         <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>TAILWIND CSS</span>
@@ -244,13 +241,13 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                             </div>
                             <div className="w-full p-4 h-full flex justify-center items-center">
                                 <span className='font-Roboto text-xs'>
-                                JavaScript is a versatile, high-level programming language primarily used to create dynamic and interactive content on websites.
-                                Originally developed for client-side scripting and also server-side as well.
+                                        Tailwind CSS is a utility-first CSS framework developed by the team at Tailwind Labs.
+                                         It provides a powerful, flexible, and accessible design system that helps developers build beautiful, responsive, and accessible websites quickly and efficiently.
                                 </span>
                             </div>
                         </div>
-                    </Slide>
-                    <Slide direction='up' delay={delay*6} triggerOnce>
+                    </Fade>
+                    <Fade direction='up' delay={delay*6} triggerOnce>
                         <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>BOOTSTRAP CSS</span>
@@ -260,13 +257,13 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                             </div>
                             <div className="w-full p-4 h-full flex justify-center items-center">
                                 <span className='font-Roboto text-xs'>
-                                JavaScript is a versatile, high-level programming language primarily used to create dynamic and interactive content on websites.
-                                Originally developed for client-side scripting and also server-side as well.
+                                        Bootstrap is a popular, open-source front-end framework used to build responsive and mobile-first websites quickly and efficiently. 
+                                        Developed by Twitter and initially released in 2011, it provides pre-designed components and a grid system, making web development faster and more consistent.
                                 </span>
                             </div>
                         </div>
-                    </Slide>
-                    <Slide direction='up' delay={delay*7} triggerOnce>
+                    </Fade>
+                    <Fade direction='up' delay={delay*7} triggerOnce>
                         <div className='bg-neutral-500 w-full h-full flex justify-center items-center flex-col rounded-lg'>
                             <div className="w-full p-4 h-full flex justify-between items-center">
                                 <span className='text-3xl font-bold font-Poppins'>REACT</span>
@@ -276,49 +273,59 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                             </div>
                             <div className="w-full p-4 h-full flex justify-center items-center">
                                 <span className='font-Roboto text-xs'>
-                                JavaScript is a versatile, high-level programming language primarily used to create dynamic and interactive content on websites.
-                                Originally developed for client-side scripting and also server-side as well.
+                                    React.js is an open-source JavaScript library developed by Facebook for building user interfaces, particularly for single-page applications where dynamic content is a focus.
+                                    It allows developers to create reusable UI components that manage their own state, making it efficient and flexible.
                                 </span>
                             </div>
                         </div>
-                    </Slide>
+                    </Fade>
                 </div>
             </section>
          
-            <section className='bg-black w-full h-100vh flex justify-center items-center gap-4 p-4 flex-col'>
-                <div className='w-full h-5vh p-4 2xl:hidden lg:hidden md:hidden sm:flex xs:flex'>
-                    <svg className='text-white' xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24">
-                        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M5 7h14M5 12h14M5 17h10" />
-                    </svg>
-                </div>
-                <div className='w-full h-full flex justify-center items-center p-3 bg-slate-500 gap-4'>
-                        <div className='bg-green-500 w-[30%] h-full p-4 gap-4 2xl:flex justify-start items-center flex-col lg:flex md:hidden sm:hidden xs:hidden'>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#starter" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>Setup</a>
+            <section className='bg-black w-full h-100vh flex justify-center items-center gap-4 2xl:p-4 xl:p-4 lg:p-3 md:p-3 sm:p-1 xs:p-0 flex-col'>
+                <div className='w-full h-full flex justify-center items-center 2xl:p-3 xl:p-3 lg:p-3 md:p-3 sm:p-0 xs:p-0 gap-4'>
+                        <div className=' w-[30%] h-full p-4 gap-4 2xl:flex justify-start items-center flex-col lg:flex md:hidden sm:hidden xs:hidden border-r-2 border-neutral-300'>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <span className='w-full h-full flex justify-start items-start text-white text-3xl font-Poppins'>Contents</span>
                             </div>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#history" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>History of the web</a>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#starter" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500 uppercase'>Setup</a>
                             </div>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#html" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>HTML</a>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#history" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500 uppercase'>History of the web</a>
                             </div>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#css" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>CSS</a>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#html" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>HTML</a>
                             </div>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#javascript" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>JAVASCRIPT</a>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#css" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>CSS</a>
                             </div>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#react" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>REACT</a>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#bootstrap" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>BOOTSTRAP CSS</a>
                             </div>
-                            <div className='bg-blue-500 w-full h-[5%] flex justify-center items-center'>
-                                <a href="#tailwind" rel='noopener noreferer' className='w-full h-full flex justify-center items-center text-stone-500'>TAILWINDCSS</a>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#javascript" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>JAVASCRIPT</a>
+                            </div>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#react" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>REACT</a>
+                            </div>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#tailwind" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>TAILWINDCSS</a>
+                            </div>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#express" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>EXPRESS AND NODE</a>
+                            </div>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#docker" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>DOCKER AND KUBERNATES</a>
+                            </div>
+                            <div className='w-full h-[5%] flex justify-center items-center'>
+                                <a href="#project" rel='noopener noreferer' className='w-full h-full flex justify-start items-start text-stone-500'>HANDS ON PROJECT</a>
                             </div>
                         </div>
-                        <div className='bg-green-500 overflow-scroll w-full h-full p-4 gap-4' id="setup">
-                                <h1 className='text-5xl  text-white font-Poppins font-bold p-4' id="starter">Get Started</h1>  
-                                <div className='w-full 2xl:h-[20%] lg:h-[30%] md:h-[40%] sm:h-[40%] xs:h-[40%] bg-purple-500 p-4'>
-                                    <span className='text-white font-Roboto 2xl:text-sm lg:text-sm sm:text-xs xs:text-xs'>
+                        <div className='overflow-scroll w-full h-full 2xl:p-4 xl:p-4 lg:p-3 md:p-3 sm:p-1 xs:p-0 gap-4' id="setup">
+                                <h1 className='text-5xl text-white font-Poppins font-bold p-4' id="starter">Get Started</h1>  
+                                <div className='w-full 2xl:h-[20%] lg:h-[30%] md:h-[40%] sm:h-[40%] xs:h-[40%] p-4'>
+                                    <span className='text-slate-400 font-Roboto 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
                                         To even think about building as a beginner or a professional there
                                         are some essentials tools needed example for a carpenter to build a wooden structure
                                         he/she needs a hammer, nail and a wood all together to complete a setup so as a developer.
@@ -327,10 +334,10 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
 
                                     </span>
                                 </div>
-                                <div className='w-full 2xl:h-70vh lg:h-[90%] md:h-full sm:h-full xs:h-full bg-orange-500 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-2 flex justify-start items-start flex-col gap-0'>
+                                <div className='w-full 2xl:h-70vh lg:h-[90%] md:h-full sm:h-full xs:h-full 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-2 flex justify-start items-start flex-col gap-0'>
                                     <h1 className='2xl:text-5xl text-white p-2 font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-2xl  m-0 '>What is Visual studio Code?</h1><br/>
                                     <div className='w-full 2xl:h-[20%] lg:h-[100%] md:h-[100%] sm:h-[100%] xs:h-[100%] 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-1'>
-                                        <span className='font-Roboto text-white 2xl:p-2 lg:p-2 md:p-1 sm:p-1 xs:p-1 m-0 2xl:text-sm lg:text-sm sm:text-xs xs:text-xs'>
+                                        <span className='font-Roboto text-slate-400 2xl:p-2 lg:p-2 md:p-1 sm:p-1 xs:p-1 m-0 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
                                                 Visual Studio Code (VS Code) is a free, open-source code editor developed by Microsoft. It is designed to be lightweight yet powerful, providing developers with a feature-rich environment for coding in a variety of languages. Here’s an overview of what VS Code offers:<br/>
                                                 Key Features:<br/>
                                                 Multi-language Support:<br/>
@@ -343,9 +350,9 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                         </span>
                                     </div>
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-full sm:h-40vh xs:h-[80%] bg-yellow-500 p-4' id='history'>
+                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-full sm:h-40vh xs:h-[80%] p-4' id='history'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>History of the web</h1><br/>
-                                    <span className='font-Roboto text-white 2xl:text-sm lg:text-sm sm:text-xs xs:text-xs'>                 
+                                    <span className='font-Roboto text-slate-400 22xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>                 
                                         The web, short for World Wide Web (WWW), is a system of interlinked hypertext documents and multimedia content accessible via the internet.
                                         Created by Tim Berners-Lee in 1989, it allows users to view and interact with websites using web browsers. 
                                         The web relies on technologies like HTML (for structuring content), HTTP (for transferring data), and URLs (for locating resources).
@@ -353,30 +360,93 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                                         You can read more about the web <a className='text-blue-500 underline' href='https://en.wikipedia.org/wiki/World_Wide_Web'>here</a>.
                                     </span>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4' id='html'>
-                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>HTML</h1>
-                                
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4 2xl:mb-0 xl:mb-0 lg:mb-0 md:mb-0 sm:mb-12 xs:mb-12' id='html'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl mb-5'>HTML</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                        HTML (Hypertext Markup Language) is the standard language used to create and design web pages.
+                                        It provides the basic structure and content for a web page, which can then be styled and made interactive using CSS (Cascading Style Sheets) and JavaScript, respectively.
+                                    </span>
                                     <iframe width={width} height={height} src={src} title={title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
                                     </iframe>
                                 </div>
                                 <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4' id='css'>
-                                <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>CSS</h1>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl mb-5'>CSS</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                            CSS is a styling language used to describe the presentation of a document written in HTML or XML. 
+                                        It controls the visual appearance of web pages, making them aesthetically appealing and enhancing user experience.
+                                    </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/ieTHC78giGQ" title="CSS Full Course - Includes Flexbox and CSS Grid Tutorials" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-
                                 </div>
                                 <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='javascript'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>JAVASCRIPT</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
+                                        JavaScript is a versatile, high-level programming language primarily used to create dynamic and interactive content on websites.
+                                        Originally developed for client-side scripting and also server-side as well.
+                                    </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/PkZNo7MFNFg" title="Learn JavaScript - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-
+                                </div>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='bootstrap'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>BOOTSTRAP CSS</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                        Bootstrap is a popular, open-source front-end framework used to build responsive and mobile-first websites quickly and efficiently. 
+                                        Developed by Twitter and initially released in 2011, it provides pre-designed components and a grid system, making web development faster and more consistent.
+                                    </span>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/-qfEOE4vtxE" title="Bootstrap CSS Framework - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
                                 <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='react'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>REACT</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                        React.js is an open-source JavaScript library developed by Facebook for building user interfaces, particularly for single-page applications where dynamic content is a focus.
+                                        It allows developers to create reusable UI components that manage their own state, making it efficient and flexible.
+                                    </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/bMknfKXIFA8" title="React Course - Beginner&#39;s Tutorial for React JavaScript Library [2022]" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='react'>
-                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>REACT</h1>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='tailwind'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>TAILWIND CSS</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                        Tailwind CSS is a utility-first CSS framework developed by the team at Tailwind Labs.
+                                         It provides a powerful, flexible, and accessible design system that helps developers build beautiful, responsive, and accessible websites quickly and efficiently.
+                                    </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/ft30zcMlFao" title="Learn Tailwind CSS – Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                    
                                 </div>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='docker'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>DOCKER AND KUBERNATES</h1>
+                                    <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                        Docker is a platform that allows you to package, distribute, and run applications in containers. 
+                                        Containers are lightweight, portable, and self-sufficient units that include the application and all its dependencies.
+                                        Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
+                                    </span>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/kTp5xUtcalw" title="Docker Containers and Kubernetes Fundamentals – Full Hands-On Course" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                    
+                                </div>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='express'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>NODE AND EXPRESS JS</h1>
+                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
+                                        Node.js is a JavaScript runtime environment that allows developers to write server-side applications using JavaScript.
+                                        Express.js is a popular web application framework for Node.js that provides a set of features and tools for building web applications.
+                                    </span>
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/Oe421EPjeBE" title="Node.js and Express.js - Full Course" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                    
+                                    
+                                </div>
+                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='project'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>PROJECT</h1> 
+                                    <iframe width={width} height={height} src="https://www.youtube.com/embed/VAaUy_Moivw" title="MERN Stack Project: Build a Modern Real Estate Marketplace with react MERN (jwt, redux toolkit)" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>   
+                                </div>
+                                <h3 className='font-Poppins text-white text-4xl font-bold mt-5 mb-5'>RECOMMENDED YOUTUBERS</h3>
+                                <ul className="w-full">
+                                        <li className='text-white'>
+                                            <a href="https://www.youtube.com/@WebDevSimplified" target='_blank' rel='noopener noreferrer' className='text-blue-400'>Web Dev Simplified</a>
+                                        </li>
+                                        <li className='text-white'>
+                                            <a href="https://www.youtube.com/@freecodecamp" target='_blank' rel='noopener noreferrer' className='text-blue-400'>Free Code Camp</a>
+                                        </li>
+                                        <li className='text-white'>
+                                            <a href="https://www.youtube.com/@cs50" target='_blank' rel='noopener noreferrer' className='text-blue-400'>CS50</a>
+                                        </li>
+                                    </ul>
+                                
                             </div>
                     </div>
             </section>
@@ -397,10 +467,10 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="526" , src , ti
                 <div className='w-full bg-black h-40vh flex justify-center items-center p-4'>
                     {   
                     display ? 
-                        <div className='sticky bg-slate-500 w-[80%] h-full z-30 flex justify-center items-center flex-col p-4 rounded-full'>
-                            <span className='text-6xl font-Poppins capitalize'>Ask gemini</span>
+                        <div className='sticky 2xl:w-[80%] xl:w-[80%] lg:w-full md:w-full sm:full xs:w-full h-full z-30 flex justify-center items-center flex-col p-4 rounded-full'>
+                            <span className='text-6xl font-Poppins capitalize text-white'>Ask gemini</span>
                             <form onSubmit={handleData} className='w-full h-full flex justify-center items-center flex-col gap-4'>
-                                <input type="text" className='w-[60%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Gemini assistant' />
+                                <input type="text" className='w-[60%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Ask related questions where...' />
                                 <input type="submit" value="Ask" className='bg-blue-500 p-3 capitalize shadow-xl w-[20%] rounded-md hover:cursor-pointer' />
                             </form>
                         </div>
