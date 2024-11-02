@@ -10,6 +10,7 @@ import supabase from '../model/supabase';
 import dotenv from "dotenv";
 import GoogleRefreshToken from '../auth/googleRefresh';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
+import GithubVerify from '../auth/githubAccess';
 
 
 dotenv.config();
@@ -22,12 +23,16 @@ interface MailOptions {
   html:string;
 }
 
+type Cookies = {
+  maxAge: number;
+  sameSite: any;
+  secure: boolean;
+  httpOnly: boolean;
+}
 
 
-const insertToken = async( access_token: string,email: string | undefined):Promise<void>=>{
+const insertToken = async( access_token: string | undefined ,email: string | undefined):Promise<void>=>{
   try{
-
-   
     const { data, error} = await supabase
     .from("register")
     .select("*")
@@ -69,15 +74,14 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req: Request, res: Response) => {
-      const cookieOptions = {
+      const cookieOptions: Cookies = {
         maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
         secure: isProduction, // set to true during production
-        
+        sameSite: "strict"
     };
 
-    const cookieOptionsRefresh = {...cookieOptions , maxAge: 1000 * 60 * 60 * 24};
-    const transporter = nodemailer.createTransport({
+    const transporter: nodemailer.Transporter< SMTPTransport.SentMessageInfo , SMTPTransport.Options> = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
       secure: true, // true for 465, false for other ports
@@ -141,11 +145,11 @@ router.get('/auth/google/callback',
     passport.authenticate('github', { failureRedirect: 'http://localhost:3000/user/login' }),
     (req, res) => {
 
-      const cookieOptions = {
+      const cookieOptions: Cookies = {
         maxAge: 1000 * 60 * 60 * 24, 
         httpOnly: true, 
         secure: false, // set to true during production
-        
+        sameSite: "strict"
     };
 
     
@@ -196,11 +200,13 @@ router.get('/auth/google/callback',
     });
 
       const accessTokens = (req.user as UserDetails)?.accessToken;
-      if(accessTokens){
-        res.cookie('authCookie', accessTokens , cookieOptions);
-        return res.redirect("http://localhost:3000/courses");
-      }else{
-        return res.redirect('http://localhost:3000/user/login');
+      switch(accessTokens){
+        case accessTokens:
+          insertToken(accessTokens , emailings);
+          res.cookie('gittoken', accessTokens, cookieOptions);
+          return res.redirect("http://localhost:3000/courses");
+        default:
+          return res.redirect("http://localhost:3000/user/login");
       }
       
     }
@@ -215,10 +221,11 @@ router.get('/auth/google/callback',
   router.get("/protected-route", Protect , Protector);
 
 
-  router.post("/token", RefreshToken);
+  router.get("/token", RefreshToken);
 
   router.get("/google/provider", GoogleRefreshToken);
 
+  router.get("/github/provider", GithubVerify);
   
 export default router;
 

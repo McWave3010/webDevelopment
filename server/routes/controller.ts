@@ -186,13 +186,13 @@ export const comment = async(req:Request , res: Response)=>{
     try{
         const { comment }:{comment?:object}= req.body;
         if(comment){
-            const { data , error: PostgrestError } = await supabase
+            const { data , error} = await supabase
             .from("messages")
             .insert([
                 { message: comment }
                 ])
             if(data)return res.status(200).json({ mess: "Comment added sucessfully" });  
-            else{
+            else if (error){
                 return res.status(500).json({ error: "Error adding comment" });
             }
         }

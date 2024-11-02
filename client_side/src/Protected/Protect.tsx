@@ -12,8 +12,9 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
     const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
     
-
+//Auth checking process stagge
     useEffect(() => {
+        console.log("Auth system rendered");
         const checkAuth = async ():Promise<void> => {
             try {
                 const url : string= 'http://localhost:8080/protected-route';
@@ -24,7 +25,7 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                 if (response.ok) {
                     setIsAuthenticated(true);
                 
-                } else {
+                } else if(!response) {
                     const responses = await axios.get('http://localhost:8080/google/provider', { withCredentials: true });
                     if (responses.status === 200) {
                         setIsAuthenticated(responses.data.authenticated);
@@ -32,13 +33,23 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                         setIsAuthenticated(responses.data.authenticated);
                     } 
                     
+                }else{
+                     await axios.get("/github/provider" , { withCredentials: true })
+                    .then(responsed =>{
+                        if (responsed){
+                            setIsAuthenticated(responsed.data.authenticated)
+                        }else{
+                            setIsAuthenticated(false)
+                        }
+                        
+                    })
                 }
             } catch (error) {
                 setIsAuthenticated(false);
             }
         };
         checkAuth();
-    }, []);
+    }, [isAuthenticated]);
 
     if (isAuthenticated === null) return <Spinner/>; // Optionally add a loading spinner
 

@@ -13,7 +13,7 @@ const RetrieveAccess = async(email: string | undefined): Promise<string | null |
     if (error){
         return null;
     }
-    if(data && data?.length){
+    if(data?.length){
         const access_token: string = data[0]?.refresh_token;
         return access_token;
     }

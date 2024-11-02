@@ -13,13 +13,12 @@ const header: React.FC = () => {
       <section className='w-full 2xl:h-8vh lx:h-8vh lg:h-8vh md:h-10vh sm:h-8vh xs:h-8vh flex justify-start items-center flex-col bg-black'>
       <section className='w-[100%] h-8vh flex 2xl:justify-evenly xl:justify-evenly lg:justify-evenly md:justify-between sm:justify-between xs:justify-between items-center gap-3 bg-black'>
         <div className='w-[100%] h-full flex justify-center items-center gap-2'>
-          <img src={logo} alt='logo' className='2xl:w-[15%] rounded-full h-[95%] xs:w-[30%]'/>
+          <img src={logo} alt='logo' className='2xl:w-[15%] rounded-full h-[85%] xs:w-[30%]'/>
           <span className='text-white opacity-80'>Web Dev</span>
         </div>
         <div className='w-[100%] h-full border-b-2 border-b-white 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
           <ul className='w-[100%] flex justify-center items-center h-full'>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href='/'>Home</a></li>
-            <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="#home">About</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/courses">Courses</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/user/login">Log in</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/user/register">Register</a></li>
@@ -54,7 +53,6 @@ const header: React.FC = () => {
           <div className='w-[100%] h-90vh bg-black 2xl:hidden xl:hidden lg:hidden md:flex sm:flex xs:flex z-40'>
           <ul className='w-full flex justify-center items-end h-full flex-col p-6 gap-4'>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href='/'>Home</a></li>
-            <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/about">About</a></li>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/courses">Courses</a></li>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/user/login">Log in</a></li>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/user/register">Register</a></li>

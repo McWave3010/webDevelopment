@@ -9,7 +9,7 @@ import cors from "cors";
 import passport from "./auth/googleAuth";
 import git_passport from "./auth/githubAuth";
 import helmet from "helmet";
-
+import { createProxyMiddleware } from "http-proxy-middleware";
 
 
 const app: Application = express();
