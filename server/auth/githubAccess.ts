@@ -18,7 +18,7 @@ const verifyGithubToken = async(  email: string | undefined):Promise<any>=>{
 const GithubVerify = async(req: Request , res: Response)=>{
     const githubAuthToken = req.cookies.gittoken;
     const email: string | undefined= (req.user as UserProfile)?.email;
-    console.log(email);
+    //console.log(email);
     switch(githubAuthToken){
         case undefined:
             return res.status(401).json({message: "No GitHub token, authorization denied"});

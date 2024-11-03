@@ -23,10 +23,11 @@ const GoogleRefreshToken = async( req: Request , res: Response )=>{
     const google_token = await req.cookies.authCookie;
     const email = (req.user as UserProfile)?.email;
     const response = await RetrieveAccess(email);
-    if(!response){
-        return res.status(403).json({ authenticated : false});
+    console.log(response);
+    if(response === google_token){
+        return res.status(200).json({ authenticated : true });
     }else{
-        res.status(200).json({ authenticated: true });
+        return res.status(403).json({ authenticated: false });
     }
     
     

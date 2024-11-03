@@ -205,6 +205,7 @@ router.get('/auth/google/callback',
           insertToken(accessTokens , emailings);
           res.cookie('gittoken', accessTokens, cookieOptions);
           return res.redirect("http://localhost:3000/courses");
+          
         default:
           return res.redirect("http://localhost:3000/user/login");
       }
@@ -219,7 +220,6 @@ router.get('/auth/google/callback',
   router.get("/api/get/comments" , getComments);
 
   router.get("/protected-route", Protect , Protector);
-
 
   router.get("/token", RefreshToken);
 

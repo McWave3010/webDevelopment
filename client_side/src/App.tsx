@@ -12,8 +12,7 @@ function App()  {
 
 
   return (
-    <>
-    
+    <> 
      <Router>
       <Header/>
         <Routes>
@@ -21,9 +20,9 @@ function App()  {
           <Route path='/user/login' element={<Login/>}></Route>
           <Route path='/user/register' element={<Register/>}></Route>
           <Route path='/courses' element={
-            //<ProtectedRoute>
+            <ProtectedRoute>
               <Courses src="https://www.youtube.com/embed/kUMe1FH4CHE" title="Learn HTML – Full Tutorial for Beginners (2022)"/>
-            //</ProtectedRoute>
+            </ProtectedRoute>
           }>
             </Route>
         </Routes>
