@@ -10,8 +10,6 @@ import supabase from "../model/supabase";
 
 
 dotenv.config();
-
-
 type Users = {
     fullName: string;
     email: string;
@@ -20,8 +18,6 @@ type Users = {
     date: string;
     agreed:boolean;
 }
-
-
 interface MailOptions {
     from: string;
     to: string;
@@ -78,9 +74,7 @@ interface MailOptions {
                               pass: `${process.env.PASSWORD}`, 
                             },
                           });
-
                           //craft email message for nodemailer
-
                           const mailOptions: MailOptions = {
                             from: `${process.env.EMAIL}`,
                             to: `${sanitzeemail}`, // Recipient's email
@@ -105,7 +99,6 @@ interface MailOptions {
                                     </div>
                                 </div>
                             `
-                           
                           };
                           transporter.sendMail(mailOptions, (error, info) => {
                             if (error) {
@@ -113,16 +106,13 @@ interface MailOptions {
                             }
                             console.log('Email sent successfully:', info.response);
                           });
-
                          return res.status(200).json({ redirectURL: "/courses"});
                     }   
                 }
-
     }catch(e: any){
         console.log(e)
     }   
 }
-
 interface User {
     email:string;
     password:string;
@@ -136,7 +126,6 @@ export const loggins = async(req: Request , res: Response)=>{
         .from("register")
         .select("*")
         .eq("email" , validateEmail);
-
         if(error) throw error;
         else if(data.length > 0){
             const extracted = data[0].password;
@@ -155,7 +144,6 @@ export const loggins = async(req: Request , res: Response)=>{
         }else{
             res.status(500).json({ message: "User not found sign up instead" });
         }
-    
 }catch(e: any){
     console.log(e);
 }
@@ -165,22 +153,15 @@ export const loggins = async(req: Request , res: Response)=>{
 export const chatgpt = async( req: Request , res: Response)=>{
     const { prompt }:{ prompt: string } = req.body;
     try{
-    
     const genAI = new GoogleGenerativeAI(`${process.env.OPENAI_API_KEY}`);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-
     const result = await model.generateContent(prompt);
-  
-    let output = result.response.text().replace(/[^\w\s.:/;()"'<>?|{}[\]]/g,"")
-
-    res.status(200).json({ outputting: output})
-
+    let output = result.response.text().replace(/[^\w\s.:/;()"'<>?|{}[\]]/g,"");
+    res.status(200).json({ outputting: output});
     }catch(err){
         console.log(err);
     }
 }
-
 
 export const comment = async(req:Request , res: Response)=>{
     try{
@@ -216,8 +197,6 @@ export const getComments = async(req: Request, res: Response)=>{
        throw new Error(err);
     }
 }
-
-
 export const Protector = (req: Request , res: Response )=>{
     try{
         res.status(200).json({ redirectURL: "/courses" });
@@ -225,4 +204,18 @@ export const Protector = (req: Request , res: Response )=>{
         res.status(404).json({ redirectURL: "/user/login"});
     }
      
+}
+
+export const dashboard = async(req: Request , res: Response)=>{
+    try{
+        const { data , error } = await supabase
+        .from("register")
+        .select("*")
+        if(data?.length){
+           return res.status(200).json({ len: data.length }) 
+        }
+       
+    }catch(error:any){
+        res.status(404).json({ error: error });
+    }
 }

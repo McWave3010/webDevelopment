@@ -3,7 +3,7 @@ import passport from "../auth/googleAuth";
 import { UserProfile } from '../auth/googleAuth';
 import { UserDetails } from '../auth/githubAuth';
 import nodemailer from "nodemailer";
-import { loginPage , loggins , chatgpt , comment, getComments , Protector } from "./controller";
+import { loginPage , loggins , chatgpt , comment, getComments , Protector , dashboard} from "./controller";
 import Protect from '../middleware/Protect';
 import RefreshToken from "../auth/RefreshToken";
 import supabase from '../model/supabase';
@@ -226,6 +226,8 @@ router.get('/auth/google/callback',
   router.get("/google/provider", GoogleRefreshToken);
 
   router.get("/github/provider", GithubVerify);
+
+  router.get("/get/dashboard/details" , dashboard); 
   
 export default router;
 

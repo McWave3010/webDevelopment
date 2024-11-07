@@ -39,7 +39,7 @@ const Home: React.FC = () => {
       
       <section className='w-[100%] 2xl:h-48vh mt-2 flex justify-center items-center lg:h-30vh md:h-30vh sm:h-30vh xs:h-20vh'>
           <div className='w-[100%] h-full flex justify-center items-center'>
-              <span className='font-Poppins lg:text-8xl text-white text-center md:text-6xl sm:text-5xl xs:text-3xl'>Web Development Beginner Course</span>
+              <span className='font-Poppins 2xl:text-8xl xl:text-8xl lg:text-8xl text-white text-center md:text-6xl sm:text-5xl xs:text-3xl'>Web Development Beginner Course</span>
           </div>
       </section>
       <section className='w-[100%] h-10vh flex justify-center items-center'>

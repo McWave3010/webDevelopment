@@ -18,7 +18,7 @@ interface IframeProps {
 
   
 
-const Courses: React.FC<IframeProps> = ({ width="100%" , height="60%" , src , title })=>{
+const Courses: React.FC<IframeProps> = ({ width="100%" , height="75%" , src , title })=>{
   const [ display, setDisplay ] = useState<boolean>(true);
   const [ text , setText ] = useState<string>("")
   const [ formData , setformData ] = useState({
@@ -81,11 +81,11 @@ found()
                                         <span className='2xl:text-5xl lg:text-4xl md:text-4xl sm:text-3xl xs:text-3xl font-bold text-white'>Learn New Skills Online From Best <strong className='text-teal-400 underline'>Educators</strong></span>
                                     </div>
                                     <div className='w-full h-[20%] flex justify-center items-center p-4'>
-                                        <span className='text-stone-300 2xl:text-xl lg:text-xl md:text-xl sm:text-sm xs:text-sm font-Poppins'>This is a simple website development course beginner friendly giving the best web experience and documentation available.</span>
+                                        <span className='text-stone-300 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm xs:text-sm font-Poppins'>This is a simple website development course beginner friendly giving the best web experience and documentation available.</span>
                                     </div>
                                     <div className='w-full h-[40%] flex justify-start items-start gap-3 p-4 flex-col'>
-                                        <div className='2xl:w-[30%] 2xl:h-[50%] lg:w-[30%] lg:h-[50%] md:w-[40%] md:h-full sm:w-[40%] sm:h-full sm:p-4 xs:w-[40%] xs:h-full xs:p-4 bg-black flex justify-center items-center rounded-md hover:cursor-pointer hover:bg-white '>
-                                            <a className='w-full h-full flex justify-center items-center text-2xl hover:text-black hover:duration-100 text-white' href='#courses'>Courses</a>
+                                        <div className='2xl:w-[30%] 2xl:h-[50%] xl:w-[30%] xl:h-[50%] lg:w-[30%] lg:h-[50%] md:w-[40%] md:h-full sm:w-[40%] sm:h-full sm:p-4 xs:w-[40%] xs:h-full xs:p-4 bg-neutral-500 flex justify-center items-center rounded-md hover:cursor-pointer hover:bg-black hover:text-white '>
+                                            <a className='w-full h-full flex justify-center items-center text-2xl hover:text-white hover:duration-100 text-white' href='#courses'>Courses</a>
                                         </div>
                                         <div className='w-[90%] h-[100%] flex justify-start items-center flex-col'>
                                             <div className='w-full h-full flex justify-start items-center gap-3'>
@@ -125,14 +125,14 @@ found()
                                     <div className='w-[70%] h-full flex justify-center items-center flex-col gap-10 rounded-lg' id='clipper'>
                                         <div className='w-full h-full rounded-lg relative'>
                                             <img src={person2} alt='person_one' className='w-full h-full object-cover rounded-lg'/>
-                                            <div className='absolute bottom-1 left-1 w-[50%] h-7vh bg-white z-40 rounded-lg 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center'>
+                                            <div className='absolute bottom-1 left-1 w-[50%] h-7vh bg-white z-40 rounded-lg 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center'>
                                             <span className='text-black'>Developer</span>
                                         </div>
                                         </div>
                                         
                                         <div className='w-full h-full rounded-lg relative overflow-hidden' id='clipper'>
                                             <img src={person3} alt='person_one' className='w-full h-full object-cover rounded-lg'/>
-                                            <div className='absolute bottom-1 left-1 w-[50%] h-7vh bg-white z-40 rounded-lg 2xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center'>
+                                            <div className='absolute bottom-1 left-1 w-[50%] h-7vh bg-white z-40 rounded-lg 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden justify-center items-center'>
                                                 <span className='text-black'>Designer</span>
                                             </div>
                                         </div>     
@@ -143,9 +143,9 @@ found()
                     </section>   
                 </div>
             </section>
-            <section className='bg-black 2xl:w-full 2xl:h-20vh lg:w-full lg:h-50vh md:w-full md:h-20vh sm:h-10vh xs:h-10vh flex justify-center items-center ' id='courses'>
+            <section className='bg-black 2xl:w-full 2xl:h-20vh xl:w-full xl:h-20vh lg:w-full lg:h-50vh md:w-full md:h-20vh sm:h-10vh xs:h-10vh flex justify-center items-center ' id='courses'>
                 <div className='w-full h-full  flex justify-center items-center'>
-                    <span className='2xl:text-8xl lg:text-6xl md:text-6xl sm:text-4xl xs:text-4xl font-bold font-Poppins text-white '>Courses</span>
+                    <span className='2xl:text-8xl lg:text-6xl md:text-6xl sm:text-4xl xs:text-4xl font-bold font-Poppins bg-gradient-to-r from-white to-slate-600 bg-clip-text text-transparent'>Courses</span>
                 </div>
             </section>
        
@@ -324,22 +324,21 @@ found()
                         </div>
                         <div className='overflow-scroll w-full h-full 2xl:p-4 xl:p-4 lg:p-3 md:p-3 sm:p-1 xs:p-0 gap-4' id="setup">
                                 <h1 className='text-5xl text-white font-Poppins font-bold p-4' id="starter">Get Started</h1>  
-                                <div className='w-full 2xl:h-[20%] lg:h-[30%] md:h-[40%] sm:h-[40%] xs:h-[40%] p-4'>
+                                <div className='w-full 2xl:h-[20%] xl:h-[10%] lg:h-[20%] md:h-[20%] sm:h-[40%] xs:h-[30%] p-4'>
                                     <span className='text-slate-400 font-Roboto 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
-                                        To even think about building as a beginner or a professional there
-                                        are some essentials tools needed example for a carpenter to build a wooden structure
-                                        he/she needs a hammer, nail and a wood all together to complete a setup so as a developer.
+                                        To even think of developing or building a product been a beginner or a professional there
+                                        are some essentials tools needed example for a carpenter to build a woodden structure
+                                        the carpenter needs a hammer, nail and a wood all together to complete a setup so as a developer.
                                         But the tools needed by a developer is an IDE (Integrated Development Environment) and the popular one y
                                         used among developers is microsoft visual studio code to download link on the link <a href="https://code.visualstudio.com/" target='_blank' rel='noopener noreferrer' className='text-blue-400 underline'>here</a>
-
                                     </span>
                                 </div>
-                                <div className='w-full 2xl:h-70vh lg:h-[90%] md:h-full sm:h-full xs:h-full 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-2 flex justify-start items-start flex-col gap-0'>
+                                <div className='w-full 2xl:h-[70%] xl:h-[30%] lg:h-[30%] md:h-[50%] sm:h-[80%] xs:h-[80%] 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-2 flex justify-start items-start flex-col gap-0'>
                                     <h1 className='2xl:text-5xl text-white p-2 font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-2xl  m-0 '>What is Visual studio Code?</h1><br/>
-                                    <div className='w-full 2xl:h-[20%] lg:h-[100%] md:h-[100%] sm:h-[100%] xs:h-[100%] 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-1'>
-                                        <span className='font-Roboto text-slate-400 2xl:p-2 lg:p-2 md:p-1 sm:p-1 xs:p-1 m-0 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
+                                    <div className='w-full 2xl:h-[20%] lg:h-[100%] md:h-[100%] sm:h-[90%] xs:h-[90%] 2xl:p-4 lg:p-4 md:p-3 sm:p-2 xs:p-1'>
+                                        <span className='font-Roboto text-center text-slate-400 2xl:p-2 lg:p-2 md:p-1 sm:p-1 xs:p-1 m-0 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
                                                 Visual Studio Code (VS Code) is a free, open-source code editor developed by Microsoft. It is designed to be lightweight yet powerful, providing developers with a feature-rich environment for coding in a variety of languages. Here’s an overview of what VS Code offers:<br/>
-                                                Key Features:<br/>
+                                                <strong>Key Features:<br/></strong>
                                                 Multi-language Support:<br/>
                                                 VS Code supports a wide range of programming languages out-of-the-box (like JavaScript, Python, C++, and more) and can be extended to support many others via extensions.<br/>
                                                 Extensibility:<br/>
@@ -350,7 +349,7 @@ found()
                                         </span>
                                     </div>
                                 </div>
-                                <div className='w-full 2xl:h-[70%] lg:h-[90%] md:h-full sm:h-40vh xs:h-[80%] p-4' id='history'>
+                                <div className='w-full 2xl:h-[40%] xl:h-[40%] lg:h-[50%] md:h-[30%] sm:h-[50%] xs:h-[50%] p-4' id='history'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>History of the web</h1><br/>
                                     <span className='font-Roboto text-slate-400 22xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>                 
                                         The web, short for World Wide Web (WWW), is a system of interlinked hypertext documents and multimedia content accessible via the internet.
@@ -360,7 +359,7 @@ found()
                                         You can read more about the web <a className='text-blue-500 underline' href='https://en.wikipedia.org/wiki/World_Wide_Web'>here</a>.
                                     </span>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4 2xl:mb-0 xl:mb-0 lg:mb-0 md:mb-0 sm:mb-12 xs:mb-12' id='html'>
+                                <div className='w-full 2xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4 2xl:mb-0 xl:mb-0 lg:mb-0 md:mb-0 sm:mb-12 xs:mb-12' id='html'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl mb-5'>HTML</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                         HTML (Hypertext Markup Language) is the standard language used to create and design web pages.
@@ -369,7 +368,7 @@ found()
                                     <iframe width={width} height={height} src={src} title={title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
                                     </iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4' id='css'>
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh mb-10 xs:h-[80%] p-4' id='css'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl mb-5'>CSS</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                             CSS is a styling language used to describe the presentation of a document written in HTML or XML. 
@@ -377,7 +376,7 @@ found()
                                     </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/ieTHC78giGQ" title="CSS Full Course - Includes Flexbox and CSS Grid Tutorials" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='javascript'>
+                                <div className='w-full 2xl:h-[100%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='javascript'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>JAVASCRIPT</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm'>
                                         JavaScript is a versatile, high-level programming language primarily used to create dynamic and interactive content on websites.
@@ -385,7 +384,7 @@ found()
                                     </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/PkZNo7MFNFg" title="Learn JavaScript - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='bootstrap'>
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='bootstrap'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>BOOTSTRAP CSS</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                         Bootstrap is a popular, open-source front-end framework used to build responsive and mobile-first websites quickly and efficiently. 
@@ -393,7 +392,7 @@ found()
                                     </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/-qfEOE4vtxE" title="Bootstrap CSS Framework - Full Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='react'>
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='react'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>REACT</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                         React.js is an open-source JavaScript library developed by Facebook for building user interfaces, particularly for single-page applications where dynamic content is a focus.
@@ -401,7 +400,7 @@ found()
                                     </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/bMknfKXIFA8" title="React Course - Beginner&#39;s Tutorial for React JavaScript Library [2022]" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='tailwind'>
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='tailwind'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>TAILWIND CSS</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                         Tailwind CSS is a utility-first CSS framework developed by the team at Tailwind Labs.
@@ -410,28 +409,25 @@ found()
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/ft30zcMlFao" title="Learn Tailwind CSS – Course for Beginners" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                     
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='docker'>
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='docker'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>DOCKER AND KUBERNATES</h1>
                                     <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                         Docker is a platform that allows you to package, distribute, and run applications in containers. 
-                                        Containers are lightweight, portable, and self-sufficient units that include the application and all its dependencies.
                                         Kubernetes is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
                                     </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/kTp5xUtcalw" title="Docker Containers and Kubernetes Fundamentals – Full Hands-On Course" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
                                     
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='express'>
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] lg:h-[90%] md:h-[70%] sm:h-[80%] xs:h-[90%] mb-10 p-4' id='express'>
                                     <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>NODE AND EXPRESS JS</h1>
                                      <span className='font-Roboto text-slate-400 2xl:text-md xl:text-md lg:text-md md:text-sm sm:text-sm xs:text-sm mb-5'>
                                         Node.js is a JavaScript runtime environment that allows developers to write server-side applications using JavaScript.
                                         Express.js is a popular web application framework for Node.js that provides a set of features and tools for building web applications.
                                     </span>
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/Oe421EPjeBE" title="Node.js and Express.js - Full Course" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-                                    
-                                    
                                 </div>
-                                <div className='w-full 2xl:h-[100%] lg:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='project'>
-                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl'>PROJECT</h1> 
+                                <div className='w-full 2xl:h-[80%] xl:h-[80%] g:h-[90%] md:h-[70%] sm:h-40vh xs:h-[80%] mb-10 p-4' id='project'>
+                                    <h1 className='2xl:text-5xl text-white font-Poppins font-bold lg:text-5xl md:text-3xl sm:text-3xl xs:text-3xl uppercase'>FULLSTACK mern PROJECT</h1> 
                                     <iframe width={width} height={height} src="https://www.youtube.com/embed/VAaUy_Moivw" title="MERN Stack Project: Build a Modern Real Estate Marketplace with react MERN (jwt, redux toolkit)" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>   
                                 </div>
                                 <h3 className='font-Poppins text-white text-4xl font-bold mt-5 mb-5'>RECOMMENDED YOUTUBERS</h3>
@@ -444,6 +440,12 @@ found()
                                         </li>
                                         <li className='text-white'>
                                             <a href="https://www.youtube.com/@cs50" target='_blank' rel='noopener noreferrer' className='text-blue-400'>CS50</a>
+                                        </li>
+                                        <li className='text-white'>
+                                            <a href="https://www.youtube.com/@programmingwithmosh" target='_blank' rel='noopener noreferrer' className='text-blue-400'>Mosh</a>
+                                        </li>
+                                        <li className='text-white'>
+                                            <a href="https://www.youtube.com/@BroCodez" target='_blank' rel='noopener noreferrer' className='text-blue-400'>Bro Code</a>
                                         </li>
                                     </ul>
                                 
@@ -470,8 +472,8 @@ found()
                         <div className='sticky 2xl:w-[80%] xl:w-[80%] lg:w-full md:w-full sm:full xs:w-full h-full z-30 flex justify-center items-center flex-col p-4 rounded-full'>
                             <span className='text-6xl font-Poppins capitalize text-white'>Ask gemini</span>
                             <form onSubmit={handleData} className='w-full h-full flex justify-center items-center flex-col gap-4'>
-                                <input type="text" className='w-[60%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Ask related questions where...' />
-                                <input type="submit" value="Ask" className='bg-blue-500 p-3 capitalize shadow-xl w-[20%] rounded-md hover:cursor-pointer' />
+                                <input type="text" className='2xl:w-[60%] xl:w-[60%] lg:w-[70%] md:w-[80%] sm:w-[80%] xs:w-[80%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Ask related questions where...' />
+                                <input type="submit" value="Ask" className='bg-blue-500 p-3 capitalize shadow-xl 2xl:w-[20%] xl:w-[20%] lg:w-[30%] md:w-[40%] sm:w-[50%] xs:w-[50%] rounded-md hover:cursor-pointer' />
                             </form>
                         </div>
                     : null
