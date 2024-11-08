@@ -24,15 +24,15 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                 });
                 if (response.ok) {   
                     setIsAuthenticated(true);
-                } else if(!response) {
+                } 
+                else{
+                    setIsAuthenticated(false);
                     const responses = await axios.get('http://localhost:8080/google/provider', { withCredentials: true });
                     if (responses.status === 200) {
                         setIsAuthenticated(true);
                     }else{
                         setIsAuthenticated(false);
-                    } 
-                }else{
-                     await axios.get("http://localhost:8080/github/provider" , { withCredentials: true })
+                        await axios.get("http://localhost:8080/github/provider" , { withCredentials: true })
                     .then(responsed =>{
                         if (responsed){
                             setIsAuthenticated(true)
@@ -41,12 +41,16 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                         }
                     })
                 }
-            } catch (error) {
+            }
+        }
+            catch (error) {
                 setIsAuthenticated(false);
             }
-        };
-        checkAuth();
-    });
+        
+        
+    }
+    checkAuth();
+});
 
     if (isAuthenticated === null) return <Spinner/>; // Optionally add a loading spinner
 

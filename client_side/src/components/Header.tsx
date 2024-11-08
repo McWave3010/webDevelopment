@@ -1,10 +1,31 @@
-import React , { useState } from 'react';
+import React , { useState , useEffect } from 'react';
 import logo from "../assets/images/logo.jpg";
 
-const header: React.FC = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [ display , setDisplay ] = useState<boolean>(false);
 
+
+const Header = () => {
+  const [ display , setDisplay ] = useState<boolean>(false);
+  const [ pic , setpic ] = useState<string>("pic");
+
+  useEffect(() => {
+    const fetchProfilePicture = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/google/provider", {
+                credentials: "include", // Include cookies in request
+            });
+            const data = await response.json();
+            setpic(data.picture); // Set picture URL in state
+        } catch (error) {
+            console.error("Failed to fetch profile picture:", error);
+        }
+    };
+
+    fetchProfilePicture();
+}, []);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+
+
+ 
   const handleState = ()=>{
     setDisplay(!display);
   }
@@ -46,8 +67,12 @@ const header: React.FC = () => {
             </svg>
           </a>
         </div>
-       
+       <div className='w-[30%] h-[80%] justify-center items-center'>
+           <img src={pic} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover'/>
+        </div>
     </section>
+
+          
     {
           display ? 
           <div className='w-[100%] h-90vh bg-black 2xl:hidden xl:hidden lg:hidden md:flex sm:flex xs:flex z-40'>
@@ -64,4 +89,4 @@ const header: React.FC = () => {
 }
 
 
-export default header;
+export default Header;

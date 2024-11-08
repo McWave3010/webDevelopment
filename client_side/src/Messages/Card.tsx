@@ -14,7 +14,7 @@ const Card:React.FunctionComponent<Message> = ({ message })=>{
                 <img src={logo} alt="web logo" className='h-full rounded-full'/>
             </div>
             <div className="w-full h-full p-4">
-                <span className="font=Roboto text-md text-black text-center">{message}</span>
+                <span className="font=Poppins capitalize text-md text-black text-center">{message}</span>
             </div>
           
         </div>

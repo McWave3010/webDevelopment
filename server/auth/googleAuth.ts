@@ -28,6 +28,7 @@ export interface UserProfile {
     accessToken?: string;
     agreed?: boolean;
     refreshToken?: string;
+    picture?:string;
 }
 
 
@@ -42,6 +43,7 @@ passport.use(new GoogleStrategy(
     async(accessToken: string, refreshToken: string | undefined, profile: Profile, done: Function) => {
         const email:string | undefined = profile.emails?.[0]?.value;
         const family = profile.displayName;
+        const picture = profile._json?.picture;
         if(supabase){
             //console.log("Database connection established successfully")
             const { data , error } = await supabase
@@ -52,7 +54,7 @@ passport.use(new GoogleStrategy(
                 if(error) return done(error);
     
                 if(data && data.length > 0){
-                    const userWithToken: UserProfile = { ...data[0], accessToken , refreshToken}; // Include access token
+                    const userWithToken: UserProfile = { ...data[0], accessToken , refreshToken ,picture}; // Include access token
                     return done(null, userWithToken);
                   
                 }else {
@@ -72,7 +74,7 @@ passport.use(new GoogleStrategy(
                     if (error) {
                         return done(error);
                     }
-                    const userWithToken: UserProfile = { ...newUser, accessToken , refreshToken}; // Attach access token to the new user
+                    const userWithToken: UserProfile = { ...newUser, accessToken , refreshToken , picture}; // Attach access token to the new user
                     return done(null, userWithToken);
                     }   
                     }

@@ -11,7 +11,7 @@ import dotenv from "dotenv";
 import GoogleRefreshToken from '../auth/googleRefresh';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import GithubVerify from '../auth/githubAccess';
-
+import jwt from "jsonwebtoken";
 
 dotenv.config();
 
@@ -31,7 +31,7 @@ type Cookies = {
 }
 
 
-const insertToken = async( access_token: string | undefined ,email: string | undefined):Promise<void>=>{
+const insertToken = async( access_token: string | undefined ,email: string | undefined , picture?: string | undefined):Promise<void>=>{
   try{
     const { data, error} = await supabase
     .from("register")
@@ -44,7 +44,7 @@ const insertToken = async( access_token: string | undefined ,email: string | und
 
     const { error: insertError } = await supabase
       .from("register")
-      .update({ refresh_token: access_token })
+      .update({ refresh_token: access_token , picture: picture})
       .eq("email", email);
 
     if (insertError) {
@@ -126,14 +126,16 @@ router.get('/auth/google/callback',
       }
       console.log('Email sent successfully:', info.response);
     });
-    const accessToken = (req.user as UserProfile)?.accessToken;
-
-    if(accessToken){
-      insertToken(accessToken, emailing);
-      res.cookie('authCookie', accessToken , cookieOptions);
-      return res.redirect("http://localhost:3000/courses");
-    }else{
-      return res.redirect('http://localhost:3000/user/login');
+    const accessToken = (req.user as UserProfile)?.email;
+    const picture = (req.user as UserProfile)?.picture;
+    switch(accessToken){
+      case accessToken:
+        insertToken(accessToken , emailing , picture);
+        res.cookie('google_token', accessToken, cookieOptions);
+        return res.redirect("http://localhost:3000/courses");
+        
+      default:
+        return res.redirect("http://localhost:3000/user/login");
     }
     }
   );
