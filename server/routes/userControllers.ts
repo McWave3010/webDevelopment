@@ -154,7 +154,7 @@ router.get('/auth/google/callback',
       const cookieOptions: Cookies = {
         maxAge: 1000 * 60 * 60 * 24, 
         httpOnly: true, 
-        secure: false, // set to true during production
+        secure: true, // set to true during production
         sameSite: "strict"
     };
 
@@ -213,7 +213,7 @@ router.get('/auth/google/callback',
           const token = jwt.sign({access_token: accessTokens} , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
           res.cookie('accesstoken', token , cookieOptions);
           res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"strict"})
-        return res.redirect("https://web-development-flame.vercel.app/courses");
+          return res.redirect("https://web-development-flame.vercel.app/courses");
         
       default:
         return res.redirect("https://web-development-flame.vercel.app/user/login");
