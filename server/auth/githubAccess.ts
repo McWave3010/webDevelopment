@@ -33,9 +33,8 @@ const GithubVerify = async(req: Request , res: Response)=>{
                 return res.status(403).json({ authenticated : false});
             }else{
                 res.status(200).json({ authenticated: true });
-            }
+        }
     }
-
 }
 
 export default GithubVerify;
