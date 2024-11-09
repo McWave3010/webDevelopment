@@ -57,7 +57,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   }
   setError('');
   
-  const response = await axios.post("https://web-development-7mkx.vercel.app/register/user", formData, { withCredentials: true})
+  const response = await axios.post("https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/register/user", formData, { withCredentials: true})
   
   if(response.data){
     toast.success("Registration successfull")
