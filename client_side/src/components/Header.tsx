@@ -1,27 +1,18 @@
 import React , { useState , useEffect } from 'react';
 import logo from "../assets/images/logo.jpg";
+import axios from 'axios';
+import cookie from "js-cookie";
 
 
 
 const Header = () => {
   const [ display , setDisplay ] = useState<boolean>(false);
-  const [ pic , setpic ] = useState<string>("pic");
+  const [ pic , setpic ] = useState<any>(null);
 
   useEffect(() => {
-    const fetchProfilePicture = async () => {
-        try {
-            const response = await fetch("http://localhost:8080/google/provider", {
-                credentials: "include", // Include cookies in request
-            });
-            const data = await response.json();
-            setpic(data.picture); // Set picture URL in state
-        } catch (error) {
-            console.error("Failed to fetch profile picture:", error);
-        }
-    };
-
-    fetchProfilePicture();
-}, []);
+   const value = cookie.get("pic")
+   setpic(value);
+}, [pic]);
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
