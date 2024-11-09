@@ -42,7 +42,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
   try {
     e.preventDefault();
     setSubmiting(true);
-    const response = await axios.post("https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/login/user", formData, { withCredentials: true })
+    const response = await axios.post("https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/api/login/user", formData, { withCredentials: true })
     navigate(response.data.redirectURI);
   }catch (error: any){
     if (error.response) {
@@ -50,7 +50,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
       toast.error(error.response.data.message || "Something went wrong");
     } else if (error.request) {
       // Request was made but no response was received
-      toast.error("Check credentails");
+      toast.error("Check credentials");
     } else {
       // Something else caused an error
       toast.error("An unknown error occurred");
