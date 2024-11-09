@@ -26,7 +26,8 @@ export interface UserDetails {
   password?:string;
   date?:string;
   accessToken?: string;
-  agreed?:boolean
+  agreed?:boolean;
+  pictures?:string;
 }
 
 // Configure GitHub Strategy
@@ -39,6 +40,7 @@ passport.use(new GitHubStrategy(
   },
   async (accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user?: Express.User | false) => void) => {
     try {
+      const pictures = profile.photos?.[0].value;
       // Example logic to find or create a user
       const user = {
         githubId: profile.id,
@@ -46,6 +48,7 @@ passport.use(new GitHubStrategy(
         displayName: profile.displayName || profile.username,
         emails: profile.emails?.[0]?.value,
       };
+      
   
       if(supabase){
         const { data , error } = await supabase
@@ -55,7 +58,7 @@ passport.use(new GitHubStrategy(
        
           if(error) return done(error);
           else if (data.length > 0) {
-              const userWuth: UserDetails = {...data[0], accessToken}
+              const userWuth: UserDetails = {...data[0], accessToken ,pictures}
               return done(null, userWuth);
           }else {
             const newUser: UserDetails = {
@@ -72,7 +75,7 @@ passport.use(new GitHubStrategy(
               if (error) {
                   return done(error);
               }
-              const userWithToken: UserDetails = { ...newUser, accessToken }; // Attach access token to the new user
+              const userWithToken: UserDetails = { ...newUser, accessToken , pictures}; // Attach access token to the new user
               return done(null, userWithToken);
               }     
         }

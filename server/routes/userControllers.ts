@@ -12,6 +12,7 @@ import GoogleRefreshToken from '../auth/googleRefresh';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import GithubVerify from '../auth/githubAccess';
 import jwt from "jsonwebtoken";
+import Picture from '../middleware/Picture';
 
 dotenv.config();
 
@@ -126,12 +127,15 @@ router.get('/auth/google/callback',
       }
       console.log('Email sent successfully:', info.response);
     });
-    const accessToken = (req.user as UserProfile)?.email;
+    const accessToken = (req.user as UserProfile)?.accessToken;
     const picture = (req.user as UserProfile)?.picture;
     switch(accessToken){
       case accessToken:
-        insertToken(accessToken , emailing , picture);
-        res.cookie('google_token', accessToken, cookieOptions);
+        //insertToken(accessToken , emailing , picture);
+        //
+        const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
+        res.cookie('accesstoken', token , cookieOptions);
+        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure:false , sameSite:"strict"})
         return res.redirect("http://localhost:3000/courses");
         
       default:
@@ -202,14 +206,17 @@ router.get('/auth/google/callback',
     });
 
       const accessTokens = (req.user as UserDetails)?.accessToken;
+      const picture = (req.user as UserDetails )?.pictures;
       switch(accessTokens){
         case accessTokens:
-          insertToken(accessTokens , emailings);
-          res.cookie('gittoken', accessTokens, cookieOptions);
-          return res.redirect("http://localhost:3000/courses");
-          
-        default:
-          return res.redirect("http://localhost:3000/user/login");
+          //insertToken(accessTokens , emailings);
+          const token = jwt.sign({access_token: accessTokens } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
+          res.cookie('accesstoken', token , cookieOptions);
+          res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure:false , sameSite:"strict"})
+        return res.redirect("http://localhost:3000/courses");
+        
+      default:
+        return res.redirect("http://localhost:3000/user/login");
       }
       
     }
@@ -225,11 +232,13 @@ router.get('/auth/google/callback',
 
   router.get("/token", RefreshToken);
 
-  router.get("/google/provider", GoogleRefreshToken);
+  router.get("/google/provider", Protect ,GoogleRefreshToken);
 
   router.get("/github/provider", GithubVerify);
 
   router.get("/get/dashboard/details" , dashboard); 
+
+  router.get("/user/pic", Picture)
   
 export default router;
 
