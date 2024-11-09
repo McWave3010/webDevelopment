@@ -78,7 +78,7 @@ router.get('/auth/google/callback',
       const cookieOptions: Cookies = {
         maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
-        secure: isProduction, // set to true during production
+        secure: isProduction ? true :false, // set to true during production
         sameSite: "strict"
     };
 
