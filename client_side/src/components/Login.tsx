@@ -30,11 +30,11 @@ const Login: React.FC = () => {
   }
 
 const handleGoogle:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/api/auth/google";
+  window.location.href = "https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/auth/google";
 }
 
 const handleGithub:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/api/auth/github";
+  window.location.href = "https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/auth/github";
 }
 
 
