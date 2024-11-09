@@ -67,7 +67,7 @@ const Header = () => {
             </svg>
           </a>
         </div>
-       <div className='w-[30%] h-[80%] justify-center items-center'>
+       <div className='w-[30%] h-[80%] 2xl:flex xl:flex lg:flex md:flex sm:hidden xs:hidden justify-center items-center'>
            <img src={pic} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover'/>
         </div>
     </section>
