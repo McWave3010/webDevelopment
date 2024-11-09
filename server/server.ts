@@ -19,7 +19,7 @@ dotenv.config();
 app.use(express.static(path.join(__dirname,"/build")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: "https://web-development-flame.vercel.app/", credentials: true , methods:'POST , GET , PUT , DELETE' , optionsSuccessStatus: 200}))
+app.use(cors({ origin: "https://web-development-flame.vercel.app", credentials: true , methods:'POST , GET , PUT , DELETE' , optionsSuccessStatus: 200}))
 app.use(session({
     secret: `${process.env.SECRET_SESSION}`,
     resave: false,

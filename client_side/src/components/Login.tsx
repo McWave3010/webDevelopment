@@ -42,7 +42,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
   try {
     e.preventDefault();
     setSubmiting(true);
-    const response = await axios.post("https://web-development-7mkx.vercel.app/api/login/user", formData, { withCredentials: true })
+    const response = await axios.post("https://web-development-7mkx.vercel.app/login/user", formData, { withCredentials: true })
     navigate(response.data.redirectURI);
   }catch (error: any){
     if (error.response) {
