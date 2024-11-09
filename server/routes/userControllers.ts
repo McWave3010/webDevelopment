@@ -79,7 +79,7 @@ router.get('/auth/google/callback',
         maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
         secure: true, // set to true during production
-        sameSite: "strict"
+        sameSite: "none"
     };
 
     const transporter: nodemailer.Transporter< SMTPTransport.SentMessageInfo , SMTPTransport.Options> = nodemailer.createTransport({
@@ -135,7 +135,7 @@ router.get('/auth/google/callback',
         //
         const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
         res.cookie('accesstoken', token , cookieOptions);
-        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"strict"})
+        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"none"})
         return res.redirect("https://web-development-flame.vercel.app/courses");
         
       default:
@@ -155,7 +155,7 @@ router.get('/auth/google/callback',
         maxAge: 1000 * 60 * 60 * 24, 
         httpOnly: true, 
         secure: true, // set to true during production
-        sameSite: "strict"
+        sameSite: "none"
     };
 
     
@@ -212,7 +212,7 @@ router.get('/auth/google/callback',
           //insertToken(accessTokens , emailings);
           const token = jwt.sign({access_token: accessTokens} , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
           res.cookie('accesstoken', token , cookieOptions);
-          res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"strict"})
+          res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"none"})
           return res.redirect("https://web-development-flame.vercel.app/courses");
         
       default:
