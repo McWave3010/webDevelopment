@@ -73,7 +73,7 @@ router.get('/auth/google',
 
 
 router.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: 'http://localhost:3000/user/login' }),
+    passport.authenticate('google', { failureRedirect: 'https://web-development-flame.vercel.app/user/login' }),
     (req: Request, res: Response) => {
       const cookieOptions: Cookies = {
         maxAge: 100 * 60 * 60 * 24 , 
@@ -136,10 +136,10 @@ router.get('/auth/google/callback',
         const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
         res.cookie('accesstoken', token , cookieOptions);
         res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"strict"})
-        return res.redirect("http://localhost:3000/courses");
+        return res.redirect("https://web-development-flame.vercel.app/courses");
         
       default:
-        return res.redirect("http://localhost:3000/user/login");
+        return res.redirect("https://web-development-flame.vercel.app/user/login");
     }
     }
   );
@@ -148,7 +148,7 @@ router.get('/auth/google/callback',
 
   // GitHub OAuth callback route
   router.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: 'http://localhost:3000/user/login' }),
+    passport.authenticate('github', { failureRedirect: 'https://web-development-flame.vercel.app/user/login' }),
     (req, res) => {
 
       const cookieOptions: Cookies = {
@@ -213,10 +213,10 @@ router.get('/auth/google/callback',
           const token = jwt.sign({access_token: accessTokens } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
           res.cookie('accesstoken', token , cookieOptions);
           res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure:true , sameSite:"strict"})
-        return res.redirect("http://localhost:3000/courses");
+        return res.redirect("https://web-development-flame.vercel.app/courses");
         
       default:
-        return res.redirect("http://localhost:3000/user/login");
+        return res.redirect("https://web-development-flame.vercel.app/user/login");
       }
       
     }
