@@ -16,7 +16,7 @@ const RefreshToken = (req: Request, res: Response)=>{
             return res.sendStatus(403); // Forbidden
         };
         const accessToken = jwt.sign({ username: user.username }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '15m' });
-        res.cookie('accessToken', accessToken, { httpOnly: true, secure: false  , sameSite: 'strict', maxAge: 1000000 }); // Set secure: true in production
+        res.cookie('accessToken', accessToken, { httpOnly: true, secure: true  , sameSite: 'strict', maxAge: 1000000 }); // Set secure: true in production
     });
 }
 
