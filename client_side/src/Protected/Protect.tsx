@@ -27,12 +27,12 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                 } 
                 else{
                     setIsAuthenticated(false);
-                    const responses = await axios.get('http://localhost:8080/google/provider', { withCredentials: true });
+                    const responses = await axios.get('https://web-development-7mkx.vercel.app/google/provider', { withCredentials: true });
                     if (responses.status === 200) {
                         setIsAuthenticated(true);
                     }else{
                         setIsAuthenticated(false);
-                        await axios.get("http://localhost:8080/github/provider" , { withCredentials: true })
+                        await axios.get("https://web-development-7mkx.vercel.app/github/provider" , { withCredentials: true })
                     .then(responsed =>{
                         if (responsed){
                             setIsAuthenticated(true)
