@@ -27,7 +27,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="75%" , src , ti
 
 
   async function fetchProtect (){
-    const response = await axios.get("https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/protected-route", { withCredentials: true});
+    const response = await axios.get("https://web-development-7mkx.vercel.app/protected-route", { withCredentials: true});
     return response.data.redirectURL;
   }
 
