@@ -210,7 +210,7 @@ router.get('/auth/google/callback',
       switch(accessTokens){
         case accessTokens:
           //insertToken(accessTokens , emailings);
-          const token = jwt.sign({access_token: accessTokens } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
+          const token = jwt.sign({access_token: accessTokens} , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
           res.cookie('accesstoken', token , cookieOptions);
           res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"strict"})
         return res.redirect("https://web-development-flame.vercel.app/courses");
