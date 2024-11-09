@@ -26,7 +26,7 @@ app.use(session({
     saveUninitialized: true,
     cookie: { maxAge: 600000 }  // 10 minutes
  }));
-app.use(cookieParser(`${process.env.SECRET_SESSION}`));
+app.use(cookieParser());
 app.use(helmet())
 
 app.use(passport.initialize());
