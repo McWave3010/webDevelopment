@@ -5,7 +5,6 @@ import Login from "./components/Login";
 import Register from './components/Register';
 import Courses from './components/Courses';
 import Header from "./components/Header";
-import Dashboard from "./components/Dashboard";
 import ProtectedRoute from './Protected/Protect';
 import './App.css';
 
@@ -20,7 +19,6 @@ function App()  {
           <Route path='/' element={<Home/>}></Route>
           <Route path='/user/login' element={<Login/>}></Route>
           <Route path='/user/register' element={<Register/>}></Route>
-          <Route path="/dashboard" element={<Dashboard/>}></Route>
           <Route path='/courses' element={
             <ProtectedRoute>
               <Courses src="https://www.youtube.com/embed/kUMe1FH4CHE" title="Learn HTML – Full Tutorial for Beginners (2022)"/>
