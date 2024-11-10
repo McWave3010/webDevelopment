@@ -4,9 +4,9 @@
   "description": "Simple Express application with authentication",
   "main": "server.ts",
   "scripts": {
-    "devStart": "npx nodemon server.ts",
+    "devStart": "npx nodemon index.ts",
     "build": "tsc",
-    "dev": "nodemon server.ts"
+    "dev": "nodemon index.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.20.0",
