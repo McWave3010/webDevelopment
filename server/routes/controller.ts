@@ -134,9 +134,9 @@ export const loggins = async(req: Request , res: Response)=>{
                 if(result){     
                     const token = jwt.sign({id: data[0].id }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '1h' });
                     const refreshToken = jwt.sign({user: data[0].id}, `${process.env.REFRESH_TOKEN!}`, { expiresIn: '1d' });
-                    res.cookie('accesstoken', token, { httpOnly: true , secure: true , maxAge: 100000 , sameSite: "none"}); // set to true during production
-                    res.cookie('refreshtoken', refreshToken, { httpOnly: true , secure: true , maxAge: 1000000 , sameSite: "none"});
-                    res.status(200).json({ redirectURI: "https://web-development-flame.vercel.app/courses" , message: validateEmail });
+                    res.cookie('accesstoken', token, { httpOnly: true , secure: true , maxAge: 100000 , sameSite: "strict"}); // set to true during production
+                    res.cookie('refreshtoken', refreshToken, { httpOnly: true , secure: true , maxAge: 1000000 , sameSite: "strict"});
+                    res.status(200).json({ redirectURI: "/courses" , message: validateEmail });
                 }else{
                     res.status(404).json( {message: "Wrong password"});
                 }

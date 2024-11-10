@@ -62,9 +62,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send("hello world!");
-})
 
 router.post("/register/user", loginPage);
 
@@ -83,7 +80,7 @@ router.get('/auth/google/callback',
         maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
         secure: false, // set to true during production
-        sameSite: "none"
+        sameSite: "strict"
     };
 
     const transporter: nodemailer.Transporter< SMTPTransport.SentMessageInfo , SMTPTransport.Options> = nodemailer.createTransport({
@@ -139,11 +136,11 @@ router.get('/auth/google/callback',
         //
         const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
         res.cookie('accesstoken', token , cookieOptions);
-        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"none"})
+        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: true , sameSite:"strict"})
         return res.redirect("http://localhost:3000/courses");
         
       default:
-        return res.redirect("http:localhost:3000/user/login");
+        return res.redirect("http://localhost:3000/user/login");
     }
     }
   );
@@ -216,7 +213,7 @@ router.get('/auth/google/callback',
           //insertToken(accessTokens , emailings);
           const token = jwt.sign({access_token: accessTokens} , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
           res.cookie('accesstoken', token , cookieOptions);
-          res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: false , sameSite:"none"})
+          res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: false , sameSite:"strict"})
           return res.redirect("http://localhost:3000/courses");
         
       default:
