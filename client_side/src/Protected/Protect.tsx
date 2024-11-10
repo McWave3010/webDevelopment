@@ -16,7 +16,7 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
     useEffect(() => {
         const checkAuth = async ():Promise<void> => {
             try {
-                const url : string= 'https://web-development-7mkx.vercel.app//protected-route';
+                const url : string= 'https://backendservice.vercel.app/protected-route';
                 const response = await fetch(url, {
                     method: 'GET',
                     credentials: 'include', // Send cookies with request
@@ -26,12 +26,12 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
                 } 
                 else{
                     setIsAuthenticated(false);
-                    const responses = await axios.get('https://web-development-7mkx.vercel.app/google/provider', { withCredentials: true });
+                    const responses = await axios.get('https://backendservice.vercel.app/google/provider', { withCredentials: true });
                     if (responses.status === 200) {
                         setIsAuthenticated(true);
                     }else{
                         setIsAuthenticated(false);
-                        await axios.get("https://web-development-7mkx.vercel.app/github/provider" , { withCredentials: true })
+                        await axios.get("https://backendservice.vercel.app/github/provider" , { withCredentials: true })
                     .then(responsed =>{
                         if (responsed){
                             setIsAuthenticated(true)

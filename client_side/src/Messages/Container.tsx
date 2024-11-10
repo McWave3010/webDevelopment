@@ -8,7 +8,7 @@ const [ promises , setPromise ] = useState<any>([])
 
     const fetchData = async()=>{
         try{
-            const response = await axios.get("https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/api/get/comments");
+            const response = await axios.get("https://backendservice.vercel.app/api/get/comments");
             return response.data.data;
         }catch(err:any){
             console.error(err);

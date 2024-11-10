@@ -30,11 +30,11 @@ const Login: React.FC = () => {
   }
 
 const handleGoogle:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "https://web-development-7mkx.vercel.app/auth/google";
+  window.location.href = "https://backendservice.vercel.app/auth/google";
 }
 
 const handleGithub:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "https://web-development-7mkx.vercel.app/auth/github";
+  window.location.href = "https://backendservice.vercel.app/auth/github";
 }
 
 
@@ -42,7 +42,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
   try {
     e.preventDefault();
     setSubmiting(true);
-    const response = await axios.post("https://web-development-7mkx.vercel.app/login/user", formData, { withCredentials: true })
+    const response = await axios.post("https://backendservice.vercel.app/login/user", formData, { withCredentials: true })
     navigate(response.data.redirectURI);
   }catch (error: any){
     if (error.response) {

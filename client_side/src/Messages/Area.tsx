@@ -23,7 +23,7 @@ const Area: React.FC = ()=>{
 
     const handleData = async()=>{
         try{
-            const response: any = await axios.post("https://web-development-7mkx.vercel.app/api/posts/comment",data, { withCredentials: true})
+            const response: any = await axios.post("https://backendservice.vercel.app/api/posts/comment",data, { withCredentials: true})
         if(response.status === 200){
             const result = response.data.mess;
             toast.success(result);

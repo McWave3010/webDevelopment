@@ -27,7 +27,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="75%" , src , ti
 
 
   async function fetchProtect (){
-    const response = await axios.get("https://web-development-7mkx.vercel.app/protected-route", { withCredentials: true});
+    const response = await axios.get("https://backendservice.vercel.app/protected-route", { withCredentials: true});
     return response.data.redirectURL;
   }
 
@@ -60,7 +60,7 @@ found()
 
     const handleData = async(e:any)=>{
         e.preventDefault();
-        const response = await axios.post("https://web-development-7mkx-lv6qw3je7-mcwave3010s-projects.vercel.app/api/openai", formData)
+        const response = await axios.post("https://backendservice.vercel.app/api/openai", formData)
         setDisplay(false);
         setText(response.data.outputting);
     }

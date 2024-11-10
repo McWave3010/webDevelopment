@@ -10,7 +10,7 @@ const Header = () => {
   useEffect(() => {
     const fetchProfilePicture = async () => {
         try {
-            const response = await fetch("https://web-development-7mkx.vercel.app/api/google/provider", {
+            const response = await fetch("https://backendservice.vercel.app/api/google/provider", {
                 credentials: "include", // Include cookies in request
             });
             const data = await response.json();
