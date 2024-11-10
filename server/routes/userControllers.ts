@@ -62,6 +62,10 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.send("hello world!");
+})
+
 router.post("/register/user", loginPage);
 
 router.post("/login/user", loggins);
