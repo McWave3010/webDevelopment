@@ -6,7 +6,8 @@
   "scripts": {
     "devStart": "npx nodemon index.ts",
     "build": "tsc",
-    "dev": "nodemon index.ts"
+    "dev": "nodemon index.ts",
+    "vercel-build": "echo hello"
   },
   "dependencies": {
     "@google/generative-ai": "^0.20.0",
