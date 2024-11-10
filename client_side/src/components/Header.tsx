@@ -5,12 +5,13 @@ import logo from "../assets/images/logo.jpg";
 
 const Header = () => {
   const [ display , setDisplay ] = useState<boolean>(false);
-  const [ pic , setpic ] = useState<string>("pic");
+  const [ pic , setpic ] = useState<string>();
+  const [ loaded , setLoaded ] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/google/provider", {
+            const response = await fetch("http://localhost:8080/user/pic", {
                 credentials: "include", // Include cookies in request
             });
             const data = await response.json();
@@ -21,13 +22,17 @@ const Header = () => {
     };
 
     fetchProfilePicture();
-}, []);
+},[]);
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
  
   const handleState = ()=>{
     setDisplay(!display);
+  }
+
+  const handleError = ()=>{
+    setLoaded(false);
   }
   
     return(
@@ -68,7 +73,12 @@ const Header = () => {
           </a>
         </div>
        <div className='w-[30%] h-[80%] 2xl:flex xl:flex lg:hidden md:hidden sm:hidden xs:hidden justify-center items-center'>
-           <img src={pic} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover'/>
+        {
+          loaded ?
+            <img src={pic} onError={handleError} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover bg-black'/>
+            : <div className='bg-black w-full h-full'></div>
+        }
+           
         </div>
     </section>
 
