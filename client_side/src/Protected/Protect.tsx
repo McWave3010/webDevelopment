@@ -14,10 +14,9 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
     
 //Auth checking process stagge
     useEffect(() => {
-        console.log("Auth system rendered");
         const checkAuth = async ():Promise<void> => {
             try {
-                const url : string= 'http://localhost:8080/protected-route';
+                const url : string= 'https://web-development-7mkx.vercel.app//protected-route';
                 const response = await fetch(url, {
                     method: 'GET',
                     credentials: 'include', // Send cookies with request
