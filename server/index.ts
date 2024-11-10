@@ -9,7 +9,10 @@ import cors from "cors";
 import passport from "./auth/googleAuth";
 import git_passport from "./auth/githubAuth";
 import helmet from "helmet";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import Redis from 'redis';
+import connectRedis from 'connect-redis';
+import { SessionOptions } from "http2";
+
 
 
 const app: Application = express();
@@ -19,7 +22,10 @@ dotenv.config();
 app.use(express.static(path.join(__dirname,"/build")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: "https://web-development-flame.vercel.app/", credentials: true , methods:'POST , GET , PUT , DELETE' , optionsSuccessStatus: 200}))
+app.use(cors({ origin: "https://web-development-flame.vercel.app/", credentials: true , methods:'POST , GET , PUT , DELETE' , optionsSuccessStatus: 200}));
+
+
+
 app.use(session({
     secret: `${process.env.SECRET_SESSION}`,
     resave: false,
