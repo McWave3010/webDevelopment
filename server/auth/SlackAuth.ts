@@ -1,31 +1,56 @@
-import { Strategy as SlackStrategy} from "passport-slack-oauth2";
+import { Request , Response } from "express";
+import axios from 'axios';
 import dotenv from "dotenv";
-import passportter, { Profile } from "passport";
+
+
 
 
 dotenv.config();
+const SlackAuth = async(req: Request , res: Response)=>{
+    const { code } = req.query;
 
+  if (!code) {
+    return res.status(400).send('Error: Missing code');
+  }
 
-passportter.serializeUser((user:any,done)=>{
-    return done(null, user);
-})
+  try {
+    // Exchange the authorization code for an access token
+    const tokenResponse = await axios.post('https://slack.com/api/oauth.v2.access', null, {
+      params: {
+        code,
+        client_id: `${process.env.SLACK_CLIENT_ID}`,
+        client_secret: `${process.env.SLACK_CLIENT_SECRET}`,
+        redirect_uri: `${process.env.SLACK_CALLBACK!}`,
+      },
+    });
 
-passportter.deserializeUser((user:any,done)=>{
-    return done(null,user);
-})
+    // Check if the token exchange was successful
+    if (!tokenResponse.data.ok) {
+      return res.status(400).send('Error: ' + tokenResponse.data.error);
+    }
 
-// setup the strategy using defaults 
-passportter.use(new SlackStrategy({
-    clientID: `${process.env.SLACK_CLIENT_ID}`,
-    clientSecret: `${process.env.SLACK_CLIENT_SECRET}`,
-    callbackURL: `${process.env.SLACK_CALLBACK}`,
- scope: ['identity.basic', 'identity.email', 'identity.avatar'],
-}, (accessToken:string, refreshToken:string, profile: Profile, done:Function) => {
+    const { access_token } = tokenResponse.data;
+    console.log(access_token);
 
-    console.log(accessToken);
-    console.log(profile);
+    // Use the access token to get the user's Slack identity
+    const userResponse = await axios.get('https://slack.com/api/users.identity', {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+
+    if (!userResponse.data.ok) {
+      return res.status(400).send('Error: ' + userResponse.data.error);
+    }
+
+    const { user } = userResponse.data;
+
+    // Successfully authenticated and received user data
+    res.json({ user });
+  } catch (error) {
+    console.error('Error during Slack OAuth flow:', error);
+    res.status(500).send('Internal server error');
+  }
 }
-));
 
-
-export default passportter;
+export default SlackAuth;

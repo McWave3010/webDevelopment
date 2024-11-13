@@ -13,7 +13,9 @@ import GithubVerify from '../auth/githubAccess';
 import jwt from "jsonwebtoken";
 import Picture from '../middleware/Picture';
 import passports, { UserDetail } from "../auth/githubAuth";
-import passportter from "../auth/SlackAuth";
+import SlackAuth from '../auth/SlackAuth';
+
+
 
 dotenv.config();
 
@@ -240,16 +242,17 @@ router.get('/auth/google/callback',
     }
     });
 
+    router.get('/auth/slack', (req, res) => {
+      // Slack OAuth details from your Slack app
+      const SLACK_CLIENT_ID = `${process.env.SLACK_CLIENT_ID}`;
+      const SLACK_CLIENT_SECRET = `${process.env.SLACK_CLIENT_SECRET}`;
+      const SLACK_REDIRECT_URI = `${process.env.SLACK_CALLBACK}`;
+      const authUrl = `https://slack.com/oauth/authorize?client_id=${SLACK_CLIENT_ID}&scope=identity.basic&redirect_uri=${SLACK_REDIRECT_URI}`;
+      res.redirect(authUrl);
+    });
 
-    router.get('/auth/slack', passportter.authenticate('slack' , {scope: ["user:email"]}));
+    router.get("/auth/slack/callback" , SlackAuth);
 
-    // OAuth callback url
-    router.get('/auth/slack/callback', 
-      passportter.authenticate('slack', { failureRedirect: 'http://localhost:3000/user/login' }),
-      (req: Request, res: Response) => res.redirect('http://localhost:3000/courses')
-    );
-    
-  
 export default router;
 
 
