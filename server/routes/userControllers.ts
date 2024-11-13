@@ -12,6 +12,7 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import GithubVerify from '../auth/githubAccess';
 import jwt from "jsonwebtoken";
 import Picture from '../middleware/Picture';
+import passports, { UserDetail } from "../auth/githubAuth";
 
 dotenv.config();
 
@@ -160,7 +161,83 @@ router.get('/auth/google/callback',
 
   router.get("/get/dashboard/details" , dashboard); 
 
-  router.get("/user/pic", Picture)
+  router.get("/user/pic", Picture);
+
+
+  router.get('/auth/github',
+    passports.authenticate('github', { scope: [ 'user:email' ] }));
+  
+  router.get('/auth/github/callback', 
+    passports.authenticate('github', { failureRedirect: 'http://localhost:3000/user/login' }),
+    function(req: Request, res: Response) {
+      // Successful authentication, redirect home.
+      const cookieOptions: Cookies = {
+        maxAge: 100 * 60 * 60 * 24 , 
+        httpOnly: true, 
+        secure: false, // set to true during production
+        sameSite: "strict"
+    };
+
+    const transporter: nodemailer.Transporter< SMTPTransport.SentMessageInfo , SMTPTransport.Options> = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: `${process.env.EMAIL}`,
+        pass: `${process.env.PASSWORD}`, // Use an app password if 2FA is enabled on your Google account
+      },
+    });
+
+    const emailing = (req.user as UserDetail)?.email;
+
+
+    const mailOptions: MailOptions = {
+      from: `${process.env.EMAIL}`,
+      to: `${emailing}`, // Recipient's email
+      subject: 'Web Development Beginner Course',
+      text: 'Hello! Thanks for signing up to Web Dev Beginner Course.',
+      html: `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+            <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
+            <p>Hi <strong>${emailing}</strong>,</p>
+            <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
+            <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
+
+            <p>If you have any questions, feel free to reply to this email. Our support team is always ready to help!</p>
+
+            <p>Once again, welcome to <strong>Web Development Beginner Course</strong>! We look forward to being a part of your journey.</p>
+
+            <p>Cheers,</p>
+            <p><strong>Web Development Beginner Course</strong> Team</p>
+
+            <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
+                <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
+            </div>
+        </div>
+      `  
+     
+    };
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log('Error while sending email:', error);
+      }
+      console.log('Email sent successfully:', info.response);
+    });
+    const accessToken = (req.user as UserDetail)?.accessToken;
+    const picture = (req.user as UserDetail)?.picture;
+    switch(accessToken){
+      case accessToken:
+        //insertToken(accessToken , emailing , picture);
+        //
+        const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
+        res.cookie('accesstoken', token , cookieOptions);
+        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: false , sameSite:"strict"})
+        return res.redirect("http://localhost:3000/courses");
+        
+      default:
+        return res.redirect("http://localhost:3000/user/login");
+    }
+    });
   
 export default router;
 

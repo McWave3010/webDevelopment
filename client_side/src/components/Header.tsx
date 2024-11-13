@@ -42,7 +42,7 @@ const Header = () => {
           <img src={logo} alt='logo' className='2xl:w-[15%] rounded-full h-[85%] xs:w-[30%]'/>
           <span className='text-white opacity-80'>Web Dev</span>
         </div>
-        <div className='w-[100%] h-full border-b-2 border-b-white 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
+        <div className='w-[100%] h-full 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
           <ul className='w-[100%] flex justify-center items-center h-full'>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href='/'>Home</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/courses">Courses</a></li>

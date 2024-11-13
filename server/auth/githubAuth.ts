@@ -1,24 +1,17 @@
-import passport from 'passport';
-import { Profile ,Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import dotenv from 'dotenv';
-import supabase from "../model/supabase";
+import passports, { Profile } from 'passport';
+import dotenv from "dotenv";
+import { Strategy as GitHubStrategy } from 'passport-github2';
+import supabase from '../model/supabase';
 
 
 dotenv.config();
-
-passport.serializeUser((user: any, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((user: any, done) => {
-    done(null, user);
-});
 
 
 type Id = {
     id: string | number;
 }
-export interface UserProfile {
+
+export interface UserDetail {
     id?:Id;
     fullname?:string;
     email?:string;
@@ -31,19 +24,26 @@ export interface UserProfile {
     picture?:string;
 }
 
+passports.serializeUser((user, done) => {
+    done(null, user);
+  });
+  
+  // Deserialize user from the session
+  passports.deserializeUser((user:any, done) => {
+    done(null, user);
+  });
+  
+ passports.use(new GitHubStrategy({
+        clientID: `${process.env.GITHUB_CLIENT_ID}`,
+        clientSecret: `${process.env.GITHUB_CLIENT_SECRET}`,
+        callbackURL: `${process.env.GIT_CALLBACK}`,
+        scope: ["user:email"]
+      },
+      async function(accessToken: string, refreshToken: any, profile: Profile, done: CallableFunction) {
+        const picture = profile.photos?.[0].value;
+        const name = profile.displayName;
+        const email = profile.emails?.[0].value;
 
-passport.use(new GoogleStrategy(
-    {
-        clientID: `${process.env.GOOGLE_CLIENT_ID!}`,
-        clientSecret: `${process.env.GOOGLE_CLIENT_SECRET!}`,
-        callbackURL: `${process.env.CALLBACK_URL!}`,
-        scope: ["profile", "email"],
-          
-    },
-    async (accessToken: string, refreshToken: string | undefined, profile: Profile, done: Function) => {
-        const email:string | undefined = profile.emails?.[0]?.value;
-        const family = profile.displayName;
-        const picture = profile._json?.picture;
         if(supabase){
             //console.log("Database connection established successfully")
             const { data , error } = await supabase
@@ -54,12 +54,12 @@ passport.use(new GoogleStrategy(
                 if(error) return done(error);
     
                 if(data && data.length > 0){
-                    const userWithToken: UserProfile = { ...data[0], accessToken , refreshToken ,picture}; // Include access token
+                    const userWithToken: UserDetail = { ...data[0], accessToken , refreshToken ,picture}; // Include access token
                     return done(null, userWithToken);
                   
                 }else {
-                    const newUser: UserProfile = {
-                        fullname: `${family}`,
+                    const newUser: UserDetail = {
+                        fullname: `${name}`,
                         email: `${email}`,
                         phone: '', 
                         password: '',
@@ -74,14 +74,13 @@ passport.use(new GoogleStrategy(
                     if (error) {
                         return done(error);
                     }
-                    const userWithToken: UserProfile = { ...newUser, accessToken , refreshToken , picture}; // Attach access token to the new user
+                    const userWithToken: UserDetail = { ...newUser, accessToken , refreshToken , picture}; // Attach access token to the new user
                     return done(null, userWithToken);
                     }   
                     }
                 } 
             )
-        )
+ );
 
-        
 
-export default passport;
+export default passports;
