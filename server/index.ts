@@ -8,8 +8,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "./auth/googleAuth";
 import helmet from "helmet";
-import gitpass from "./auth/githubAuth";
-
+import passports from "./auth/githubAuth";
 
 
 
@@ -30,10 +29,8 @@ app.use(session({
  }));
 app.use(cookieParser());
 app.use(helmet())
-
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use("/", routes)
 
 

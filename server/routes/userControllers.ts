@@ -13,6 +13,7 @@ import GithubVerify from '../auth/githubAccess';
 import jwt from "jsonwebtoken";
 import Picture from '../middleware/Picture';
 import passports, { UserDetail } from "../auth/githubAuth";
+import passportter from "../auth/SlackAuth";
 
 dotenv.config();
 
@@ -238,6 +239,16 @@ router.get('/auth/google/callback',
         return res.redirect("http://localhost:3000/user/login");
     }
     });
+
+
+    router.get('/auth/slack', passportter.authenticate('slack' , {scope: ["user:email"]}));
+
+    // OAuth callback url
+    router.get('/auth/slack/callback', 
+      passportter.authenticate('slack', { failureRedirect: 'http://localhost:3000/user/login' }),
+      (req: Request, res: Response) => res.redirect('http://localhost:3000/courses')
+    );
+    
   
 export default router;
 

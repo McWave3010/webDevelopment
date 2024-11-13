@@ -24,12 +24,12 @@ export interface UserDetail {
     picture?:string;
 }
 
-passports.serializeUser((user, done) => {
+passports.serializeUser((user, done: Function):void => {
     done(null, user);
   });
   
   // Deserialize user from the session
-  passports.deserializeUser((user:any, done) => {
+  passports.deserializeUser((user:any, done:Function):void => {
     done(null, user);
   });
   

@@ -134,7 +134,7 @@ export const loggins = async(req: Request , res: Response)=>{
                 if(result){     
                     const token = jwt.sign({id: data[0].id }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '1h' });
                     const refreshToken = jwt.sign({user: data[0].id}, `${process.env.REFRESH_TOKEN!}`, { expiresIn: '1d' });
-                    res.cookie('accesstoken', token, { httpOnly: true , secure: false , maxAge: 100000 , sameSite: "strict"}); // set to true during production
+                    res.cookie('accesstoken', token, { httpOnly: true , secure: false , maxAge: 100 * 60 * 60 * 24 , sameSite: "strict"}); // set to true during production
                     res.cookie('refreshtoken', refreshToken, { httpOnly: true , secure: false , maxAge: 1000000 , sameSite: "strict"});
                     res.status(200).json({ redirectURI: "/courses" , message: validateEmail });
                 }else{
@@ -145,7 +145,7 @@ export const loggins = async(req: Request , res: Response)=>{
             res.status(500).json({ message: "User not found sign up instead" });
         }
 }catch(e: any){
-    console.log(e);
+    return res.status(502).json(e);
 }
 }
 
