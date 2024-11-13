@@ -188,18 +188,18 @@ router.get('/auth/google/callback',
       },
     });
 
-    const emailing = (req.user as UserDetail)?.email;
+    const emailings = (req.user as UserDetail)?.email;
 
 
     const mailOptions: MailOptions = {
       from: `${process.env.EMAIL}`,
-      to: `${emailing}`, // Recipient's email
+      to: `${emailings}`, // Recipient's email
       subject: 'Web Development Beginner Course',
       text: 'Hello! Thanks for signing up to Web Dev Beginner Course.',
       html: `
         <div style="font-family: Arial, sans-serif; color: #333;">
             <h1 style="color: #4CAF50;">🎉 Congratulations!</h1>
-            <p>Hi <strong>${emailing}</strong>,</p>
+            <p>Hi <strong>${emailings}</strong>,</p>
             <p>We are thrilled to welcome you to <strong>Web Development Beginner Course</strong>! 🎉</p>
             <p>Thank you for signing up with us. We're excited to have you on board and can't wait for you to experience all the amazing features we offer.</p>
 
