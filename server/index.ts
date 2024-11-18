@@ -8,13 +8,16 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "./auth/googleAuth";
 import helmet from "helmet";
-import passports from "./auth/githubAuth";
+import  connectSqlite3  from 'connect-sqlite3';
+import redis from "redis";
 
 
 
 const app: Application = express();
 
 dotenv.config();
+
+  
 
 app.use(express.static(path.join(__dirname,"/build")));
 app.use(bodyParser.json());
@@ -25,7 +28,11 @@ app.use(session({
     secret: `${process.env.SECRET_SESSION}`,
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 600000 }  // 10 minutes
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Secure cookie in production
+        httpOnly: true,
+        maxAge: 86400000, // 1 day in ms
+      },  // 10 minutes
  }));
 app.use(cookieParser());
 app.use(helmet())
