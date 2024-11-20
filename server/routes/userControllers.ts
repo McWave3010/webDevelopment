@@ -2,7 +2,7 @@ import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
 import { UserProfile } from '../auth/googleAuth';
 import nodemailer from "nodemailer";
-import { loginPage , loggins , chatgpt , comment, getComments , Protector , dashboard} from "./controller";
+import { loginPage , loggins , chatgpt , comment, getComments , Protector , dashboard , Message} from "./controller";
 import Protect from '../middleware/Protect';
 import RefreshToken from "../auth/RefreshToken";
 import supabase from '../model/supabase';
@@ -252,6 +252,8 @@ router.get('/auth/google/callback',
     });
 
     router.get("/auth/slack/callback" , SlackAuth);
+
+    router.get("/sms", Message)
 
 export default router;
 

@@ -16,31 +16,18 @@ const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } 
     useEffect(() => {
         const checkAuth = async ():Promise<void> => {
             try {
-                const url : string= 'http://localhost:8080/protected-route';
+                const url : string= 'http://localhost:4000/app/protected';
                 const response = await fetch(url, {
                     method: 'GET',
                     credentials: 'include', // Send cookies with request
                 });
-                if (response.ok) {   
-                    setIsAuthenticated(true);
-                } 
-                else{
+                const result = await response.json();
+                if (result) {   
+                    setIsAuthenticated(result.ok);
+                }else{
                     setIsAuthenticated(false);
-                    const responses = await axios.get('http://localhost:8080/google/provider', { withCredentials: true });
-                    if (responses.status === 200) {
-                        setIsAuthenticated(true);
-                    }else{
-                        setIsAuthenticated(false);
-                        await axios.get("http://localhost:8080/github/provider" , { withCredentials: true })
-                    .then(responsed =>{
-                        if (responsed){
-                            setIsAuthenticated(true)
-                        }else{
-                            setIsAuthenticated(false)
-                        }
-                    })
                 }
-            }
+               
         }
             catch (error) {
                 setIsAuthenticated(false);

@@ -30,11 +30,11 @@ const Login: React.FC = () => {
   }
 
 const handleGoogle:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "http://localhost:8080/auth/google";
+  window.location.href = "http://localhost:4000/app/google";
 }
 
 const handleGithub:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "http://localhost:8080/auth/github";
+  window.location.href = "http://localhost:4000/app/github";
 }
 
 
@@ -44,18 +44,19 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
   try {
     e.preventDefault();
     setSubmiting(true);
-    const response = await axios.post("http://localhost:8080/login/user", formData, { withCredentials: true })
-    navigate(response.data.redirectURI);
+    const response = await axios.post("http://localhost:4000/app/signin", formData, { withCredentials: true })
+    if(response){
+      navigate("/courses");
+    }
+    
   }catch (error: any){
     if (error.response) {
       // Server responded with a status outside 2xx
       toast.error(error.response.data.message || "Something went wrong");
-    } else if (error.request) {
-      // Request was made but no response was received
-      toast.error("Check credentials");
-    } else {
+    }else {
       // Something else caused an error
       toast.error("An unknown error occurred");
+      console.log(error)
     }
     setTimeout(()=>{
       setError("")
