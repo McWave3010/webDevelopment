@@ -5,6 +5,7 @@ import person3 from "../assets/images/person3.png";
 import { Fade } from "react-awesome-reveal";
 import axios from "axios";
 import Area from '../Messages/Area';
+import MessageIcon from '../Messages/MessageIcon';
 
 
 
@@ -21,6 +22,8 @@ interface IframeProps {
 const Courses: React.FC<IframeProps> = ({ width="100%" , height="75%" , src , title })=>{
   const [ display, setDisplay ] = useState<boolean>(true);
   const [ text , setText ] = useState<string>("")
+  const [ isAsked , setIsAsk ] = useState<boolean>(false);
+ 
   const [ formData , setformData ] = useState({
     prompt:""
   })
@@ -60,16 +63,21 @@ found()
 
     const handleData = async(e:any)=>{
         e.preventDefault();
-        const response = await axios.post("http://localhost:8080/api/openai", formData)
-        setDisplay(false);
-        setText(response.data.outputting);
+        const response = await axios.post("http://localhost:4000/user/prompt", formData)
+        setIsAsk(true)
+        setTimeout(()=>{
+            setDisplay(false);
+            setIsAsk(false)
+        },300)
+        
+        setText(response.data.output);
     }
 
 
 
     return (
         <section className="w-full h-full bg-black">
-            <section className='w-full h-100vh flex justify-center items-center bg-black'>
+            <section className='w-full h-full flex justify-center items-center bg-black'>
                 <div className='w-full h-full  flex justify-center items-start'>
                     <section className="2xl:w-full 2xl:h-[90%] lg:w-full lg:h-full md:w-full md:h-full sm:w-full sm:h-full xs:w-full xs:h-full flex justify-center items-center 2xl:p-5 lg:p-5 md:p-4 sm:p-3 xs:p-2 bg-center bg-cover bg-no-repeat relative" id='bg-image'>  
                         <div className='absolute bg-gradient-to-r from-black via-stone-500 to-black opacity-60 top-0 w-full h-full'>
@@ -462,7 +470,7 @@ found()
                     {
                         text && 
                         <div className='w-[80%] h-full overflow-scroll'>
-                            <span className='text-sm font-Roboto text-white'>{text}</span>
+                            <span className='text-sm font-Poppins text-white'>{text}</span>
                         </div>
                     }
                 </div>
@@ -473,14 +481,16 @@ found()
                             <span className='text-6xl font-Poppins capitalize text-white'>Ask gemini</span>
                             <form onSubmit={handleData} className='w-full h-full flex justify-center items-center flex-col gap-4'>
                                 <input type="text" className='2xl:w-[60%] xl:w-[60%] lg:w-[70%] md:w-[80%] sm:w-[80%] xs:w-[80%] h-6vh p-4  font-Roboto focus:outline-none rounded-md' name='prompt' value={formData.prompt} onChange={handleChange} placeholder='Ask related questions where...' />
-                                <input type="submit" value="Ask" className='bg-blue-500 p-3 capitalize shadow-xl 2xl:w-[20%] xl:w-[20%] lg:w-[30%] md:w-[40%] sm:w-[50%] xs:w-[50%] rounded-md hover:cursor-pointer' />
+                                <button type="submit" className='bg-blue-500 p-3 capitalize shadow-xl 2xl:w-[20%] xl:w-[20%] lg:w-[30%] md:w-[40%] sm:w-[50%] xs:w-[50%] rounded-md hover:cursor-pointer'>{isAsked ? "Asking" : "Ask"}</button>
                             </form>
                         </div>
                     : null
                     }
                 </div>
-            </section>.
-            <Area/>
+            </section>
+            <MessageIcon/>
+            
+           
         </section>
     )
 }
