@@ -1,6 +1,5 @@
 import React , { useState , useEffect } from 'react';
 import logo from "../assets/images/logo.jpg";
-import axios from 'axios';
 import cookie from "js-cookie";
 
 
