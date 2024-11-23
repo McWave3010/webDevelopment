@@ -7,7 +7,7 @@ import Courses from './components/Courses';
 import Header from "./components/Header";
 import ProtectedRoute from './Protected/Protect';
 import './App.css';
-import Dash from './Dashboard/Dash';
+
 
 
 function App()  {
@@ -26,8 +26,6 @@ function App()  {
               <Courses src="https://www.youtube.com/embed/kUMe1FH4CHE" title="Learn HTML – Full Tutorial for Beginners (2022)"/>
             </ProtectedRoute>
           }>
-            </Route>
-            <Route path="/dashboard" element={<Dash/>}>
             </Route>
         </Routes>
      </Router>

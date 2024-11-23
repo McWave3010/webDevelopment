@@ -4,7 +4,6 @@ import person2 from "../assets/images/person1.png";
 import person3 from "../assets/images/person3.png";
 import { Fade } from "react-awesome-reveal";
 import axios from "axios";
-import Area from '../Messages/Area';
 import MessageIcon from '../Messages/MessageIcon';
 
 
