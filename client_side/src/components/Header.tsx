@@ -5,16 +5,17 @@ import logo from "../assets/images/logo.jpg";
 
 const Header = () => {
   const [ display , setDisplay ] = useState<boolean>(false);
-  const [ pic , setpic ] = useState<string>();
-  const [ loaded , setLoaded ] = useState<boolean>(true);
+  const [ pic , setpic ] = useState<string>('');
+  const [ loaded , setLoaded ] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
         try {
-            const response = await fetch("http://localhost:8080/user/pic", {
+            const response = await fetch("http://localhost:4000/user/pic", {
                 credentials: "include", // Include cookies in request
             });
             const data = await response.json();
+            setLoaded(true);
             setpic(data.picture); // Set picture URL in state
         } catch (error) {
             console.error("Failed to fetch profile picture:", error);
