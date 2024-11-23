@@ -4,24 +4,28 @@ import Spinner from '../Messages/Spinner';
 import axios from 'axios';
 
 type ProtectRouteProps = {
-  children: React.ReactNode;
-};
+        children: any;
+    }
+const ProtectedRoute:React.FunctionComponent<ProtectRouteProps> = ({ children } ) => {
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-const ProtectedRoute: React.FunctionComponent<ProtectRouteProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+    
+//Auth checking process stagge
+    useEffect(() => {
+        const checkAuth = async ():Promise<void> => {
+            try {
+                const url : string= 'http://localhost:4000/app/protected';
+                const response = await fetch(url, {
+                    method: 'GET',
+                    credentials: 'include', // Send cookies with request
+                });
+                const result = await response.json();
+                if (result) {   
+                    setIsAuthenticated(result.ok);
+                }else{
+                    setIsAuthenticated(false);
+                }
 
-  useEffect(() => {
-    const checkAuth = async (): Promise<void> => {
-      try {
-        console.log("Checking main auth endpoint");
-
-        // Check the main auth endpoint first
-        const response = await axios.get('http://localhost:8080/protected-route', { withCredentials: true });
-
-        if (response.status === 200) {
-          console.log("Authenticated with main endpoint");
-          setIsAuthenticated(true);
-          return;
         }
 
         // If main auth fails, check Google provider

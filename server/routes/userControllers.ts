@@ -1,9 +1,8 @@
 import express , { Request , Response}  from 'express';
 import passport from "../auth/googleAuth";
 import { UserProfile } from '../auth/googleAuth';
-import { UserDetails } from '../auth/githubAuth';
 import nodemailer from "nodemailer";
-import { loginPage , loggins , chatgpt , comment, getComments , Protector , dashboard} from "./controller";
+import { loginPage , loggins , chatgpt , comment, getComments , Protector , dashboard , Message} from "./controller";
 import Protect from '../middleware/Protect';
 import RefreshToken from "../auth/RefreshToken";
 import supabase from '../model/supabase';
@@ -12,6 +11,11 @@ import GoogleRefreshToken from '../auth/googleRefresh';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import GithubVerify from '../auth/githubAccess';
 import jwt from "jsonwebtoken";
+import Picture from '../middleware/Picture';
+import passports, { UserDetail } from "../auth/githubAuth";
+import SlackAuth from '../auth/SlackAuth';
+
+
 
 dotenv.config();
 
@@ -61,6 +65,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 const router = express.Router();
 
+
 router.post("/register/user", loginPage);
 
 router.post("/login/user", loggins);
@@ -77,7 +82,7 @@ router.get('/auth/google/callback',
       const cookieOptions: Cookies = {
         maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
-        secure: isProduction, // set to true during production
+        secure: false, // set to true during production
         sameSite: "strict"
     };
 
@@ -126,12 +131,15 @@ router.get('/auth/google/callback',
       }
       console.log('Email sent successfully:', info.response);
     });
-    const accessToken = (req.user as UserProfile)?.email;
+    const accessToken = (req.user as UserProfile)?.accessToken;
     const picture = (req.user as UserProfile)?.picture;
     switch(accessToken){
       case accessToken:
-        insertToken(accessToken , emailing , picture);
-        res.cookie('google_token', accessToken, cookieOptions);
+        //insertToken(accessToken , emailing , picture);
+        //
+        const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
+        res.cookie('accesstoken', token , cookieOptions);
+        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: false , sameSite:"strict"})
         return res.redirect("http://localhost:3000/courses");
         
       default:
@@ -140,21 +148,39 @@ router.get('/auth/google/callback',
     }
   );
 
-  router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+  router.post("/api/openai", chatgpt);
 
-  // GitHub OAuth callback route
-  router.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: 'http://localhost:3000/user/login' }),
-    (req, res) => {
+  router.post("/api/posts/comment", comment);
 
+  router.get("/api/get/comments" , getComments);
+
+  router.get("/protected-route", Protect , Protector);
+
+  router.get("/token", RefreshToken);
+
+  router.get("/google/provider", Protect ,GoogleRefreshToken);
+
+  router.get("/github/provider", GithubVerify);
+
+  router.get("/get/dashboard/details" , dashboard); 
+
+  router.get("/user/pic", Picture);
+
+
+  router.get('/auth/github',
+    passports.authenticate('github', { scope: [ 'user:email' ] }));
+  
+  router.get('/auth/github/callback', 
+    passports.authenticate('github', { failureRedirect: 'http://localhost:3000/user/login' }),
+    function(req: Request, res: Response) {
+      // Successful authentication, redirect home.
       const cookieOptions: Cookies = {
-        maxAge: 1000 * 60 * 60 * 24, 
+        maxAge: 100 * 60 * 60 * 24 , 
         httpOnly: true, 
         secure: false, // set to true during production
         sameSite: "strict"
     };
 
-    
     const transporter: nodemailer.Transporter< SMTPTransport.SentMessageInfo , SMTPTransport.Options> = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -165,7 +191,7 @@ router.get('/auth/google/callback',
       },
     });
 
-    const emailings = (req.user as UserProfile)?.email;
+    const emailings = (req.user as UserDetail)?.email;
 
 
     const mailOptions: MailOptions = {
@@ -190,47 +216,45 @@ router.get('/auth/google/callback',
             <div style="margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px;">
                 <p style="font-size: 12px; color: #777;">If you didn't sign up for this account, please ignore this email.</p>
             </div>
-          </div>
-      ` 
+        </div>
+      `  
      
     };
-    transporter.sendMail(mailOptions, (error:Error | null, info:SMTPTransport.SentMessageInfo) => {
+    transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         return console.log('Error while sending email:', error);
       }
       console.log('Email sent successfully:', info.response);
     });
-
-      const accessTokens = (req.user as UserDetails)?.accessToken;
-      switch(accessTokens){
-        case accessTokens:
-          insertToken(accessTokens , emailings);
-          res.cookie('gittoken', accessTokens, cookieOptions);
-          return res.redirect("http://localhost:3000/courses");
-          
-        default:
-          return res.redirect("http://localhost:3000/user/login");
-      }
-      
+    const accessToken = (req.user as UserDetail)?.accessToken;
+    const picture = (req.user as UserDetail)?.picture;
+    switch(accessToken){
+      case accessToken:
+        //insertToken(accessToken , emailing , picture);
+        //
+        const token = jwt.sign({access_token: accessToken } , `${process.env.ACCESS_TOKEN}` , {expiresIn: "1h"});
+        res.cookie('accesstoken', token , cookieOptions);
+        res.cookie("pic", picture, { maxAge: 100 * 60 * 60 * 24 , secure: false , sameSite:"strict"})
+        return res.redirect("http://localhost:3000/courses");
+        
+      default:
+        return res.redirect("http://localhost:3000/user/login");
     }
-  );
+    });
 
-  router.post("/api/openai", chatgpt);
+    router.get('/auth/slack', (req, res) => {
+      // Slack OAuth details from your Slack app
+      const SLACK_CLIENT_ID = `${process.env.SLACK_CLIENT_ID}`;
+      const SLACK_CLIENT_SECRET = `${process.env.SLACK_CLIENT_SECRET}`;
+      const SLACK_REDIRECT_URI = `${process.env.SLACK_CALLBACK}`;
+      const authUrl = `https://slack.com/oauth/authorize?client_id=${SLACK_CLIENT_ID}&scope=identity.basic&redirect_uri=${SLACK_REDIRECT_URI}`;
+      res.redirect(authUrl);
+    });
 
-  router.post("/api/posts/comment", comment);
+    router.get("/auth/slack/callback" , SlackAuth);
 
-  router.get("/api/get/comments" , getComments);
+    router.get("/sms", Message)
 
-  router.get("/protected-route", Protect , Protector);
-
-  router.get("/token", RefreshToken);
-
-  router.get("/google/provider", GoogleRefreshToken);
-
-  router.get("/github/provider", GithubVerify);
-
-  router.get("/get/dashboard/details" , dashboard); 
-  
 export default router;
 
 

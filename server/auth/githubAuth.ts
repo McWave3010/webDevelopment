@@ -1,86 +1,86 @@
-import passport from 'passport';
-import { Strategy as GitHubStrategy , Profile } from 'passport-github2';
-import dotenv from 'dotenv';
-import supabase from "../model/supabase";
+import passports, { Profile } from 'passport';
+import dotenv from "dotenv";
+import { Strategy as GitHubStrategy } from 'passport-github2';
+import supabase from '../model/supabase';
+
 
 dotenv.config();
 
-// Serialize and deserialize user
-passport.serializeUser((user: Express.User, done: (err: any, id?: any) => void) => {
-  done(null, user);
-});
-
-passport.deserializeUser((user: Express.User, done: (err: any, user?: Express.User | false | null) => void) => {
-  done(null, user);
-});
 
 type Id = {
-  id?: string | number;
+    id: string | number;
 }
 
-export interface UserDetails {
-  id?: Id;
-  fullname?: string;
-  email?:string;
-  phone?:string
-  password?:string;
-  date?:string;
-  accessToken?: string;
-  agreed?:boolean
+export interface UserDetail {
+    id?:Id;
+    fullname?:string;
+    email?:string;
+    phone?:string
+    password?:string;
+    date?:string;
+    accessToken?: string;
+    agreed?: boolean;
+    refreshToken?: string;
+    picture?:string;
 }
 
-// Configure GitHub Strategy
-passport.use(new GitHubStrategy(
-  {
-    clientID: `${process.env.GITHUB_CLIENT_ID!}`,
-    clientSecret: `${process.env.GITHUB_CLIENT_SECRET!}`,
-    callbackURL: `${process.env.GIT_CALLBACK!}`,
-    scope:["user:email"]
-  },
-  async (accessToken: string, refreshToken: string, profile: Profile, done: (err: any, user?: Express.User | false) => void) => {
-    try {
-      // Example logic to find or create a user
-      const user = {
-        githubId: profile.id,
-        username: profile.username,
-        displayName: profile.displayName || profile.username,
-        emails: profile.emails?.[0]?.value,
-      };
+passports.serializeUser((user, done: Function):void => {
+    done(null, user);
+  });
   
-      if(supabase){
-        const { data , error } = await supabase
-        .from("register")
-        .select("*")
-        .eq("email" , user.emails)
-       
-          if(error) return done(error);
-          else if (data.length > 0) {
-              const userWuth: UserDetails = {...data[0], accessToken}
-              return done(null, userWuth);
-          }else {
-            const newUser: UserDetails = {
-              fullname: `${user.displayName}`,
-              email: `${user.emails}`,
-              phone: '', 
-              password: '',
-              agreed:true, 
-          };
-          const { data , error } = await supabase
-          .from("register")
-          .insert([newUser])
-          
-              if (error) {
-                  return done(error);
-              }
-              const userWithToken: UserDetails = { ...newUser, accessToken }; // Attach access token to the new user
-              return done(null, userWithToken);
-              }     
-        }
-    } catch (error) {
-      done(error);
-    }
-  }
-)
-);
+  // Deserialize user from the session
+  passports.deserializeUser((user:any, done:Function):void => {
+    done(null, user);
+  });
+  
+ passports.use(new GitHubStrategy({
+        clientID: `${process.env.GITHUB_CLIENT_ID}`,
+        clientSecret: `${process.env.GITHUB_CLIENT_SECRET}`,
+        callbackURL: `${process.env.GIT_CALLBACK}`,
+        scope: ["user:email"]
+      },
+      async function(accessToken: string, refreshToken: any, profile: Profile, done: CallableFunction) {
+        const picture = profile.photos?.[0].value;
+        const name = profile.displayName;
+        const email = profile.emails?.[0].value;
 
-export default passport;
+        if(supabase){
+            //console.log("Database connection established successfully")
+            const { data , error } = await supabase
+            .from("register")
+            .select("*")
+            .eq("email", email)
+           
+                if(error) return done(error);
+    
+                if(data && data.length > 0){
+                    const userWithToken: UserDetail = { ...data[0], accessToken , refreshToken ,picture}; // Include access token
+                    return done(null, userWithToken);
+                  
+                }else {
+                    const newUser: UserDetail = {
+                        fullname: `${name}`,
+                        email: `${email}`,
+                        phone: '', 
+                        password: '',
+                        agreed: true,
+                        picture:picture
+                    };
+                    const { data , error: PostgrestError } = await supabase
+                    .from("register")
+                    .insert(
+                        [newUser]
+                    )
+                    if (error) {
+                        return done(error);
+                    }
+                    const userWithToken: UserDetail = { ...newUser, accessToken , refreshToken , picture}; // Attach access token to the new user
+                    return done(null, userWithToken);
+                    }   
+                    }
+                } 
+            )
+ );
+
+
+export default passports;

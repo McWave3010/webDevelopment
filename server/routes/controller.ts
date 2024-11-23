@@ -7,6 +7,7 @@ import sanitize from "sanitize-html";
 import validator from "validator";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import supabase from "../model/supabase";
+import axios from "axios";
 
 
 dotenv.config();
@@ -132,9 +133,9 @@ export const loggins = async(req: Request , res: Response)=>{
             const valid = await bcrypt.compare(password, extracted, (err, result) =>{
                 if(err) throw err;
                 if(result){     
-                    const token = jwt.sign({id: data[0].id }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '15min' });
+                    const token = jwt.sign({id: data[0].id }, `${process.env.ACCESS_TOKEN}`, { expiresIn: '1h' });
                     const refreshToken = jwt.sign({user: data[0].id}, `${process.env.REFRESH_TOKEN!}`, { expiresIn: '1d' });
-                    res.cookie('accesstoken', token, { httpOnly: true , secure: false , maxAge: 100000 , sameSite: "strict"}); // set to true during production
+                    res.cookie('accesstoken', token, { httpOnly: true , secure: false , maxAge: 100 * 60 * 60 * 24 , sameSite: "strict"}); // set to true during production
                     res.cookie('refreshtoken', refreshToken, { httpOnly: true , secure: false , maxAge: 1000000 , sameSite: "strict"});
                     res.status(200).json({ redirectURI: "/courses" , message: validateEmail });
                 }else{
@@ -145,7 +146,7 @@ export const loggins = async(req: Request , res: Response)=>{
             res.status(500).json({ message: "User not found sign up instead" });
         }
 }catch(e: any){
-    console.log(e);
+    return res.status(502).json(e);
 }
 }
 
@@ -218,4 +219,14 @@ export const dashboard = async(req: Request , res: Response)=>{
     }catch(error:any){
         res.status(404).json({ error: error });
     }
+}
+
+export const Message  = (req:Request , res:Response)=>{
+    // SEND SMS
+
+axios.get('https://sms.arkesel.com/sms/api?action=send-sms&api_key=cE9QRUkdjsjdfjkdsj9kdiieieififiw=&to=233509560835&from=Arkesel&sms=Hello world. Spreading peace and joy only. Remeber to put on your face mask. Stay safe!')
+/* When terminating sms traffic to Nigerian contacts, you are required to specify the use_case to the fields submitted */
+/* axios.get('https://sms.arkesel.com/sms/api?action=send-sms&api_key=cE9QRUkdjsjdfjkdsj9kdiieieififiw=&to=2349541111111&use_case=promotional&from=Arkesel&sms=Hello world. Spreading peace and joy only. Remeber to put on your face mask. Stay safe!') */
+.then(response => console.log(response))
+.catch(error => console.log(error));
 }

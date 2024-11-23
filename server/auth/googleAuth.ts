@@ -40,7 +40,7 @@ passport.use(new GoogleStrategy(
         scope: ["profile", "email"],
           
     },
-    async(accessToken: string, refreshToken: string | undefined, profile: Profile, done: Function) => {
+    async (accessToken: string, refreshToken: string | undefined, profile: Profile, done: Function) => {
         const email:string | undefined = profile.emails?.[0]?.value;
         const family = profile.displayName;
         const picture = profile._json?.picture;
@@ -64,7 +64,7 @@ passport.use(new GoogleStrategy(
                         phone: '', 
                         password: '',
                         agreed: true,
-                        
+                        picture:picture
                     };
                     const { data , error: PostgrestError } = await supabase
                     .from("register")

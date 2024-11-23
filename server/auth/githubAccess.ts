@@ -28,13 +28,13 @@ const GithubVerify = async(req: Request , res: Response)=>{
             
         default:
             const response = await verifyGithubToken(email);
+            console.log(response)
             if(!response){
                 return res.status(403).json({ authenticated : false});
             }else{
                 res.status(200).json({ authenticated: true });
-            }
+        }
     }
-
 }
 
 export default GithubVerify;

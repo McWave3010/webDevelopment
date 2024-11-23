@@ -7,32 +7,36 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import passport from "./auth/googleAuth";
-import git_passport from "./auth/githubAuth";
 import helmet from "helmet";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import  connectSqlite3  from 'connect-sqlite3';
+import redis from "redis";
+
 
 
 const app: Application = express();
 
 dotenv.config();
 
+  
+
 app.use(express.static(path.join(__dirname,"/build")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: "http://localhost:3000 ", credentials: true , methods:'POST , GET , PUT , DELETE' , optionsSuccessStatus: 200}))
+app.use(cors({ origin: "http://localhost:3000", credentials: true , methods:'POST , GET , PUT , DELETE' , optionsSuccessStatus: 200}));
+
 app.use(session({
     secret: `${process.env.SECRET_SESSION}`,
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 600000 }  // 10 minutes
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Secure cookie in production
+        httpOnly: true,
+        maxAge: 86400000, // 1 day in ms
+      },  // 10 minutes
  }));
-app.use(cookieParser(`${process.env.SECRET_SESSION}`));
+app.use(cookieParser());
 app.use(helmet())
-
 app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(git_passport.initialize());
 app.use(passport.session());
 app.use("/", routes)
 

@@ -6,18 +6,36 @@ import cookie from "js-cookie";
 
 const Header = () => {
   const [ display , setDisplay ] = useState<boolean>(false);
-  const [ pic , setpic ] = useState<any>(null);
+  const [ pic , setpic ] = useState<string>('');
+  const [ loaded , setLoaded ] = useState<boolean>(false);
 
   useEffect(() => {
-   const value = cookie.get("pic")
-   setpic(value);
-}, [pic]);
+    const fetchProfilePicture = async () => {
+        try {
+            const response = await fetch("http://localhost:4000/user/pic", {
+                credentials: "include", // Include cookies in request
+            });
+            const data = await response.json();
+            setLoaded(true);
+            setpic(data.picture); // Set picture URL in state
+        } catch (error) {
+            console.error("Failed to fetch profile picture:", error);
+        }
+    };
+
+    fetchProfilePicture();
+},[]);
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
  
   const handleState = ()=>{
     setDisplay(!display);
+  }
+
+  const handleError = ()=>{
+    setLoaded(false);
   }
   
     return(
@@ -27,7 +45,7 @@ const Header = () => {
           <img src={logo} alt='logo' className='2xl:w-[15%] rounded-full h-[85%] xs:w-[30%]'/>
           <span className='text-white opacity-80'>Web Dev</span>
         </div>
-        <div className='w-[100%] h-full border-b-2 border-b-white 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
+        <div className='w-[100%] h-full 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
           <ul className='w-[100%] flex justify-center items-center h-full'>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href='/'>Home</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/courses">Courses</a></li>
@@ -57,8 +75,13 @@ const Header = () => {
             </svg>
           </a>
         </div>
-       <div className='w-[30%] h-[80%] justify-center items-center'>
-           <img src={pic} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover'/>
+       <div className='w-[30%] h-[80%] 2xl:flex xl:flex lg:hidden md:hidden sm:hidden xs:hidden justify-center items-center'>
+        {
+          loaded ?
+            <img src={pic} onError={handleError} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover bg-black'/>
+            : <div className='bg-black w-full h-full'></div>
+        }
+           
         </div>
     </section>
 
