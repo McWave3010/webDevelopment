@@ -13,9 +13,10 @@ const Register: React.FC = () => {
     email: string;
     phoneNumber: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
     date: string;
     agreed: boolean;
+    picture: string;
   }
 
 
@@ -29,6 +30,7 @@ const [formData, setFormData] = useState<User>({
   confirmPassword: '',
   date: '',
   agreed: false,
+  picture:""
 });
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,19 +59,20 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   }
   setError('');
   
-  const response = await axios.post("http://localhost:8080/register/user", formData, { withCredentials: true})
+  const response = await axios.post("http://localhost:4000/app/signup", formData, { withCredentials: true})
   
   if(response.data){
     toast.success("Registration successfull")
     setTimeout(()=>{
-      navigate(response.data.redirectURL);
-    },1000);
+      navigate()},
+    1000);
     
   }
+
 }catch(err: any){
   //console.error(err);
   if(err){
-    if (err.response && err.response.data && err.response.data.message) {
+    if (err.response && err.response.data) {
       toast.error(err.response.data.message);  // Show server error message
     } else {
       toast.error("Registration failed. Please try again later.");

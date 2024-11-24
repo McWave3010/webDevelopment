@@ -7,6 +7,8 @@ type ProtectRouteProps = {
   children: React.ReactNode;
 };
 
+    
+
 const ProtectedRoute: React.FunctionComponent<ProtectRouteProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
@@ -16,32 +18,13 @@ const ProtectedRoute: React.FunctionComponent<ProtectRouteProps> = ({ children }
         console.log("Checking main auth endpoint");
 
         // Check the main auth endpoint first
-        const response = await axios.get('http://localhost:8080/protected-route', { withCredentials: true });
+        const response = await axios.get('http://localhost:4000/auth/protected', { withCredentials: true });
 
-        if (response.status === 200) {
+        if (response) {
           console.log("Authenticated with main endpoint");
-          setIsAuthenticated(true);
+          setIsAuthenticated(response.data.ok);
           return;
-        }
-
-        // If main auth fails, check Google provider
-        console.log("Main auth failed, trying Google provider");
-        const googleResponse = await axios.get('http://localhost:8080/google/provider', { withCredentials: true });
-        if (googleResponse.status === 200) {
-          console.log("Authenticated with Google provider");
-          setIsAuthenticated(true);
-          return;
-        }
-
-        // If Google auth fails, check GitHub provider
-        console.log("Google auth failed, trying GitHub provider");
-        const githubResponse = await axios.get('http://localhost:8080/github/provider', { withCredentials: true });
-        if (githubResponse.status === 200) {
-          console.log("Authenticated with GitHub provider");
-          setIsAuthenticated(true);
-          return;
-        }
-
+        };
         // If all checks fail, set to not authenticated
         setIsAuthenticated(false);
       } catch (error) {
