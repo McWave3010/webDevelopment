@@ -23,11 +23,13 @@ export const theme = {
       '48vh':'48vh',
       '70vh':'70vh',
       '100vh':'100vh',
+      '60vh':'60vh'
     },
     fontFamily: {
       Poppins: ['Poppins','sans-serif'],
       Quicksand:["Quicksand", 'sans-serif'],
       Roboto:["Roboto", 'sans-serif'],
+      Lexend:["Lexend", 'sans-serif']
     },
     screens: {
       'xs': "350px",
