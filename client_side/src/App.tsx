@@ -8,8 +8,6 @@ import Header from "./components/Header";
 import ProtectedRoute from './Protected/Protect';
 import './App.css';
 
-
-
 function App()  {
 
 

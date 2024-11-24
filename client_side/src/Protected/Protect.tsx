@@ -24,8 +24,7 @@ const ProtectedRoute: React.FunctionComponent<ProtectRouteProps> = ({ children }
           console.log("Authenticated with main endpoint");
           setIsAuthenticated(response.data.ok);
           return;
-
-        }
+        };
         // If all checks fail, set to not authenticated
         setIsAuthenticated(false);
       } catch (error) {
