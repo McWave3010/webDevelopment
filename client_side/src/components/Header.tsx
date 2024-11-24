@@ -44,6 +44,7 @@ const Header = () => {
         <div className='w-[100%] h-full 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
           <ul className='w-[100%] flex justify-center items-center h-full'>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href='/'>Home</a></li>
+            <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/about">About</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/courses">Courses</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/user/login">Log in</a></li>
             <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/user/register">Register</a></li>
@@ -87,6 +88,7 @@ const Header = () => {
           <div className='w-[100%] h-90vh bg-black 2xl:hidden xl:hidden lg:hidden md:flex sm:flex xs:flex z-40'>
           <ul className='w-full flex justify-center items-end h-full flex-col p-6 gap-4'>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href='/'>Home</a></li>
+            <li><a className='p-4 text-white opacity-80 active:text-orange-400 hover:opacity-100' href="/about">About</a></li>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/courses">Courses</a></li>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/user/login">Log in</a></li>
             <li><a className='p-6 text-white opacity-80 active:text-orange-400' href="/user/register">Register</a></li>
