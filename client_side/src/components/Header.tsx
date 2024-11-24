@@ -1,5 +1,6 @@
 import React , { useState , useEffect } from 'react';
 import logo from "../assets/images/logo.jpg";
+import cookie from "js-cookie";
 
 
 
@@ -24,6 +25,7 @@ const Header = () => {
 
     fetchProfilePicture();
 },[]);
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
 

@@ -7,8 +7,6 @@ import Courses from './components/Courses';
 import Header from "./components/Header";
 import ProtectedRoute from './Protected/Protect';
 import './App.css';
-import Dash from './Dashboard/Dash';
-
 
 function App()  {
 
@@ -16,7 +14,7 @@ function App()  {
   return (
     <> 
      <Router>
-      <Header/>
+      <ConditionalHeader/>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/user/login' element={<Login/>}></Route>
