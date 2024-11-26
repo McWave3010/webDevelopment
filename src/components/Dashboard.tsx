@@ -167,7 +167,7 @@ const Dashboard = ()=>{
                     </Fade>
                   </div>
                         </div>  
-                        <div className='w-[40%] h-[80%] bg-navys p-2 rounded-md flex justify-center items-end flex-col'>
+                        <div className='w-[40%] h-[80%] p-2 rounded-md flex justify-center items-end flex-col'>
                             <div className="w-[28%] p-4 rounded-md bg-blue-800 flex justify-center items-end float-right">
                                 <span className="font-Poppins">{dater}</span>
                             </div>
@@ -180,7 +180,7 @@ const Dashboard = ()=>{
                 <div className='w-[40%] h-full p-4 gap-4 flex justify-center items-center flex-col'>
                     <span className='text-center font-Lexend text-3xl text-white'>Communities🧐</span>
                     <span className="text-slate-500 font-Poppins text-center">Join these communities to enhance your web development skills</span>
-                    <div className='w-full h-full bg-voilet-500 gap-4'>
+                    <div className='w-full h-full  gap-4'>
                         {
                         data.map((item: any)=>{
                             return <Communities key={item.id} name={item.name} link={item.link} description={item.description}/>
