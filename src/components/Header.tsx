@@ -1,45 +1,23 @@
-import React , { useState , useEffect } from 'react';
-import logo from "../assets/images/logo.jpg";
+import React , { useState } from 'react';
+import logo from "../assets/images/logo.png";
 
 
 
 const Header = () => {
   const [ display , setDisplay ] = useState<boolean>(false);
-  const [ pic , setpic ] = useState<string>('');
-  const [ loaded , setLoaded ] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchProfilePicture = async () => {
-        try {
-            const response = await fetch("http://localhost:4000/user/pic", {
-                credentials: "include", // Include cookies in request
-            });
-            const data = await response.json();
-            setLoaded(true);
-            setpic(data.picture); // Set picture URL in state
-        } catch (error) {
-            console.error("Failed to fetch profile picture:", error);
-        }
-    };
-
-    fetchProfilePicture();
-},[]);
 
  
   const handleState = ()=>{
     setDisplay(!display);
   }
 
-  const handleError = ()=>{
-    setLoaded(false);
-  }
-  
     return(
       <section className='w-full 2xl:h-8vh lx:h-8vh lg:h-8vh md:h-10vh sm:h-8vh xs:h-8vh flex justify-start items-center flex-col bg-black'>
       <section className='w-[100%] h-8vh flex 2xl:justify-evenly xl:justify-evenly lg:justify-evenly md:justify-between sm:justify-between xs:justify-between items-center gap-3 bg-black'>
         <div className='w-[100%] h-full flex justify-center items-center gap-2'>
-          <img src={logo} alt='logo' className='2xl:w-[15%] rounded-full h-[85%] xs:w-[30%]'/>
-          <span className='text-white opacity-80'>Web Dev</span>
+          <img src={logo} alt='logo' className='2xl:w-[10%] rounded-full h-[85%] xs:w-[30%]'/>
+          
         </div>
         <div className='w-[100%] h-full 2xl:flex xl:flex lg:flex md:hidden sm:hidden xs:hidden'>
           <ul className='w-[100%] flex justify-center items-center h-full'>
@@ -71,14 +49,6 @@ const Header = () => {
               <path fill="currentColor" fillRule="evenodd" d="M15 3.25a.75.75 0 0 0-.75-.75H1.75a.75.75 0 0 0 0 1.5h12.5a.75.75 0 0 0 .75-.75M15 8a.75.75 0 0 0-.75-.75h-8.5a.75.75 0 0 0 0 1.5h8.5A.75.75 0 0 0 15 8m-.75 4a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1 0-1.5z" clipRule="evenodd" />
             </svg>
           </a>
-        </div>
-       <div className='w-[30%] h-[80%] 2xl:flex xl:flex lg:hidden md:hidden sm:hidden xs:hidden justify-center items-center'>
-        {
-          loaded ?
-            <img src={pic} onError={handleError} alt="" className='w-full rounded-full h-[85%] xs:w-[30%] object-cover bg-black'/>
-            : <div className='bg-black w-full h-full'></div>
-        }
-           
         </div>
     </section>
 

@@ -1,5 +1,5 @@
 import React , { MouseEventHandler, useState } from 'react';
-import logo from "../assets/images/logo.jpg";
+import logo from "../assets/images/logo.png";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { NavigateFunction, useNavigate } from "react-router-dom";
@@ -90,7 +90,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
                   )}
                   <form className='w-full h-[90%] flex justify-flex-start items-center flex-col gap-4' onSubmit={handleSubmit}>
                       <div className='2xl:w-[70%] lg:w-[90%] md:w-[100%] sm:w-[100%] xs:w-full'>
-                        <input type='email' placeholder='Email' name='email' value={formData.email} required onChange={handleChange} className='w-full p-4 rounded-md text-sm bg-black  text-white focus:outline-none focus:border-none ' />
+                        <input type='email' placeholder='Email' name='email' value={formData.email} required onChange={handleChange} className='w-full p-4 rounded-md text-sm bg-black  text-white focus:outline-none focus:border-none invalid:outline-red-500' />
                       </div>
                       <div className='2xl:w-[70%] lg:w-[90%] md:w-[100%] sm:w-[100%] xs:w-full'>
                         <input type='password' placeholder='Password' name='password' value={formData.password} required onChange={handleChange} className='w-full p-4 rounded-md text-sm bg-black text-white focus:outline-none focus:border-none' />

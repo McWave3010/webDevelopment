@@ -23,7 +23,10 @@ export const theme = {
       '48vh':'48vh',
       '70vh':'70vh',
       '100vh':'100vh',
-      '60vh':'60vh'
+      '60vh':'60vh',
+      '90vh':'90vh',
+      '80vh':'80vh',
+      '87vh':'87vh'
     },
     fontFamily: {
       Poppins: ['Poppins','sans-serif'],
