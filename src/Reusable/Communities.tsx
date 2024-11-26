@@ -3,16 +3,17 @@ import Logo from "../assets/images/community.png"
 
 interface Props {
     id?:any;
-    name:any;
-    link:any;
+    name:string;
+    link:string;
+    description?: string;
 }
 
-const Communities:React.FunctionComponent<Props> = ({id , name , link })=>{
+const Communities:React.FunctionComponent<Props> = ({id , name , link , description })=>{
 
 
     const handleNavigation = ()=>{
-        console.log(id);
         window.location.href = link;
+    
 
     }
     return(
@@ -22,6 +23,7 @@ const Communities:React.FunctionComponent<Props> = ({id , name , link })=>{
             </div>
             <div className='w-full flex justify-center items-start  h-full flex-col'>
                 <span className="font-Poppins text-white group-hover:text-black">{name}</span>
+                <span className="font-Poppins text-slate-500 text-xs group-hover:text-black">{description}</span>
             </div>
         </div>
     )

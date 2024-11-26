@@ -1,6 +1,6 @@
 import React  from 'react';
 import Home from "./components/Home";
-import { BrowserRouter as Router , Route , Routes } from 'react-router-dom';
+import { BrowserRouter as Router , Route , Routes , useLocation} from 'react-router-dom';
 import Login from "./components/Login";
 import Register from './components/Register';
 import Courses from './components/Courses';
@@ -13,10 +13,21 @@ import './App.css';
 function App()  {
 
 
+  function HeaderWrapper() {
+    const location = useLocation();
+  
+    // Do not show Header on the /dashboard route
+    if (location.pathname === "/dashboard") {
+      return null;
+    }
+  
+    return <Header />;
+  }
+
   return (
     <> 
      <Router>
-      <Header/>
+      <HeaderWrapper/>
         <Routes>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/user/login' element={<Login/>}></Route>

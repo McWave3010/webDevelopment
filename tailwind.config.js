@@ -6,6 +6,10 @@ export const content = [
 ];
 export const theme = {
   extend: {
+    colors: {
+      customColor: "#1d1f34",
+      navys:'#252a40'
+    },
     height: {
       '7vh':"7vh",
       '5vh':'5vh',

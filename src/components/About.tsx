@@ -62,7 +62,7 @@ const About = () => {
       </section>
         <div className='w-full h-full bg-black flex justify-center items-center flex-col gap-4 p-4' id='show'>
             <div className='w-[70%] h-full flex justify-center items-center flex-col'>
-                <div className='w-full h-full b flex justify-center items-center'>
+                <div className='w-full h-full flex justify-center items-center'>
                     <span className="font-Lexend text-7xl text-white font-bold">Courses</span>
                 </div>
                   <div className='w-full h-full grid grid-cols-4 gap-4 p-4'>
