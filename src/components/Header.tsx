@@ -1,5 +1,7 @@
 import React , { useState } from 'react';
 import logo from "../assets/images/logo.png";
+import axios from "axios";
+import cookie from "js-cookie";
 
 
 
@@ -10,6 +12,16 @@ const Header = () => {
  
   const handleState = ()=>{
     setDisplay(!display);
+  }
+
+  const handleLogOut = async()=>{
+    try{
+      const response = await axios.post("/app/logout" , { withCredentials: true})
+       return response.data;
+    }catch(err: any){
+      console.log(err);
+    }
+    
   }
 
     return(
@@ -50,8 +62,11 @@ const Header = () => {
             </svg>
           </a>
         </div>
+        <div>
+          <button onClick={handleLogOut} className='text-black bg-white p-3 rounded-md'>Log out</button>
+        </div>
     </section>
-
+      
           
     {
           display ? 

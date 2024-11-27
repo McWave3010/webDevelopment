@@ -36,9 +36,13 @@ const Dashboard = ()=>{
        
     },[dater])
 
+    const handleRepos = ()=>{
+        console.log('Import button clicked');
+    }
+
     return(
         <section className='w-full h-screen bg-black p-4'>
-            <div className='w-full h-[95%] p-4 gap-4 flex justify-center items-center'>
+            <div className='w-full h-[90%] p-4 gap-4 flex justify-center items-center'>
                  <div className='w-full h-full p-3'>
                     <span className="font-Lexend text-3xl text-white">My Learning Plan</span>
                     <div className="w-full mt-2 flex justify-evenly items-center h-[5%] gap-4">
@@ -63,11 +67,15 @@ const Dashboard = ()=>{
                         <div className="w-full h-full bg-customColor rounded-lg text-white flex justify-center items-center">
                             <span className='font-Poppins text-slate-500'>Clean code</span>
                         </div>
-                       
+                    </div>
+                    <div className="mt-4">
+                        <button className='group p-3 bg-white shadow-white shadow-md rounded-lg' onClick={handleRepos}>
+                            Import from github
+                        </button>
                         
                     </div>
-            <div className="w-full h-full flex justify-start items-center gap-4">
-                <div className='w-[100%] h-[80%]'>
+            <div className="w-full h-[80%] flex justify-start items-center gap-4">
+                <div className='w-[100%] h-[70%]'>
                     <div className='w-full h-full grid grid-cols-4 gap-4'>
                         <div className='flex justify-center items-center flex-col w-full h-full bg-neutral-500 rounded-lg'>
                             <div className='w-full p-4 h-[30%] flex justify-between items-center rounded-md'>
@@ -168,7 +176,7 @@ const Dashboard = ()=>{
                   </div>
                         </div>  
                         <div className='w-[40%] h-[80%] p-2 rounded-md flex justify-center items-end flex-col'>
-                            <div className="w-[28%] p-4 rounded-md bg-blue-800 flex justify-center items-end float-right">
+                            <div className="w-[45%] p-4 rounded-md bg-blue-800 flex justify-center items-end float-right">
                                 <span className="font-Poppins">{dater}</span>
                             </div>
                             <div className="w-full h-full">
