@@ -18,25 +18,31 @@ const Dashboard = ()=>{
 
         function displayDate(){
             const today = new Date();
-
-            // Get the date
             const date = today.getDate(); // Day of the month (1-31)
             
             // Get the day
             const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             const day = days[today.getDay()]; // Day of the week
-            
-            console.log(`Date: ${date}`);
            
              setDate(day);
         }
 
+
+       
         fetchData();
         displayDate();
+  
        
-    },[dater])
+    },[])
 
-    const handleRepos = ()=>{
+    const handleRepos = async()=>{
+         try{
+                const response = await axios.get('http://localhost:4000/Repository/user-repository',{ withCredentials: true});
+                console.log(response.data);
+                return response.data;   
+            }catch(err: unknown){
+                console.log(err);
+            }
         console.log('Import button clicked');
     }
 
