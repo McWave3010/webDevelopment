@@ -1,12 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React , { useEffect , useState } from "react";
 import axios from "axios";
 import Communities from "../Reusable/Communities";
 import { Fade } from "react-awesome-reveal";
 import Calendar from "../Reusable/Calendar";
+import Repos from "../Reusable/Repos";
+
+
+interface RepoDetails {
+    name:string;
+    private:boolean;
+    description:string | null;
+    url:string;
+}
 
 const Dashboard = ()=>{
     const [ data , setData ] = useState<any[]>([])
     const [ dater , setDate ] = useState<any>()
+    const [ show , setShow ] = useState<boolean>(false);
+    const [ repo , setRepo ] = useState<RepoDetails[]>([]);
     let delay:number = 100;
         
     useEffect(()=>{
@@ -26,9 +38,6 @@ const Dashboard = ()=>{
            
              setDate(day);
         }
-
-
-       
         fetchData();
         displayDate();
   
@@ -37,8 +46,10 @@ const Dashboard = ()=>{
 
     const handleRepos = async()=>{
          try{
+                setShow(true);
                 const response = await axios.get('http://localhost:4000/Repository/user-repository',{ withCredentials: true});
                 console.log(response.data);
+                setRepo(response.data);
                 return response.data;   
             }catch(err: unknown){
                 console.log(err);
@@ -205,6 +216,13 @@ const Dashboard = ()=>{
                         <span className="text-slate-500 text-sm font-Poppins">You can also checkout <a className="text-blue-600" href="https://roadmap.sh/" target="_blank" rel='noopener noreferrer'>roadmap.sh</a></span>    
                     </div>  
                 </div>
+                
+                    {
+                     show  ? ( <Repos name={repo.name} status={repo.private} description={repo.description}/> ) : null
+                    
+                    }
+             
+                
             </div>
            
         </section>
