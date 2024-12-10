@@ -4,21 +4,15 @@ import axios from "axios";
 import Communities from "../Reusable/Communities";
 import { Fade } from "react-awesome-reveal";
 import Calendar from "../Reusable/Calendar";
-import Repos from "../Reusable/Repos";
 
 
-interface RepoDetails {
-    name:string;
-    private:boolean;
-    description:string | null;
-    url:string;
-}
+
+
 
 const Dashboard = ()=>{
     const [ data , setData ] = useState<any[]>([])
     const [ dater , setDate ] = useState<any>()
-    const [ show , setShow ] = useState<boolean>(false);
-    const [ repo , setRepo ] = useState<RepoDetails[]>([]);
+
     let delay:number = 100;
         
     useEffect(()=>{
@@ -44,18 +38,7 @@ const Dashboard = ()=>{
        
     },[])
 
-    const handleRepos = async()=>{
-         try{
-                setShow(true);
-                const response = await axios.get('http://localhost:4000/Repository/user-repository',{ withCredentials: true});
-                console.log(response.data);
-                setRepo(response.data);
-                return response.data;   
-            }catch(err: unknown){
-                console.log(err);
-            }
-        console.log('Import button clicked');
-    }
+  
 
     return(
         <section className='w-full h-screen bg-black p-4'>
@@ -84,12 +67,6 @@ const Dashboard = ()=>{
                         <div className="w-full h-full bg-customColor rounded-lg text-white flex justify-center items-center">
                             <span className='font-Poppins text-slate-500'>Clean code</span>
                         </div>
-                    </div>
-                    <div className="mt-4">
-                        <button className='group p-3 bg-white shadow-white shadow-md rounded-lg' onClick={handleRepos}>
-                            Import from github
-                        </button>
-                        
                     </div>
             <div className="w-full h-[80%] flex justify-start items-center gap-4">
                 <div className='w-[100%] h-[70%]'>
@@ -205,7 +182,7 @@ const Dashboard = ()=>{
                 <div className='w-[40%] h-full p-4 gap-4 flex justify-center items-center flex-col'>
                     <span className='text-center font-Lexend text-3xl text-white'>Communities🧐</span>
                     <span className="text-slate-500 font-Poppins text-center">Join these communities to enhance your web development skills</span>
-                    <div className='w-full h-full  gap-4'>
+                    <div className='w-full h-full gap-4'>
                         {
                         data.map((item: any)=>{
                             return <Communities key={item.id} name={item.name} link={item.link} description={item.description}/>
@@ -216,13 +193,6 @@ const Dashboard = ()=>{
                         <span className="text-slate-500 text-sm font-Poppins">You can also checkout <a className="text-blue-600" href="https://roadmap.sh/" target="_blank" rel='noopener noreferrer'>roadmap.sh</a></span>    
                     </div>  
                 </div>
-                
-                    {
-                     show  ? ( <Repos name={repo.name} status={repo.private} description={repo.description}/> ) : null
-                    
-                    }
-             
-                
             </div>
            
         </section>
