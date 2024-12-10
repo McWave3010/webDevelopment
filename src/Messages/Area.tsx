@@ -27,7 +27,7 @@ const Area: React.FC<Handle> = ({ handleClicks })=>{
 
     const handleData = async()=>{
         try{
-            const response: any = await axios.post("http://localhost:4000/user/save/comment",data, { withCredentials: true})
+            const response: any = await axios.post("https://web-dev-learning.onrender.com/user/save/comment",data, { withCredentials: true})
         if(response){
             const result = response.data.mess;
             toast.success(result);

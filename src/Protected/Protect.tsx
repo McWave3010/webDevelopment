@@ -18,7 +18,7 @@ const ProtectedRoute: React.FunctionComponent<ProtectRouteProps> = ({ children }
         console.log("Checking main auth endpoint");
 
         // Check the main auth endpoint first
-        const response = await axios.get('http://localhost:4000/app/protected', { withCredentials: true });
+        const response = await axios.get('https://web-dev-learning.onrender.com/app/protected', { withCredentials: true });
 
         if (response) {
           console.log("Authenticated with main endpoint");

@@ -8,7 +8,7 @@ const [ promises , setPromise ] = useState<any>([])
 
     const fetchData = async()=>{
         try{
-            const response = await axios.get("http://localhost:8080/api/get/comments");
+            const response = await axios.get("https://web-dev-learning.onrender.com/api/get/comments");
             return response.data.data;
         }catch(err:any){
             console.error(err);

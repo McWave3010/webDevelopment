@@ -59,7 +59,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
   }
   setError('');
   
-  const response = await axios.post("http://localhost:4000/app/signup", formData, { withCredentials: true})
+  const response = await axios.post("https://web-dev-learning.onrender.com/app/signup", formData, { withCredentials: true})
   
   if(response.data){
     toast.success("Registration successfull")

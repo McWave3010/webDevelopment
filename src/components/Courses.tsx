@@ -29,7 +29,7 @@ const Courses: React.FC<IframeProps> = ({ width="100%" , height="75%" , src , ti
 
 
   async function fetchProtect (){
-    const response = await axios.get("http://localhost:8080/protected-route", { withCredentials: true});
+    const response = await axios.get("http://localhost:8080https://nestlearningbackend-production.up.railway.app/protected-route", { withCredentials: true});
     return response.data.redirectURL;
   }
 
@@ -62,7 +62,7 @@ found()
 
     const handleData = async(e:any)=>{
         e.preventDefault();
-        const response = await axios.post("http://localhost:4000/user/prompt", formData)
+        const response = await axios.post("https://web-dev-learning.onrender.com/user/prompt", formData)
         setIsAsk(true)
         setTimeout(()=>{
             setDisplay(false);

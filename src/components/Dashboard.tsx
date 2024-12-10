@@ -17,7 +17,7 @@ const Dashboard = ()=>{
         
     useEffect(()=>{
         async function fetchData(){
-            const response = await axios.get('http://localhost:4000/user/communities');
+            const response = await axios.get('https://web-dev-learning.onrender.com/user/communities');
             setData(response.data); 
            
         }

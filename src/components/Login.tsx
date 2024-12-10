@@ -30,11 +30,11 @@ const Login: React.FC = () => {
   }
 
 const handleGoogle:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "http://localhost:4000/app/google";
+  window.location.href = "https://web-dev-learning.onrender.com/app/google";
 }
 
 const handleGithub:MouseEventHandler<HTMLDivElement> = ():void=>{
-  window.location.href = "http://localhost:4000/app/github";
+  window.location.href = "https://web-dev-learning.onrender.com/app/github";
 }
 
 
@@ -44,7 +44,7 @@ const handleSubmit = async(e: React.FormEvent<HTMLFormElement>):Promise<void> =>
   try {
     e.preventDefault();
     setSubmiting(true);
-    const response = await axios.post("http://localhost:4000/app/signin", formData, { withCredentials: true })
+    const response = await axios.post("https://web-dev-learning.onrender.com/app/signin", formData, { withCredentials: true })
     if(response){
       navigate("/courses");
     }

@@ -16,7 +16,7 @@ const Header = () => {
 
   const handleLogOut = async()=>{
     try{
-      const response = await axios.post("/app/logout" , { withCredentials: true})
+      const response = await axios.post("https://web-dev-learning.onrender.com/app/logout" , { withCredentials: true})
        return response.data;
     }catch(err: any){
       console.log(err);
